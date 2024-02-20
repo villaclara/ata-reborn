@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{19169863-D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{E6DEDFCB-F8B1-4499-AB0E-02B3A665FA40}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{3F5D9F47-2C02-4027-AC30-1A4D4D4BD5CC}"
+	ProjectSection(SolutionItems) = preProject
+		EntityDiagram1.drawio = EntityDiagram1.drawio
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +37,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{301C073D-25FA-4822-9159-6B5F31326ED8} = {A9A27D28-BB68-4478-BC7C-79ABD1F1F78A}
 		{E6DEDFCB-F8B1-4499-AB0E-02B3A665FA40} = {A9A27D28-BB68-4478-BC7C-79ABD1F1F78A}
+		{3F5D9F47-2C02-4027-AC30-1A4D4D4BD5CC} = {19169863-D3B1-4BB2-BF23-EF359A55A301}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFBB6F2F-1471-4890-8767-B79794BDBBFD}
