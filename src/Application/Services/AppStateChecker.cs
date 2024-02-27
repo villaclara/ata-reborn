@@ -15,8 +15,11 @@ public class AppStateChecker : IAppStateChecker
 
 	public AppStateChecker(ITimerService timerService)
 	{
-		_timerService = timerService;
-		_timerService.TimeElapsed += OnA;
+		//_timerService = timerService;
+		//_timerService.TimeElapsed += OnA;
+
+		var tim = StaticTimerService.GetInstance();
+		tim.TimeElapsed += OnA;
 
 	}
 
@@ -24,12 +27,13 @@ public class AppStateChecker : IAppStateChecker
 
 	public void GetAppState()
 	{
-		throw new NotImplementedException();
+
+		
 	}
 
 	public void OnA(object? sender, int e)
 	{
-        Console.WriteLine("bruh");
+		GetAppState();
     }
 
 	public void SetAppState(AppInstanceState appInstanceState = AppInstanceState.Stopped)
