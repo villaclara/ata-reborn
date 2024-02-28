@@ -3,6 +3,7 @@ using Application.Enums;
 using Application.Interactors;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,23 +19,31 @@ public class AppStateChecker : IAppStateChecker
 		//_timerService = timerService;
 		//_timerService.TimeElapsed += OnA;
 
-		var tim = StaticTimerService.GetInstance();
-		tim.TimeElapsed += OnA;
 
 	}
 
-	public IInteractor AppInteractor => throw new NotImplementedException();
+
+	
+	public AppStateChecker(IInteractor interactor)
+	{
+		AppInteractor = interactor;
+	}
+
+	public IInteractor AppInteractor { get; }
 
 	public void GetAppState()
 	{
+		var procs = Process.GetProcesses();
+		foreach (var pro in procs)
+		{
+			if (pro.ProcessName == "devenv")
+			{
+				Console.WriteLine($"{pro.ProcessName} running");
+			}
+		}
 
-		
 	}
 
-	public void OnA(object? sender, int e)
-	{
-		GetAppState();
-    }
 
 	public void SetAppState(AppInstanceState appInstanceState = AppInstanceState.Stopped)
 	{

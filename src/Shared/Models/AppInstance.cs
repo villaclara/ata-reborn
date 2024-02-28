@@ -9,5 +9,6 @@ namespace Shared.Models;
 public class AppInstance
 {
 	public string Name { get; set; } = null!;
+	public string ProcessNameInOS { get; set; } = null!;
 
 }
