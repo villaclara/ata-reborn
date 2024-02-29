@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Enums;
+namespace Application.AppToTrack.Enums;
 
 public enum AppInstanceState
 {
-	Stopped = 0,
-	Running = 1
+    Stopped = 0,
+    Running = 1
 }

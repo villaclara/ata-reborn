@@ -1,4 +1,4 @@
-﻿using Application.Interactors;
+﻿using Application.AppToTrack.Interactors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Abstracts;
 
-public interface IAppHandler
-{
-	IInteractor Interactor { get; }
 
-	void StartTrackingApp();
+public interface IAppInstanceInitialize
+{
+	IInteractor InitializeAppInstanceToTrack();
 }
