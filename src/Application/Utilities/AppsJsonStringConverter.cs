@@ -9,12 +9,18 @@ using System.Threading.Tasks;
 
 namespace Application.Utilities;
 
-public static class StringConverter
+public static class AppsJsonStringConverter
 {
 	public static JsonSerializerOptions JsonOptions { get; } = new JsonSerializerOptions() { WriteIndented = true };
 	public static string ConvertAppsToJson(List<AppInstance> apps) =>
 		JsonSerializer.Serialize<List<AppInstance>>(apps, JsonOptions);
 
-	public static List<AppInstance>? ConvertJsonToApps(string json) => 
-		JsonSerializer.Deserialize<List<AppInstance>>(json, JsonOptions);
+	public static List<AppInstance> ConvertJsonToApps(string json)
+	{
+		if (string.IsNullOrEmpty(json))
+			return [];
+
+
+		return JsonSerializer.Deserialize<List<AppInstance>>(json, JsonOptions) ?? [];
+	}
 }

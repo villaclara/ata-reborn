@@ -214,7 +214,7 @@
                 <mxCell id="wJqPjbKtkDIRBSEz-App-14" style="edgeStyle=none;html=1;" parent="1" source="wJqPjbKtkDIRBSEz-App-1" target="VTbm5OM3q2rYIV00cxhs-2" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="_B3kjIsg-tNy-zB0qmga-1" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wJqPjbKtkDIRBSEz-App-1" target="NBzz8WkEO_0MQ7WdpvKx-2">
+                <mxCell id="_B3kjIsg-tNy-zB0qmga-1" style="edgeStyle=none;html=1;" parent="1" source="wJqPjbKtkDIRBSEz-App-1" target="NBzz8WkEO_0MQ7WdpvKx-2" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="wJqPjbKtkDIRBSEz-App-1" value="&lt;&lt;Interface&gt;&gt;&#10;IAppHandler" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=41;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">

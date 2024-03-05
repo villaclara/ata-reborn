@@ -4,21 +4,118 @@ using Application.AppToTrack.Abstracts;
 using Application.AppToTrack.Interactors;
 using Application.AppToTrack.Services;
 using Application.Services;
+using Application.Timers;
+using Application.Utilities;
 using Shared.Models;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-Console.WriteLine("Hello, World!");
+HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+
+using IHost host = builder.Build();
+
+IReadData<string> fileRead = new ReadDataFromFileService<string>();
+var readString = fileRead.RetrieveData();
 
 
-IAppInstanceInitialize appnew = new AppInstanceInitializer();
-IInteractor appinteractor = appnew.InitializeAppInstanceToTrack();
 
-IAppHandler appHandler = new AppHandler(appinteractor);
+List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
+
+List<IAppHandler> handlers = [];
 
 
 
-IInteractor appinteractor1 = AppInstanceInitializer.InitializeNewAppToTrack();
+foreach (var appInstance in apps)
+{
+	IInteractor interactor = new Interactor(appInstance);
+	handlers.Add(new AppHandler(interactor));
+}
 
-IAppHandler appHandler1 = new AppHandler(appinteractor1);
+var t = StaticTimerService.GetInstance();
+t.TimeElapsed += OnTimerElapsed;
 
-Console.ReadLine();
+await host.RunAsync();
+
+
+//Console.WriteLine("Hello, World!");
+
+
+
+
+/// THE FLOW:
+/// 
+/// 1. Create list of appHandlers before getting the timer
+/// 2. Read from file and create AppInstances objects
+/// 3. Add AppHandler objects with each AppInstance to the List of AppHandler
+/// 4. Call timer here
+/// 5. After timer elapsed do the task for checking app
+/// 6. Write to file List of AppInstances
+/// 7. Repeat step 5
+/// 
+///
+///
+/// So in the main flow there should be :
+/// 1. List"IAppHandler" handlers = new List();
+/// 2. List"APpInstance" apps = IOService.ReadData();
+/// 3. foreach(var app in apps) { handlers.Add(new Interactor(app)) };
+/// 4. var timer = StaticTimerService.GetInstance();
+/// 5. timer.Elapsed += OnTimerElapsed;
+/// 6. OnTimerElapsed() { foreach handler create task; Task.WhenAll(); 
+///    IOService.WriteData();
+///    }
+/// 7. repeat
+
+
+/// FLOW
+/// 
+
+//IFileRead fileRead = new FileReadService();
+//var readString = fileRead.ReadFromFile();
+
+
+//List<AppInstance>? apps = JsonStringConverter.ConvertJsonToApps(readString);
+
+//List<IAppHandler> handlers = new();
+
+
+
+//foreach(var appInstance in apps)
+//{
+//	IInteractor interactor = new Interactor(appInstance);
+//	handlers.Add(new AppHandler(interactor));
+//}
+
+//var t = StaticTimerService.GetInstance();
+//t.TimeElapsed += OnTimerElapsed;
+
+
+//Console.ReadLine();
+
+
+async Task OnTimerElapsed(object? sender, int e)
+{
+	//var t1 = Task.Run(() => appHandler.StartTrackingApp());
+	//var t2 = Task.Run(() => appHandler1.StartTrackingApp());
+
+	//await Task.WhenAll(t1, t2);
+	//   await Console.Out.WriteLineAsync("====== done ====");
+
+
+	// run task for each app handler
+	var tasks = new List<Task>();
+	foreach(var h in handlers)
+	{
+		tasks.Add(Task.Run(() => h.StartTrackingApp()));
+	}
+
+	await Task.WhenAll(tasks);
+
+	string json = AppsJsonStringConverter.ConvertAppsToJson(apps);
+	IWriteData write = new WriteDataToFileService();
+	bool result = write.WriteToFile(json);	
+
+	await Console.Out.WriteLineAsync($"====== done ==== with result - {result}");
+}

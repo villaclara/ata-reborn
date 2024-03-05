@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.AppToTrack.Abstracts;
+namespace Application.Abstracts;
 
-public interface IAppIOService
+public interface IWriteData
 {
-
+	bool WriteToFile(string strToWrite);
 }

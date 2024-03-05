@@ -12,7 +12,8 @@ namespace Application.Timers;
 public class StaticTimerService
 {
     // event for subscribers to sub
-    public event EventHandler<int>? TimeElapsed;
+    //public event EventHandler<int>? TimeElapsed;
+    public event Func<object, int, Task>? TimeElapsed;
 
     private readonly System.Timers.Timer _timer;
 
@@ -58,6 +59,6 @@ public class StaticTimerService
     /// <param name="e">Miliseconds elapsed</param>
     private void OnTimerElapsed(object? sender, EventArgs e)
     {
-        TimeElapsed?.Invoke(null, TIME_INTERVAL);
+        TimeElapsed?.Invoke(this, TIME_INTERVAL);
     }
 }

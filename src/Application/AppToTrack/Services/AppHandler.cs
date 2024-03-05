@@ -10,7 +10,6 @@ public class AppHandler : IAppHandler
 
     private readonly IAppStateChecker _stateChecker;
     private readonly IAppTimeTracker _timeTracker;
-    private readonly IAppIOService _ioService;
 
     public AppHandler(IInteractor interactor)
     {
@@ -19,24 +18,24 @@ public class AppHandler : IAppHandler
 
         _stateChecker = new AppStateChecker(Interactor);
         _timeTracker = new AppTimeTracker();
-        _ioService = new AppIOService();
 
 
-        var timerSingleton = StaticTimerService.GetInstance();
-        timerSingleton.TimeElapsed -= OnTimerElapsed;
-        timerSingleton.TimeElapsed += OnTimerElapsed;
+        //var timerSingleton = StaticTimerService.GetInstance();
+        //timerSingleton.TimeElapsed -= OnTimerElapsed;
+        //timerSingleton.TimeElapsed += OnTimerElapsed;
     }
 
-    public void StartTrackingApp()
+    public  void StartTrackingApp()
     {
         var state = _stateChecker.GetAppState();
         _stateChecker.SetAppState(state);
 
-        Console.WriteLine($"app state from {nameof(StartTrackingApp)} - {Interactor.GetAppInstace().IsRunning}, time - {Interactor.GetAppInstace().TimeRunning}");
+        Console.WriteLine($"app state from {nameof(StartTrackingApp)} - {Interactor.GetAppInstace().IsRunning}, time - {Interactor.GetAppInstace().CurrentSessionTime}");
+
     }
 
     private void OnTimerElapsed(object? sender, int e)
     {
-        StartTrackingApp();
+       // StartTrackingApp();
     }
 }

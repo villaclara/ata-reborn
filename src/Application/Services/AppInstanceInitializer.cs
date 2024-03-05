@@ -26,7 +26,7 @@ public class AppInstanceInitializer : IAppInstanceInitialize
 			ProcessNameInOS = "ATA_WPF",
 			Name = "ATA_WPF",
 			IsRunning = false,
-			TimeRunning = 0
+			CurrentSessionTime = 0
 		};
 
 		return new Interactor(app);
@@ -39,7 +39,7 @@ public class AppInstanceInitializer : IAppInstanceInitialize
 			ProcessNameInOS = "Discord",
 			Name = "Discord",
 			IsRunning = false,
-			TimeRunning = 0
+			CurrentSessionTime = 0
 		};
 
 		return new Interactor(app);

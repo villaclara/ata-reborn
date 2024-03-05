@@ -54,6 +54,6 @@ public class AppStateChecker : IAppStateChecker
         var app = AppInteractor.GetAppInstace();
         app.IsRunning = appInstanceState == AppInstanceState.Running ? true : false;
         Console.WriteLine($"App {app.Name} set to state - {appInstanceState}");
-        app.TimeRunning += 5;
+        app.CurrentSessionTime += 5;
     }
 }

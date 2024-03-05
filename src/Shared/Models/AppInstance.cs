@@ -26,6 +26,8 @@ public class AppInstance
 	/// </summary>
 	public bool IsRunning { get; set; }
 
-	public int TimeRunning {  get; set; }
+	public int CurrentSessionTime {  get; set; }
+
+	public IList<UpTime> UpTimes { get; set; } = new List<UpTime>();
 
 }
