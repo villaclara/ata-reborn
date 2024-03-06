@@ -13,17 +13,6 @@ namespace Application.AppToTrack.Services;
 
 public class AppStateChecker : IAppStateChecker
 {
-    private readonly ITimerService _timerService;
-
-    public AppStateChecker(ITimerService timerService)
-    {
-        //_timerService = timerService;
-        //_timerService.TimeElapsed += OnA;
-
-
-    }
-
-
 
     public AppStateChecker(IInteractor interactor)
     {
@@ -34,19 +23,23 @@ public class AppStateChecker : IAppStateChecker
 
     public AppInstanceState GetAppState()
     {
-        var procs = Process.GetProcesses();
-        foreach (var pro in procs)
-        {
-            if (pro.ProcessName == AppInteractor.GetAppInstace().ProcessNameInOS)
-            {
-                Console.WriteLine($"{pro.ProcessName} running");
-                return AppInstanceState.Running;
-            }
-        }
-
-        return AppInstanceState.Stopped;
-
+        return IsRunningByName(AppInteractor.GetAppInstace().ProcessNameInOS) 
+            ? AppInstanceState.Running 
+            : AppInstanceState.Stopped;
     }
+
+    private bool IsRunningByName(string appName)
+    {
+		foreach (var pro in Process.GetProcesses())
+		{
+			if (pro.ProcessName == appName)
+			{
+				return true;
+			}
+		}
+
+        return false;
+	}
 
 
     public void SetAppState(AppInstanceState appInstanceState = AppInstanceState.Stopped)

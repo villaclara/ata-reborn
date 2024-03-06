@@ -20,10 +20,27 @@ public class WriteDataStringToFile : IWriteData<string>
 	/// Inherited method. Writes the string to the <see cref="ConstantValues.MAIN_FILE_NAME"/> file.
 	/// </summary>
 	/// <param name="strToWrite">Value to be written.</param>
-	/// <returns>Returns whether the write was successfull.</returns>
+	/// <returns>Returns whether the writing was successfull.</returns>
 	public bool WriteToFile(string strToWrite)
 	{
-		File.WriteAllText(ConstantValues.MAIN_FILE_NAME, strToWrite);
-		return true;
+
+		try
+		{
+			using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
+			sw.Write(strToWrite);
+
+			
+			using var sw1 = new StreamWriter(ConstantValues.BACKUP_MAIN_FILE_NAME, append: false);
+			sw1.Write(strToWrite);
+			return true;
+		
+		}
+		catch (Exception ex)
+		{
+            // log exception
+            Console.WriteLine(ex);
+            return false;
+		}
+
 	}
 }
