@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Abstracts;
 
-public interface IWriteData
+public interface IWriteData<T>
 {
-	bool WriteToFile(string strToWrite);
+	bool WriteToFile(T toWrite);
 }

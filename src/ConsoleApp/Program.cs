@@ -17,9 +17,8 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 using IHost host = builder.Build();
 
-IReadData<string> fileRead = new ReadDataFromFileService<string>();
-var readString = fileRead.RetrieveData();
-
+IReadData<string> readFileService = new ReadDataAsStringFromFile();
+var readString = readFileService.RetrieveData();
 
 
 List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
@@ -114,8 +113,8 @@ async Task OnTimerElapsed(object? sender, int e)
 	await Task.WhenAll(tasks);
 
 	string json = AppsJsonStringConverter.ConvertAppsToJson(apps);
-	IWriteData write = new WriteDataToFileService();
-	bool result = write.WriteToFile(json);	
+	IWriteData<string> writeFileService = new WriteDataStringToFile();
+	bool result = writeFileService.WriteToFile(json);	
 
 	await Console.Out.WriteLineAsync($"====== done ==== with result - {result}");
 }

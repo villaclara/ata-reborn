@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Application.Services;
 
-public class ReadDataFromFileService<T> : IReadData<T> where T : class
+public class ReadDataAsStringFromFile : IReadData<string> 
 {
 	/// <summary>
 	/// Inherited method. \n Using Streamreader gets the info from <see cref="ConstantValues.MAIN_FILE_NAME"/> file.
 	/// </summary>
-	/// <returns>Returns readed string as type T.</returns>
-	public T? RetrieveData()
+	/// <returns>Returns read data as string.</returns>
+	public string? RetrieveData()
 	{
 		if(!File.Exists(ConstantValues.MAIN_FILE_NAME))
 		{
@@ -26,7 +26,7 @@ public class ReadDataFromFileService<T> : IReadData<T> where T : class
 		var read = sr.ReadToEnd();
 		sr.Close();
 		
-		return read as T;
+		return read;
 	}
 
 	
@@ -35,13 +35,4 @@ public class ReadDataFromFileService<T> : IReadData<T> where T : class
 	// check if the file could not properly be read and then use backup file
 	// also exception handle
 	// logging
-}
-
-
-public class Read2 : IReadData<int>
-{
-	public int RetrieveData()
-	{
-		return 2;
-	}
 }
