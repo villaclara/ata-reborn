@@ -23,6 +23,13 @@ var readString = readFileService.RetrieveData();
 
 List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
 
+//// some uptimes for the app 
+//apps[0].UpTimes = new List<UpTime>() {
+//	new UpTime() { Date = DateOnly.FromDateTime(new DateTime(2024, 03, 06)), Minutes = 5 },
+//	new UpTime() { Date = DateOnly.FromDateTime(new DateTime(2024, 03, 07)), Minutes = 10 }
+//	};
+
+
 List<IAppHandler> handlers = [];
 
 

@@ -17,7 +17,7 @@ public class AppHandler : IAppHandler
 
 
         _stateChecker = new AppStateChecker(Interactor);
-        _timeTracker = new AppTimeTracker();
+        _timeTracker = new AppTimeTracker(Interactor);
 
 
         //var timerSingleton = StaticTimerService.GetInstance();
@@ -29,9 +29,9 @@ public class AppHandler : IAppHandler
     {
         var state = _stateChecker.GetAppState();
         _stateChecker.SetAppState(state);
+        _timeTracker.TrackTime();
 
-        Console.WriteLine($"app state from {nameof(StartTrackingApp)} - {Interactor.GetAppInstace().IsRunning}, time - {Interactor.GetAppInstace().CurrentSessionTime}");
-
+        Console.WriteLine($"End of {nameof(StartTrackingApp)}.");
     }
 
     private void OnTimerElapsed(object? sender, int e)

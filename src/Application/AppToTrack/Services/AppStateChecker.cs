@@ -45,8 +45,13 @@ public class AppStateChecker : IAppStateChecker
     public void SetAppState(AppInstanceState appInstanceState = AppInstanceState.Stopped)
     {
         var app = AppInteractor.GetAppInstace();
-        app.IsRunning = appInstanceState == AppInstanceState.Running ? true : false;
-        Console.WriteLine($"App {app.Name} set to state - {appInstanceState}");
-        app.CurrentSessionTime += 5;
+        app.IsRunning = appInstanceState == AppInstanceState.Running;
+        if(app.IsRunning)
+        {
+            app.LastRunningDate = DateTime.Now;
+        }
+        app.LastCheckedDate = DateTime.Now;
+
+        Console.WriteLine($"{app.Name} - {app.IsRunning}, checked - {app.LastCheckedDate}.");
     }
 }
