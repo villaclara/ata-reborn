@@ -1,5 +1,6 @@
 ﻿using Application.Abstracts;
 using Application.Utilities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,22 +25,34 @@ public class WriteDataStringToFile : IWriteData<string>
 	public bool WriteToFile(string strToWrite)
 	{
 
+		bool bSuccess = false;
 		try
 		{
+			Log.Information("\n");
+			Log.Information("{@Method} - Start executing", nameof(WriteToFile));
 			using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
 			sw.Write(strToWrite);
 
 			
 			using var sw1 = new StreamWriter(ConstantValues.BACKUP_MAIN_FILE_NAME, append: false);
 			sw1.Write(strToWrite);
-			return true;
+
+			bSuccess = true;
+			return bSuccess;
 		
 		}
 		catch (Exception ex)
 		{
-            // log exception
-            Console.WriteLine(ex);
-            return false;
+			bSuccess = false;
+            
+			// log exception
+			Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteToFile), ex);
+
+			return bSuccess;
+		}
+		finally
+		{
+			Log.Information("{@Method} - End executing with result - {@Result}", nameof(WriteToFile), bSuccess);
 		}
 
 	}

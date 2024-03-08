@@ -1,6 +1,7 @@
 ﻿using Application.AppToTrack.Abstracts;
 using Application.AppToTrack.Interactors;
 using Application.Utilities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,10 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 
 		trackedApp.CurrentSessionTime += ConstantValues.TIMER_INTERVAL_M;
 
-		var dateNow = DateOnly.FromDateTime(DateTime.Now);
+		Log.Information("{@App} - {@Method} - {@CurrentSessionTime} - {@Value}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(trackedApp.CurrentSessionTime), trackedApp.CurrentSessionTime);
+
+
+	   var dateNow = DateOnly.FromDateTime(DateTime.Now);
 
 		// Check if Today date is present in list
 		var today = trackedApp.UpTimes.Where(t => t.Date == dateNow).FirstOrDefault();
@@ -74,6 +78,9 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 
 		// add the time that we changed upTimes
 		trackedApp.LastUpdatedUpTimesDate = DateTime.Now;
+
+		Log.Information("{@App} - {@Method} - {@MinutesToday} - {@Date}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(today), today);
+		Log.Information("{@App} - {@Method} - {@LastUpdatedTime} - {@Value}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(trackedApp.LastUpdatedUpTimesDate), trackedApp.LastUpdatedUpTimesDate);
 
 	}
 }

@@ -12,14 +12,21 @@ using System.Diagnostics;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+	.WriteTo.Console()
+	.WriteTo.File("log.txt")
+	.CreateLogger();
 
 using IHost host = builder.Build();
 
 IReadData<string> readFileService = new ReadDataAsStringFromFile();
 var readString = readFileService.RetrieveData();
 
+IWriteData<string> writeFileService = new WriteDataStringToFile();
 
 List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
 
@@ -42,6 +49,10 @@ foreach (var appInstance in apps)
 
 var t = StaticTimerService.GetInstance();
 t.TimeElapsed += OnTimerElapsed;
+
+Log.Information("Start app - {@Program}", nameof(Program));
+
+	
 
 await host.RunAsync();
 
@@ -103,25 +114,24 @@ await host.RunAsync();
 
 async Task OnTimerElapsed(object? sender, int e)
 {
-	//var t1 = Task.Run(() => appHandler.StartTrackingApp());
-	//var t2 = Task.Run(() => appHandler1.StartTrackingApp());
-
-	//await Task.WhenAll(t1, t2);
-	//   await Console.Out.WriteLineAsync("====== done ====");
+	if(handlers.Count == 0)
+	{
+		Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(OnTimerElapsed), nameof(List<AppHandler>));
+		return;
+	}
 
 
 	// run task for each app handler
 	var tasks = new List<Task>();
 	foreach(var h in handlers)
 	{
-		tasks.Add(Task.Run(() => h.StartTrackingApp()));
+		tasks.Add(Task.Run(h.StartTrackingApp));
 	}
 
 	await Task.WhenAll(tasks);
 
 	string json = AppsJsonStringConverter.ConvertAppsToJson(apps);
-	IWriteData<string> writeFileService = new WriteDataStringToFile();
-	bool result = writeFileService.WriteToFile(json);	
+	bool result = writeFileService.WriteToFile(json);
 
-	await Console.Out.WriteLineAsync($"====== done ==== with result - {result}");
+	Log.Information("{@Method} - end", nameof(OnTimerElapsed));
 }

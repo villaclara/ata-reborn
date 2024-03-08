@@ -2,6 +2,7 @@
 using Application.AppToTrack.Enums;
 using Application.AppToTrack.Interactors;
 using Application.Timers;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,9 +24,12 @@ public class AppStateChecker : IAppStateChecker
 
     public AppInstanceState GetAppState()
     {
-        return IsRunningByName(AppInteractor.GetAppInstace().ProcessNameInOS) 
-            ? AppInstanceState.Running 
-            : AppInstanceState.Stopped;
+        AppInstanceState isRunning = IsRunningByName(AppInteractor.GetAppInstace().ProcessNameInOS)
+			? AppInstanceState.Running
+			: AppInstanceState.Stopped;
+        
+        Log.Information("{@App} - {@Method} returned {@isRunning}", AppInteractor.GetAppInstace().ProcessNameInOS, nameof(GetAppState), isRunning);
+        return isRunning;
     }
 
     private bool IsRunningByName(string appName)
@@ -52,6 +56,7 @@ public class AppStateChecker : IAppStateChecker
         }
         app.LastCheckedDate = DateTime.Now;
 
-        Console.WriteLine($"{app.Name} - {app.IsRunning}, checked - {app.LastCheckedDate}.");
+        Log.Information("{@App} - {@Method} - {@LastRunningDate} - {@Value}", app.ProcessNameInOS, nameof(SetAppState), nameof(app.LastRunningDate), app.LastRunningDate);
+        Log.Information("{@App} - {@Method} - {@LastRunningDate} - {@Value}", app.ProcessNameInOS, nameof(SetAppState), nameof(app.LastCheckedDate), app.LastCheckedDate);
     }
 }
