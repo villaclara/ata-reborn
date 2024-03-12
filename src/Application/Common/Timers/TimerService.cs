@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace Application.Timers;
+namespace Application.Common.Timers;
 
 /// <summary>
 /// Class responsible for setting timer and fire event when timer has elapsed.

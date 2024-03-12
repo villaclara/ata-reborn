@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Models;
+namespace Application.Models;
 
-/// <summary>
-/// Represents the Application to keep track time of it.
-/// </summary>
 public class AppInstance
 {
 	/// <summary>

@@ -1,27 +1,29 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Application.Abstracts;
 using Application.AppToTrack.Abstracts;
 using Application.AppToTrack.Interactors;
 using Application.AppToTrack.Services;
 using Application.Services;
-using Application.Timers;
 using Application.Utilities;
-using Shared.Models;
+using Application.Models;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Application.Common.Abstracts;
+using Application.Common.Timers;
 
-HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+Console.WriteLine("Hello");
+
+//HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
 	.WriteTo.Console()
 	.WriteTo.File("log.txt")
 	.CreateLogger();
 
-using IHost host = builder.Build();
+//using IHost host = builder.Build();
 
 IReadData<string> readFileService = new ReadDataAsStringFromFile();
 var readString = readFileService.RetrieveData();
@@ -52,12 +54,12 @@ t.TimeElapsed += OnTimerElapsed;
 
 Log.Information("Start app - {@Program}", nameof(Program));
 
-	
-
-await host.RunAsync();
 
 
-//Console.WriteLine("Hello, World!");
+//await host.RunAsync();
+
+
+Console.ReadLine();
 
 
 

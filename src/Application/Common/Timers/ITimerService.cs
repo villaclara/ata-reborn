@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Timers;
+namespace Application.Common.Timers;
 
 /// <summary>
 /// Interface that is raising an event after some time elapsed.

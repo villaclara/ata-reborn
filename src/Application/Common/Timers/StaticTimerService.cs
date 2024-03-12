@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Timers;
+namespace Application.Common.Timers;
 
 /// <summary>
 /// Class used to retrieve Singleton instance of timer.
