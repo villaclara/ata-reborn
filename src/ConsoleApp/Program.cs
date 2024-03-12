@@ -2,7 +2,9 @@
 using Application.AppToTrack.Abstracts;
 using Application.AppToTrack.Interactors;
 using Application.AppToTrack.Services;
-using Application.Services;
+using Application.Common.Abstracts;
+using Application.Common.Services;
+using Application.Common.Timers;
 using Application.Utilities;
 using Application.Models;
 using System.ComponentModel;
@@ -11,8 +13,7 @@ using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Application.Common.Abstracts;
-using Application.Common.Timers;
+using Shared.ViewModels;
 
 Console.WriteLine("Hello");
 
@@ -136,4 +137,13 @@ async Task OnTimerElapsed(object? sender, int e)
 	bool result = writeFileService.WriteToFile(json);
 
 	Log.Information("{@Method} - end", nameof(OnTimerElapsed));
+
+	var appinstance = MyMapService.Map<AppInstance, AppInstanceVM>(apps[0]);
+
+	Log.Information("app - {@App}", appinstance);
+
+
+	var appinstance1 = MyMapService.Map<AppInstanceVM, AppInstance>(appinstance);
+
+	Log.Information("app - {@App}", appinstance1);
 }

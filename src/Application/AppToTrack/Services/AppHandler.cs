@@ -1,6 +1,6 @@
 ﻿using Application.AppToTrack.Abstracts;
 using Application.AppToTrack.Interactors;
-using Application.Timers;
+using Application.Common.Timers;
 using Serilog;
 
 namespace Application.AppToTrack.Services;

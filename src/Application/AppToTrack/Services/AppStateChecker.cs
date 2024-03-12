@@ -1,7 +1,7 @@
 ﻿using Application.AppToTrack.Abstracts;
 using Application.AppToTrack.Enums;
 using Application.AppToTrack.Interactors;
-using Application.Timers;
+using Application.Common.Timers;
 using Serilog;
 using System;
 using System.Collections.Generic;

@@ -255,6 +255,24 @@
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-1" value="«interface»&lt;br&gt;&lt;b&gt;IDataIssuer&lt;/b&gt;&lt;br&gt;(видає аппВМ як інфу для зовнішніх юзерів)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="440" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-2" value="«interface»&lt;br&gt;&lt;b&gt;IReadData&lt;/b&gt;&lt;br&gt;(зчитує інфу з файлу з аппками)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="80" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-3" value="«interface»&lt;br&gt;&lt;b&gt;IWriteData&lt;/b&gt;&lt;br&gt;(записує інфу в файл з аппками)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="80" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-4" value="«interface»&lt;br&gt;&lt;b&gt;IAppHandler&lt;/b&gt;&lt;br&gt;(проводить дії над аппкою)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="240" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-5" value="«interface»&lt;br&gt;&lt;b&gt;IAppInstanceCreate&lt;/b&gt;&lt;br&gt;(створює нову аппку ту трек)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="440" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-6" value="«interface»&lt;br&gt;&lt;b&gt;IProcessesGet&lt;/b&gt;&lt;br&gt;(формує список унік процесів зараз)" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="180" width="140" height="70" as="geometry"/>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
