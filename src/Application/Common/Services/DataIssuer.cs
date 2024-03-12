@@ -1,4 +1,6 @@
 ﻿using Application.Common.Abstracts;
+using Application.Models;
+using Application.Utilities;
 using Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,15 +10,36 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Services;
 
-public class DataIssuer : IDataIssuer
+public class DataIssuer(IReadData<string> readData) : IDataIssuer
 {
+	private readonly IReadData<string> _readData = readData;
+	
 	public List<AppInstanceVM> GetAllApps()
 	{
-		throw new NotImplementedException();
+		var appsList = AppsJsonStringConverter.ConvertJsonToApps(_readData.RetrieveData()!);
+
+		var appsVM = new List<AppInstanceVM>();
+		foreach(var app in appsList)
+		{
+			appsVM.Add(MyMapService.Map<AppInstance, AppInstanceVM>(app)!);
+		}
+
+		return appsVM;
 	}
 
 	public AppInstanceVM? GetAppDataByName(string name)
 	{
-		throw new NotImplementedException();
+		var appsList = AppsJsonStringConverter.ConvertJsonToApps(_readData.RetrieveData()!);
+
+		if (appsList.Count == 0)
+		{
+			return null;
+		}
+		var appVM = MyMapService.Map<AppInstance, AppInstanceVM>(
+			appsList.Where(a => a.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault());
+		
+
+		return appVM;
+
 	}
 }

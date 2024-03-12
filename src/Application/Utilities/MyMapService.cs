@@ -10,11 +10,15 @@ namespace Application.Utilities;
 
 public static class MyMapService
 {
-	public static TDest? Map<TSource, TDest>(TSource source) 
+	public static TDest? Map<TSource, TDest>(TSource? source) 
 		where TDest : class 
 		where TSource : class
 	{
-		
+		if(source == null)
+		{
+			return null;
+		}
+
 		// map Model to VM
 		if(source is AppInstance fromModel)
 		{

@@ -138,12 +138,11 @@ async Task OnTimerElapsed(object? sender, int e)
 
 	Log.Information("{@Method} - end", nameof(OnTimerElapsed));
 
-	var appinstance = MyMapService.Map<AppInstance, AppInstanceVM>(apps[0]);
+	var data = new DataIssuer(readFileService).GetAllApps();
 
-	Log.Information("app - {@App}", appinstance);
+	Log.Information("data - {@App}", data);
 
 
-	var appinstance1 = MyMapService.Map<AppInstanceVM, AppInstance>(appinstance);
-
-	Log.Information("app - {@App}", appinstance1);
+	var d = new DataIssuer(readFileService).GetAppDataByName("discord");
+	Log.Information("app - {@App}", d);
 }
