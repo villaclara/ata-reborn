@@ -25,6 +25,11 @@ public class AppInstance
 	public bool IsRunning { get; set; }
 
 	/// <summary>
+	/// The DateTime when the AppInstance was created
+	/// </summary>
+	public DateTime CreatedAt {  get; set; }
+
+	/// <summary>
 	/// DateTime object when the AppInstance was running last.
 	/// </summary>
 	public DateTime LastRunningDate { get; set; }
