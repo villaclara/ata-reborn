@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Application.Models;
@@ -53,4 +54,25 @@ public class AppInstance
 	/// Latest Date when UpTimes were updated.
 	/// </summary>
 	public DateTime LastUpdatedUpTimesDate { get; set; }
+
+	// preventing creating objects from other apps
+	internal AppInstance() { }
+
+
+	// Using when mapping from JSON string read from file
+	[JsonConstructor]
+	private AppInstance(string Name, string ProcessNameInOS, bool IsRunning, DateTime CreatedAt, 
+		DateTime LastRunningDate, int CurrentSessionTime, IList<UpTime> UpTimes, DateTime LastCheckedDate, DateTime LastUpdatedUpTimesDate)
+	{
+		this.Name = Name;
+		this.ProcessNameInOS = ProcessNameInOS;
+		this.IsRunning = IsRunning;
+		this.CreatedAt = CreatedAt;
+		this.LastRunningDate = LastRunningDate;
+		this.CurrentSessionTime = CurrentSessionTime;
+		this.UpTimes = UpTimes;
+		this.LastCheckedDate = LastCheckedDate;
+		this.LastUpdatedUpTimesDate = LastUpdatedUpTimesDate;
+		
+	}
 }

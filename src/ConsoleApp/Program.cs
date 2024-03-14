@@ -43,6 +43,10 @@ List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
 List<IAppHandler> handlers = [];
 
 
+// CREATING NEW APP
+var ap = AppInstanceCreator.CreateAppInstanceToTrack("ATA", "ATA_WPF");
+apps.Add(ap);
+
 
 foreach (var appInstance in apps)
 {
