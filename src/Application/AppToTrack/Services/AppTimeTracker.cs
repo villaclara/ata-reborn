@@ -50,7 +50,7 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 			return;
 		}
 
-
+		// Adding time to Current Session
 		trackedApp.CurrentSessionTime += ConstantValues.TIMER_INTERVAL_M;
 
 		Log.Information("{@App} - {@Method} - {@CurrentSessionTime} - {@Value}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(trackedApp.CurrentSessionTime), trackedApp.CurrentSessionTime);
