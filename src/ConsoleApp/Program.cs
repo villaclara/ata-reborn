@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Shared.ViewModels;
+using Application.Common.Extensions;
+using Microsoft.Extensions.Logging;
 
 Console.WriteLine("Hello");
 
@@ -21,7 +23,7 @@ Console.WriteLine("Hello");
 
 Log.Logger = new LoggerConfiguration()
 	.WriteTo.Console()
-	.WriteTo.File("log.txt")
+	//.WriteTo.File("log.txt")
 	.CreateLogger();
 
 //using IHost host = builder.Build();
@@ -54,8 +56,8 @@ foreach (var appInstance in apps)
 	handlers.Add(new AppHandler(interactor));
 }
 
-var t = StaticTimerService.GetInstance();
-t.TimeElapsed += OnTimerElapsed;
+//var t = StaticTimerService.GetInstance();
+//t.TimeElapsed += OnTimerElapsed;
 
 Log.Information("Start app - {@Program}", nameof(Program));
 
@@ -63,10 +65,19 @@ Log.Information("Start app - {@Program}", nameof(Program));
 
 //await host.RunAsync();
 
+var worker = new MainWorker();
+worker.WorkDone += OnWorkerDoneWork;
+
+worker.Run();
+
 
 Console.ReadLine();
 
 
+async Task OnWorkerDoneWork(object? sender, int args)
+{
+	Log.Information("On work done in console. updated list of apps");
+}
 
 
 /// THE FLOW:
