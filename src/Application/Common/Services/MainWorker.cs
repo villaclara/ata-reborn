@@ -1,4 +1,5 @@
-﻿using Application.AppToTrack.Interactors;
+﻿using Application.AppToTrack.Abstracts;
+using Application.AppToTrack.Interactors;
 using Application.AppToTrack.Services;
 using Application.Common.Abstracts;
 using Application.Common.Timers;
@@ -52,9 +53,9 @@ public class MainWorker
 	private StaticTimerService _timer = StaticTimerService.GetInstance();
 	
 	private List<AppInstance> _apps = new List<AppInstance>();
-	private List<AppHandler> _handlers = new List<AppHandler>();
-	public IReadData<string> ReadData { get; init; } = new ReadDataAsStringFromFile();
-	public IWriteData<string> WriteData { get; init; } = new WriteDataStringToFile();
+	private List<IAppHandler> _handlers = new List<IAppHandler>();
+	public IReadData<string> ReadData { get; set; }
+	public IWriteData<string> WriteData { get; set; } 
 
 	public async Task DoWork(object? sender, int value)
 	{
@@ -63,7 +64,7 @@ public class MainWorker
 		
 		if (_handlers.Count == 0)
 		{
-			Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(DoWork), nameof(List<AppHandler>));
+			Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(DoWork), nameof(List<IAppHandler>));
 			return;
 		}
 

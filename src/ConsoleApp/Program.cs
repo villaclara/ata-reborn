@@ -14,8 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Shared.ViewModels;
-using Application.Common.Extensions;
 using Microsoft.Extensions.Logging;
+using Application.Director.Creation;
+using Application.Director;
 
 Console.WriteLine("Hello");
 
@@ -62,16 +63,8 @@ Log.Information("Start app - {@Program}", nameof(Program));
 
 //await host.RunAsync();
 
-var dataIssuer = new DataIssuer(new ReadDataAsStringFromFile());
-
-var worker = new MainWorker();
-worker.WorkDone += OnWorkerDoneWork;
-
-
-worker.Run();
-
-
-var b = new MainWorkerBuilder().WithReadService(service => DoAny()).Build();
+var d1 = new DefaultDirectorFactory().CreateDirector();
+d1.Run();
 
 Console.ReadLine();
 
@@ -83,9 +76,9 @@ void DoAny()
 
 Task OnWorkerDoneWork(object? sender, int args)
 {
-	var appstracked = dataIssuer.GetAllApps();
-	Log.Information("{@Method} - {@Apps}", nameof(OnWorkerDoneWork), appstracked);
-	Log.Information("On work done in console. updated list of apps");
+	//var appstracked = dataIssuer.GetAllApps();
+	//Log.Information("{@Method} - {@Apps}", nameof(OnWorkerDoneWork), appstracked);
+	//Log.Information("On work done in console. updated list of apps");
 
 	return Task.CompletedTask;
 }
