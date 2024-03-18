@@ -1,4 +1,5 @@
-﻿using Application.Director.Creation;
+﻿using Application.Common.Services;
+using Application.Director.Creation;
 using Application.Director.Instance;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,20 @@ namespace Application.Director;
 
 public class DefaultDirectorFactory : ADirectorFactory
 {
+	private static ADirector? _director;
+	private static readonly object obj = new();
+
 	public override ADirector CreateDirector()
 	{
-		return new DefaultDirector()
+		if(_director == null)
 		{
-			
+			lock(obj)
+			{
+				_director = new DefaultDirector();
+			}
 		}
+		
+		return _director;
+		
 	}
 }

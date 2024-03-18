@@ -60,26 +60,28 @@ Log.Logger = new LoggerConfiguration()
 Log.Information("Start app - {@Program}", nameof(Program));
 
 
-
 //await host.RunAsync();
 
-var d1 = new DefaultDirectorFactory().CreateDirector();
-d1.Run();
+var director = new DefaultDirectorFactory().CreateDirector();
+director.WorkDone -= OnDirectorWorkDone;
+director.WorkDone += OnDirectorWorkDone;
+
+await director.RunAsync();
+
+//director.AddAppToTrackedList(processName: "notepad");
+
 
 Console.ReadLine();
 
-void DoAny()
-{
 
-}
-
-
-Task OnWorkerDoneWork(object? sender, int args)
+Task OnDirectorWorkDone(object? sender, int args)
 {
 	//var appstracked = dataIssuer.GetAllApps();
 	//Log.Information("{@Method} - {@Apps}", nameof(OnWorkerDoneWork), appstracked);
 	//Log.Information("On work done in console. updated list of apps");
 
+	Log.Information("\n");
+	Log.Information("{@Method} - Director work done triggered.\n", nameof(OnDirectorWorkDone));
 	return Task.CompletedTask;
 }
 

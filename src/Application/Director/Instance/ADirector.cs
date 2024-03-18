@@ -18,18 +18,20 @@ public abstract class ADirector
 	/// <summary>
 	/// Launch the Director. Automatically perform tracking and all stuff.
 	/// </summary>
-	public abstract void Run();
+	public abstract Task RunAsync();
 
 	/// <summary>
 	/// Launch the Director and perform tracking only ONCE.
 	/// </summary>
-	public abstract void RunOnceManually();
+	public abstract Task RunOnceManuallyAsync();
 
 	/// <summary>
 	/// Event is raised when Director has done the full one cycle of work.
 	/// Subscribe to it if you want to have actual values of data.
 	/// </summary>
-	public abstract event EventHandler? WorkDone;
+	public abstract event Func<object, int, Task>? WorkDone;
+
+	public abstract Task OnTimerElapsed(object? sender, int minutes);
 
 	/// <summary>
 	/// Instance of <see cref="IDataIssuer"/> used to retrieve <see cref="AppInstanceVM"/> objects.
