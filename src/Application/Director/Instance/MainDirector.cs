@@ -2,6 +2,7 @@
 using Application.AppToTrack.Interactors;
 using Application.AppToTrack.Services;
 using Application.Common.Abstracts;
+using Application.Common.Services;
 using Application.Common.Timers;
 using Application.Models;
 using Application.Utilities;
@@ -23,6 +24,11 @@ public class MainDirector : IDirector
 		Handlers = [];
 		Timer = StaticTimerService.GetInstance();
 
+
+		// setting default values to prevent null reference
+		// but these should be set via Builder
+		ReadDataService = new ReadDataFromJsonFile();
+		WriteDataService = new WriteDataStringToFile();
 	}
 
 	private Task Timer_TimeElapsed(object arg1, int arg2)

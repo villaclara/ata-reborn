@@ -14,8 +14,7 @@ public interface IDirectorBuilder
 
 	IDirectorBuilder AddReadService(IReadData readData);
 	IDirectorBuilder AddWriteService(IWriteData writeData);
-	IDirectorBuilder SetWhereToWrite(string where);
-
+	IDirectorBuilder SetWritableFile(string where);
 	IDirectorBuilder SetTimerCheckValue(int timeoutMiliseconds);
 
 }

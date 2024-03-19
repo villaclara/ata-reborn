@@ -74,7 +74,6 @@ director.WorkDone += OnDirectorWorkDone;
 
 await director.RunAsync();
 
-//director.AddAppToTrackedList(processName: "notepad");
 
 
 Console.ReadLine();

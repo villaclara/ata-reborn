@@ -11,7 +11,7 @@ namespace Application.Director.Creation;
 public class DirectorBuilder : IDirectorBuilder
 {
 
-	private IDirector _director;
+	private readonly IDirector _director;
 	
 	public DirectorBuilder()
 	{
@@ -40,7 +40,7 @@ public class DirectorBuilder : IDirectorBuilder
 		throw new NotImplementedException();
 	}
 
-	public IDirectorBuilder SetWhereToWrite(string where)
+	public IDirectorBuilder SetWritableFile(string where = "apps.json")
 	{
 		throw new NotImplementedException();
 	}
