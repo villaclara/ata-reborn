@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Services;
 
-public class DataIssuer(IReadData<string> readData) : IDataIssuer
+public class DataIssuer(IReadData readData) : IDataIssuer
 {
-	private readonly IReadData<string> _readData = readData;
+	private readonly IReadData _readData = readData;
 	
 	public List<AppInstanceVM> GetAllApps()
 	{
-		var appsList = AppsJsonStringConverter.ConvertJsonToApps(_readData.RetrieveData()!);
+		var appsList = _readData.RetrieveData()!;
 
 		var appsVM = new List<AppInstanceVM>();
 		foreach(var app in appsList)
@@ -29,7 +29,7 @@ public class DataIssuer(IReadData<string> readData) : IDataIssuer
 
 	public AppInstanceVM? GetAppDataByName(string name)
 	{
-		var appsList = AppsJsonStringConverter.ConvertJsonToApps(_readData.RetrieveData()!);
+		var appsList = readData.RetrieveData();
 
 		if (appsList.Count == 0)
 		{

@@ -62,9 +62,13 @@ Log.Information("Start app - {@Program}", nameof(Program));
 
 //await host.RunAsync();
 
-var director = new DefaultDirectorFactory().CreateDirector();
-director.WorkDone -= OnDirectorWorkDone;
-director.WorkDone += OnDirectorWorkDone;
+var director = new DirectorBuilder()
+	.AddReadService(new ReadDataFromJsonFile())
+	.AddWriteService(new WriteDataStringToFile())
+	//.SetWhereToWrite("apps.jon")
+	//.SetTimerCheckValue(5000)
+	.Build();
+
 
 await director.RunAsync();
 
