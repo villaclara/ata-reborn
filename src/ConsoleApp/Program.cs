@@ -69,6 +69,8 @@ var director = new DirectorBuilder()
 	//.SetTimerCheckValue(5000)
 	.Build();
 
+director.WorkDone -= OnDirectorWorkDone;
+director.WorkDone += OnDirectorWorkDone;
 
 await director.RunAsync();
 
@@ -85,7 +87,7 @@ Task OnDirectorWorkDone(object? sender, int args)
 	//Log.Information("On work done in console. updated list of apps");
 
 	Log.Information("\n");
-	Log.Information("{@Method} - Director work done triggered.\n", nameof(OnDirectorWorkDone));
+	Log.Information("{@Method} - Director work done triggered inside Program.cs \n", nameof(OnDirectorWorkDone));
 	return Task.CompletedTask;
 }
 

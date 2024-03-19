@@ -22,8 +22,7 @@ public class MainDirector : IDirector
 		Apps = [];
 		Handlers = [];
 		Timer = StaticTimerService.GetInstance();
-		Timer.TimeElapsed -= OnTimerElapsed;
-		Timer.TimeElapsed += OnTimerElapsed;
+
 	}
 
 	private Task Timer_TimeElapsed(object arg1, int arg2)
@@ -70,6 +69,16 @@ public class MainDirector : IDirector
 
 	public async Task RunAsync()
 	{
+		var apps = ReadDataService.RetrieveData();
+		foreach(var app in apps)
+		{
+			Apps.Add(app);
+			Handlers.Add(new AppHandler(new Interactor(app)));
+		}
+
+		Timer.TimeElapsed -= OnTimerElapsed;
+		Timer.TimeElapsed += OnTimerElapsed;
+
 		await OnTimerElapsed(this, ConstantValues.TIMER_INTERVAL_MS);
 	}
 
