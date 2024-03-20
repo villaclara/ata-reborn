@@ -63,8 +63,7 @@ Log.Information("Start app - {@Program}", nameof(Program));
 //await host.RunAsync();
 
 var director = new DirectorBuilder()
-	.AddReadService(new ReadDataFromJsonFile())
-	.AddWriteService(new WriteDataStringToFile())
+	.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
 	//.SetWhereToWrite("apps.jon")
 	//.SetTimerCheckValue(5000)
 	.Build();

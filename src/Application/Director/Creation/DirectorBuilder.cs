@@ -16,7 +16,6 @@ public class DirectorBuilder : IDirectorBuilder
 	public DirectorBuilder()
 	{
 		_director = new MainDirector();
-		
 	}
 	public IDirectorBuilder AddReadService(IReadData readData)
 	{
@@ -27,6 +26,13 @@ public class DirectorBuilder : IDirectorBuilder
 	public IDirectorBuilder AddWriteService(IWriteData writeData)
 	{
 		_director.WriteDataService = writeData;
+		return this;
+	}
+
+	public IDirectorBuilder AddIOServices(IReadData readService, IWriteData writeService)
+	{
+		_director.ReadDataService = readService;
+		_director.WriteDataService = writeService;
 		return this;
 	}
 
