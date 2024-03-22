@@ -70,7 +70,13 @@ public class MainDirector : IDirector
 
 	public void RemoveAppFromTrackedList(string processName)
 	{
-		throw new NotImplementedException();
+		var app = Apps.Where(a => a.ProcessNameInOS == processName).FirstOrDefault();
+		if (app != null)
+		{
+			var index = Apps.IndexOf(app);
+			Apps.RemoveAt(index);
+			Handlers.RemoveAt(index);
+		}
 	}
 
 	public async Task RunAsync()
