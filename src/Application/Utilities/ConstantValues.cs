@@ -14,5 +14,5 @@ public static class ConstantValues
 
 	// THIS TWO SHOULD BE CHANGED TOGETHER. M - Minutes, MS - Miliseconds. 
 	public const int TIMER_INTERVAL_M = 1;
-	public const int TIMER_INTERVAL_MS = 5000;
+	public const int TIMER_INTERVAL_MS = 15000;
 }

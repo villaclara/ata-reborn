@@ -9,5 +9,5 @@ namespace Shared.Models;
 public class UpTime
 {
 	public DateOnly Date {  get; set; }
-	public int Minutes {  get; set; }
+	public double Minutes {  get; set; }
 }

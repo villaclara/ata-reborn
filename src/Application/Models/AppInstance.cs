@@ -38,7 +38,7 @@ public class AppInstance
 	/// <summary>
 	/// Time in minutes for the current active session. If the App is not Running the time is 0.
 	/// </summary>
-	public int CurrentSessionTime { get; set; }
+	public double CurrentSessionTime { get; set; }
 
 	/// <summary>
 	/// List of <see cref="UpTime"/> objects that represent active AppInstance time for each date.
@@ -48,7 +48,12 @@ public class AppInstance
 	/// <summary>
 	/// Latest Date when AppInstance check was performed.
 	/// </summary>
-	public DateTime LastCheckedDate { get; set; }
+	public DateTime LastStateCheckedDate { get; set; }
+
+	/// <summary>
+	/// Latest Date when ITimeTracker was invoked. Used in checking time difference.
+	/// </summary>
+	public DateTime LastTimeTrackedDate { get; set; }
 
 	/// <summary>
 	/// Latest Date when UpTimes were updated.
@@ -62,7 +67,7 @@ public class AppInstance
 	// Using when mapping from JSON string read from file
 	[JsonConstructor]
 	private AppInstance(string Name, string ProcessNameInOS, bool IsRunning, DateTime CreatedAt, 
-		DateTime LastRunningDate, int CurrentSessionTime, IList<UpTime> UpTimes, DateTime LastCheckedDate, DateTime LastUpdatedUpTimesDate)
+		DateTime LastRunningDate, double CurrentSessionTime, IList<UpTime> UpTimes, DateTime LastStateCheckedDate, DateTime LastTimeTrackedDate, DateTime LastUpdatedUpTimesDate)
 	{
 		this.Name = Name;
 		this.ProcessNameInOS = ProcessNameInOS;
@@ -71,7 +76,8 @@ public class AppInstance
 		this.LastRunningDate = LastRunningDate;
 		this.CurrentSessionTime = CurrentSessionTime;
 		this.UpTimes = UpTimes;
-		this.LastCheckedDate = LastCheckedDate;
+		this.LastStateCheckedDate = LastStateCheckedDate;
+		this.LastTimeTrackedDate = LastTimeTrackedDate;
 		this.LastUpdatedUpTimesDate = LastUpdatedUpTimesDate;
 		
 	}

@@ -12,6 +12,6 @@ public record class AppInstanceVM
 	public string Name { get; set; } = null!;
 	public bool IsRunning {  get; set; }
 	public DateTime LastRunningDate {  get; set; }
-	public int CurrentSessionTime {  get; set; }
+	public double CurrentSessionTime {  get; set; }
 	public List<UpTime> UpTimeList { get; set; } = new List<UpTime>();
 }

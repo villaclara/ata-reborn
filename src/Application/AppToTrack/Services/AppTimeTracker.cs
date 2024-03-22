@@ -15,7 +15,7 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 {
 	public IInteractor AppInteractor { get; } = interactor;
 
-	public int GetCurrentSessionTime(bool isRunnnig)
+	public double GetCurrentSessionTime(bool isRunnnig)
 	{
 		return isRunnnig switch
 		{
@@ -24,10 +24,10 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 		};
 	}
 
-	public int GetSessionTimeForDate(DateOnly date)
+	public double GetSessionTimeForDate(DateOnly date)
 	{
 		var times = AppInteractor.GetAppInstace().UpTimes;
-		
+
 		var timedate = times.Where(t => t.Date == date).FirstOrDefault();
 
 		return timedate == null ? 0 : timedate.Minutes;
@@ -35,7 +35,7 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 
 	public void UpdateTimeValues()
 	{
-		
+
 	}
 
 
@@ -43,44 +43,75 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 	{
 		var trackedApp = AppInteractor.GetAppInstace();
 
+
 		// If the App is not running we set current session time and return back;
-		if(!trackedApp.IsRunning)
+		if (!trackedApp.IsRunning)
 		{
 			trackedApp.CurrentSessionTime = 0;
 			return;
 		}
 
-		// Adding time to Current Session
-		trackedApp.CurrentSessionTime += ConstantValues.TIMER_INTERVAL_M;
+		
+		Log.Information("LTTD - {@1}, LCD - {@2}, LUD - {@3}, Now - {@f}", trackedApp.LastTimeTrackedDate, trackedApp.LastStateCheckedDate, trackedApp.LastUpdatedUpTimesDate, DateTime.Now);
 
-		Log.Information("{@App} - {@Method} - {@CurrentSessionTime} - {@Value}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(trackedApp.CurrentSessionTime), trackedApp.CurrentSessionTime);
-
-
-	   var dateNow = DateOnly.FromDateTime(DateTime.Now);
-
-		// Check if Today date is present in list
-		var today = trackedApp.UpTimes.Where(t => t.Date == dateNow).FirstOrDefault();
-
-		// If yes - We add one minute
-		if (today != null)
+		// Check if the AppInstance was nearly launched (for example 10 sec ago), then we do not want to add time to it.
+		// We have LastTimeTrackedDate, which is set at the end of this method.
+		var timeDifference = trackedApp.LastStateCheckedDate - trackedApp.LastTimeTrackedDate;
+		if (timeDifference.TotalSeconds > ConstantValues.TIMER_INTERVAL_MS / 1000)
 		{
-			today.Minutes += ConstantValues.TIMER_INTERVAL_M;
+			Log.Information("{@Method} - {@App} - TimeDifference between LastCheckedDate ({@LCD}) and LastTimeTrackedDate ({@LTTD}) is bigger than Interval ({@Interval}). The appTime won't be updated this time.", 
+				nameof(TrackTime), trackedApp.ProcessNameInOS, trackedApp.LastStateCheckedDate, trackedApp.LastTimeTrackedDate, ConstantValues.TIMER_INTERVAL_MS);
 		}
-		// if no - We add new object of UpTimes with minute
+
 		else
 		{
-			trackedApp.UpTimes.Add(new Shared.Models.UpTime()
+			Log.Information("{@Method} - {@App} - TimeDifference between LastCheckedDate ({@LCD}) and LastTrackedTime ({@LTTD}) is lower that Interval ({@Interval}). The appTime will be updated this time.", 
+				nameof(TrackTime), trackedApp.ProcessNameInOS, trackedApp.LastStateCheckedDate, trackedApp.LastTimeTrackedDate, ConstantValues.TIMER_INTERVAL_MS);
+
+			Log.Information("{@Method} - {@App} - {@CurrentSessionTime} - {@Value}", 
+				nameof(TrackTime), trackedApp.ProcessNameInOS, nameof(trackedApp.CurrentSessionTime), trackedApp.CurrentSessionTime);
+
+			var timetoadd = Math.Round(timeDifference.TotalSeconds / 60, 2);
+
+			// Adding time to Current Session
+			trackedApp.CurrentSessionTime += timetoadd;
+			
+			Log.Information("{@Method} - Interval to add - {@Interval}", 
+				nameof(TrackTime), timetoadd);
+			Log.Information("{@Method} - {@App} - {@CurrentSessionTime} - {@Value}", 
+				nameof(TrackTime), trackedApp.ProcessNameInOS, nameof(trackedApp.CurrentSessionTime), trackedApp.CurrentSessionTime);
+
+
+			var dateNow = DateOnly.FromDateTime(DateTime.Now);
+
+			// Check if Today date is present in list
+			var today = trackedApp.UpTimes.Where(t => t.Date == dateNow).FirstOrDefault();
+
+			// If yes - We add one minute
+			if (today != null)
 			{
-				Date = dateNow,
-				Minutes = ConstantValues.TIMER_INTERVAL_M
-			});
+				today.Minutes += timetoadd;
+			}
+			// if no - We add new object of UpTimes with minute
+			else
+			{
+				trackedApp.UpTimes.Add(new Shared.Models.UpTime()
+				{
+					Date = dateNow,
+					Minutes = timetoadd
+				});
+			}
+
+			// add the time that we changed upTimes
+			trackedApp.LastUpdatedUpTimesDate = DateTime.Now;
+
+			Log.Information("{@Method} - {@App} - {@MinutesToday} - {@Date}", nameof(TrackTime), trackedApp.ProcessNameInOS, nameof(today), today);
+			Log.Information("{@Method} - {@App} - {@LastUpdatedTime} - {@Value}", nameof(TrackTime), trackedApp.ProcessNameInOS, nameof(trackedApp.LastUpdatedUpTimesDate), trackedApp.LastUpdatedUpTimesDate);
+
 		}
-
-		// add the time that we changed upTimes
-		trackedApp.LastUpdatedUpTimesDate = DateTime.Now;
-
-		Log.Information("{@App} - {@Method} - {@MinutesToday} - {@Date}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(today), today);
-		Log.Information("{@App} - {@Method} - {@LastUpdatedTime} - {@Value}", trackedApp.ProcessNameInOS, nameof(TrackTime), nameof(trackedApp.LastUpdatedUpTimesDate), trackedApp.LastUpdatedUpTimesDate);
-
+		
+		// add the time we Tracked appTime - performed this method
+		trackedApp.LastTimeTrackedDate = DateTime.Now;
+		Log.Information("{@Method} - {@App} - LastTimeTrackedDate - {@LastTimeTracked}", nameof(TrackTime), trackedApp.ProcessNameInOS, trackedApp.LastTimeTrackedDate);
 	}
 }

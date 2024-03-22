@@ -54,9 +54,9 @@ public class AppStateChecker : IAppStateChecker
         {
             app.LastRunningDate = DateTime.Now;
         }
-        app.LastCheckedDate = DateTime.Now;
+        app.LastStateCheckedDate = DateTime.Now;
 
         Log.Information("{@App} - {@Method} - {@LastRunningDate} - {@Value}", app.ProcessNameInOS, nameof(SetAppState), nameof(app.LastRunningDate), app.LastRunningDate);
-        Log.Information("{@App} - {@Method} - {@LastRunningDate} - {@Value}", app.ProcessNameInOS, nameof(SetAppState), nameof(app.LastCheckedDate), app.LastCheckedDate);
+        Log.Information("{@App} - {@Method} - {@LastCheckedDate} - {@Value}", app.ProcessNameInOS, nameof(SetAppState), nameof(app.LastStateCheckedDate), app.LastStateCheckedDate);
     }
 }
