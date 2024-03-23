@@ -108,7 +108,7 @@ public class MainDirector : IDirector
 
 		if (Handlers.Count == 0)
 		{
-			Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(OnTimerElapsed), nameof(List<AppHandler>));
+			Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(DoWork), nameof(List<AppHandler>));
 			return;
 		}
 
@@ -125,6 +125,6 @@ public class MainDirector : IDirector
 		string json = AppsJsonStringConverter.ConvertAppsToJson(Apps);
 		bool result = WriteDataService.WriteData(Apps);
 
-		Log.Information("{@Method} - end", nameof(OnTimerElapsed));
+		Log.Information("{@Method} - end", nameof(DoWork));
 	}
 }
