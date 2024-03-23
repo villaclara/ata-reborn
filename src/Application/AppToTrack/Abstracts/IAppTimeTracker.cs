@@ -32,10 +32,10 @@ public interface IAppTimeTracker
 	/// <summary>
 	/// Updates the values in the AppInstance via interactor.
 	/// </summary>
-	void UpdateTimeValues();
+	void UpdateTimeValues(TimeSpan timespanToAdd);
 
 	/// <summary>
-	/// Is Called after the timer expires and automatically trackes time and updates values.
+	/// Is Called after the timer expires and automatically trackes time and calls <see cref="UpdateTimeValues(TimeSpan)"/> if needed.
 	/// </summary>
 	void TrackTime();
 }
