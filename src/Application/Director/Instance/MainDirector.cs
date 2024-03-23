@@ -22,7 +22,6 @@ public class MainDirector : IDirector
 	{
 		Apps = [];
 		Handlers = [];
-		Timer = StaticTimerService.GetInstance();
 
 
 		// setting default values to prevent null reference
@@ -43,7 +42,7 @@ public class MainDirector : IDirector
 
 	public List<IAppHandler> Handlers { get; } = null!;
 
-	public StaticTimerService Timer { get; }
+	public StaticTimerService Timer { get; private set; }
 
 	public event Func<object, int, Task>? WorkDone;
 
@@ -88,6 +87,7 @@ public class MainDirector : IDirector
 			Handlers.Add(new AppHandler(new Interactor(app)));
 		}
 
+		Timer = StaticTimerService.GetInstance();
 		Timer.TimeElapsed -= OnTimerElapsed;
 		Timer.TimeElapsed += OnTimerElapsed;
 

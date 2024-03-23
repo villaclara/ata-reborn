@@ -1,5 +1,6 @@
 ﻿using Application.Common.Abstracts;
 using Application.Director.Instance;
+using Application.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,13 +42,38 @@ public class DirectorBuilder : IDirectorBuilder
 		return _director;
 	}
 
-	public IDirectorBuilder SetTimerCheckValue(int timeoutMiliseconds)
+	public IDirectorBuilder SetTimerCheckValue(int timeoutMiliseconds = 10_000)
 	{
-		throw new NotImplementedException();
+		ConstantValues.TIMER_INTERVAL_MS = timeoutMiliseconds;
+		ConstantValues.TIMER_INTERVAL_M = timeoutMiliseconds / 60_000;
+		return this;
 	}
 
 	public IDirectorBuilder SetWritableFile(string where = "apps.json")
 	{
-		throw new NotImplementedException();
+		if(string.IsNullOrEmpty(where))
+		{
+			return this;
+		}
+
+		// Check extension if it is .json
+		var split = where.Split('.');
+		var ext = string.Empty;
+		if(split.Length > 1)
+		{
+			if(split[1] != "json")
+			{
+				ext = ".json";
+			}
+		
+		}
+
+
+		// Add the extension .json to the filename
+		ConstantValues.MAIN_FILE_NAME = where + ext;
+		ConstantValues.BACKUP_MAIN_FILE_NAME = where + "_backup" + ext;
+
+		return this;
+
 	}
 }
