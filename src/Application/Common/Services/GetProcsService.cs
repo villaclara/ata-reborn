@@ -11,23 +11,13 @@ namespace Application.Common.Services;
 
 public class GetProcsService : IGetProcs
 {
-	public IDictionary<string, string> GetUniqueProcesses()
-	{
-		var result = new Dictionary<string, string>();
 
-		var procs = Process.GetProcesses().Distinct();
-
-		foreach(var proc in procs)
-		{
-			result.Add(proc.ProcessName, proc.ProcessName);
-		}
-
-		return result;
-
-		
-	}
-
-	public IDictionary<string, string> GetUniqueProcesses(bool anyvalue)
+	/// <summary>
+	/// Gets the Unique Processes Dictionary.
+	/// </summary>
+	/// <param name="useSystemManagement">Pass any true/false to trigger this overloaded method.</param>
+	/// <returns><see cref="IDictionary{TKey, TValue}"/> object with TKey - processName, TValue - appName.</returns>
+	public IDictionary<string, string> GetUniqueProcesses(bool useSystemManagement)
 	{
 		var result = new Dictionary<string, string>();
 
@@ -35,14 +25,22 @@ public class GetProcsService : IGetProcs
 
 		foreach (var proc in procs)
 		{
-			var extraInfo = GetExtraInfo(proc.Id);
-			result.Add(proc.ProcessName, extraInfo.Item2 ?? proc.ProcessName);
+			if(useSystemManagement)
+			{
+				var extraInfo = GetExtraInfo(proc.Id);
+				result.Add(proc.ProcessName, extraInfo.Item2 ?? proc.ProcessName);
+			}
+			else
+			{
+				result.Add(proc.ProcessName, proc.ProcessName);
+			}
 		}
 
 		return result;
-
 	}
 
+
+	// first string - appName, second string - processName
 	private static (string?, string?) GetExtraInfo(int pId)
 	{
 		(string?, string?) strs = (null, null);
@@ -63,14 +61,15 @@ public class GetProcsService : IGetProcs
 				int returncode = Convert.ToInt32(obj.InvokeMethod("GetOwner", args));
 				if (returncode == 0)
 				{
-					// username
+					// username - not needed if we dont care whou is user
 					strs.Item1 = args[0];
 				}
 
 
 				if (obj["ExecutablePath"] != null)
 				{
-					// process name as in Task Manager
+					// short process name as in Task Manager
+					// f.e. Microsoft Visual Studio 2022 instead of devenv.exe
 					strs.Item2 = FileVersionInfo.GetVersionInfo(obj["ExecutablePath"].ToString()!).FileDescription!;
 				}
 			}

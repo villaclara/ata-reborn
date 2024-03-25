@@ -1,4 +1,5 @@
 ﻿using Application.Common.Abstracts;
+using Application.Models;
 using Application.Utilities;
 using Serilog;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Services;
 
-public class WriteDataStringToFile : IWriteData<string>
+public class WriteDataStringToFile : IWriteData
 {
 
     // to do
@@ -22,14 +23,15 @@ public class WriteDataStringToFile : IWriteData<string>
     /// </summary>
     /// <param name="strToWrite">Value to be written.</param>
     /// <returns>Returns whether the writing was successfull.</returns>
-    public bool WriteToFile(string strToWrite)
+    public bool WriteData(List<AppInstance> apps)
     {
+        var strToWrite = AppsJsonStringConverter.ConvertAppsToJson(apps);
 
         bool bSuccess = false;
         try
         {
             Log.Information("\n");
-            Log.Information("{@Method} - Start executing", nameof(WriteToFile));
+            Log.Information("{@Method} - Start executing", nameof(WriteData));
             using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
             sw.Write(strToWrite);
 
@@ -46,13 +48,13 @@ public class WriteDataStringToFile : IWriteData<string>
             bSuccess = false;
 
             // log exception
-            Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteToFile), ex);
+            Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteData), ex);
 
             return bSuccess;
         }
         finally
         {
-            Log.Information("{@Method} - End executing with result - {@Result}", nameof(WriteToFile), bSuccess);
+            Log.Information("{@Method} - End executing with result - {@Result}", nameof(WriteData), bSuccess);
         }
 
     }

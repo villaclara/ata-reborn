@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Shared.ViewModels;
+using Microsoft.Extensions.Logging;
+using Application.Director.Creation;
+using Application.Director;
 
 Console.WriteLine("Hello");
 
@@ -26,47 +29,65 @@ Log.Logger = new LoggerConfiguration()
 
 //using IHost host = builder.Build();
 
-IReadData<string> readFileService = new ReadDataAsStringFromFile();
-var readString = readFileService.RetrieveData();
 
-IWriteData<string> writeFileService = new WriteDataStringToFile();
+// WORKING CONSOLE
 
-List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
+//IReadData<string> readFileService = new ReadDataAsStringFromFile();
+//var readString = readFileService.RetrieveData();
 
-//// some uptimes for the app 
-//apps[0].UpTimes = new List<UpTime>() {
-//	new UpTime() { Date = DateOnly.FromDateTime(new DateTime(2024, 03, 06)), Minutes = 5 },
-//	new UpTime() { Date = DateOnly.FromDateTime(new DateTime(2024, 03, 07)), Minutes = 10 }
-//	};
+//IWriteData<string> writeFileService = new WriteDataStringToFile();
+
+//List<AppInstance> apps = AppsJsonStringConverter.ConvertJsonToApps(readString!);
 
 
-List<IAppHandler> handlers = [];
+//List<IAppHandler> handlers = [];
 
 
-// CREATING NEW APP
-var ap = AppInstanceCreator.CreateAppInstanceToTrack("ATA", "ATA_WPF");
-apps.Add(ap);
+//// CREATING NEW APP
+//var ap = AppInstanceCreator.CreateAppInstanceToTrack("ATA", "ATA_WPF");
+//apps.Add(ap);
 
 
-foreach (var appInstance in apps)
-{
-	IInteractor interactor = new Interactor(appInstance);
-	handlers.Add(new AppHandler(interactor));
-}
+//foreach (var appInstance in apps)
+//{
+//	IInteractor interactor = new Interactor(appInstance);
+//	handlers.Add(new AppHandler(interactor));
+//}
 
-var t = StaticTimerService.GetInstance();
-t.TimeElapsed += OnTimerElapsed;
+//var t = StaticTimerService.GetInstance();
+//t.TimeElapsed += OnTimerElapsed;
 
 Log.Information("Start app - {@Program}", nameof(Program));
 
 
-
 //await host.RunAsync();
+
+var director = new DirectorBuilder()
+	.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
+	.SetWritableFile("apps.json")
+	.SetTimerCheckValue(5000)
+	.Build();
+
+director.WorkDone -= OnDirectorWorkDone;
+director.WorkDone += OnDirectorWorkDone;
+
+await director.RunAsync();
+
 
 
 Console.ReadLine();
 
 
+Task OnDirectorWorkDone(object? sender, int args)
+{
+	//var appstracked = dataIssuer.GetAllApps();
+	//Log.Information("{@Method} - {@Apps}", nameof(OnWorkerDoneWork), appstracked);
+	//Log.Information("On work done in console. updated list of apps");
+
+	Log.Information("\n");
+	Log.Information("{@Method} - Director work done triggered inside Program.cs \n", nameof(OnDirectorWorkDone));
+	return Task.CompletedTask;
+}
 
 
 /// THE FLOW:
@@ -119,34 +140,34 @@ Console.ReadLine();
 //Console.ReadLine();
 
 
-async Task OnTimerElapsed(object? sender, int e)
-{
-	if(handlers.Count == 0)
-	{
-		Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(OnTimerElapsed), nameof(List<AppHandler>));
-		return;
-	}
+//async Task OnTimerElapsed(object? sender, int e)
+//{
+//	if(handlers.Count == 0)
+//	{
+//		Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(OnTimerElapsed), nameof(List<AppHandler>));
+//		return;
+//	}
 
 
-	// run task for each app handler
-	var tasks = new List<Task>();
-	foreach(var h in handlers)
-	{
-		tasks.Add(Task.Run(h.StartTrackingApp));
-	}
+//	// run task for each app handler
+//	var tasks = new List<Task>();
+//	foreach(var h in handlers)
+//	{
+//		tasks.Add(Task.Run(h.StartTrackingApp));
+//	}
 
-	await Task.WhenAll(tasks);
+//	await Task.WhenAll(tasks);
 
-	string json = AppsJsonStringConverter.ConvertAppsToJson(apps);
-	bool result = writeFileService.WriteToFile(json);
+//	string json = AppsJsonStringConverter.ConvertAppsToJson(apps);
+//	bool result = writeFileService.WriteToFile(json);
 
-	Log.Information("{@Method} - end", nameof(OnTimerElapsed));
+//	Log.Information("{@Method} - end", nameof(OnTimerElapsed));
 
-	var data = new DataIssuer(readFileService).GetAllApps();
+//	var data = new DataIssuer(readFileService).GetAllApps();
 
-	Log.Information("data - {@App}", data);
+//	Log.Information("data - {@App}", data);
 
 
-	var d = new DataIssuer(readFileService).GetAppDataByName("discord");
-	Log.Information("app - {@App}", d);
-}
+//	var d = new DataIssuer(readFileService).GetAppDataByName("discord");
+//	Log.Information("app - {@App}", d);
+//}

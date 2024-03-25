@@ -20,22 +20,22 @@ public interface IAppTimeTracker
 	/// </summary>
 	/// <param name="isRunnnig">Indicates whether the appInstance is running at the moment.</param>
 	/// <returns>Current Session Time in Minutes</returns>
-	int GetCurrentSessionTime(bool isRunnnig);
+	double GetCurrentSessionTime(bool isRunnnig);
 
 	/// <summary>
 	/// Get the total AppInstance uptime for selected Date.
 	/// </summary>
 	/// <param name="date">Date value for which to uptime to return.</param>
 	/// <returns>Uptime in minutes.</returns>
-	int GetSessionTimeForDate(DateOnly date);
+	double GetSessionTimeForDate(DateOnly date);
 
 	/// <summary>
 	/// Updates the values in the AppInstance via interactor.
 	/// </summary>
-	void UpdateTimeValues();
+	void UpdateTimeValues(TimeSpan timespanToAdd);
 
 	/// <summary>
-	/// Is Called after the timer expires and automatically trackes time and updates values.
+	/// Is Called after the timer expires and automatically trackes time and calls <see cref="UpdateTimeValues(TimeSpan)"/> if needed.
 	/// </summary>
 	void TrackTime();
 }
