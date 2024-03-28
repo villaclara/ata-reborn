@@ -9,17 +9,18 @@
     <Grid Background="White">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" BorderThickness="4" BorderBrush="Blue">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Discord" />
+                <TextBlock Text="Discord" FontSize="28" />
 
-                <TextBlock Text="running" />
+                <TextBlock Text="running" FontSize="16" HorizontalAlignment="Center"/>
 
             </StackPanel>
         </Border>
@@ -27,9 +28,9 @@
         <Border Grid.Row="1" BorderThickness="4" BorderBrush="Green">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock>
-                    <Span FontSize="20">8</Span>
+                    <Span FontSize="28">8</Span>
                     <Span>h</Span>
-                    <Span FontSize="20">20</Span>
+                    <Span FontSize="28">20</Span>
                     <Span>min</Span>
                 </TextBlock>
             </StackPanel>
@@ -46,21 +47,34 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                    <TextBlock MinHeight="40" Text="Start Date" />
-                    <TextBlock MinHeight="40" Text="25/03/2024" />
+                    <TextBlock Text="Start Date" />
+                    <TextBlock Text="25/03/2024" />
                 </StackPanel>
                 <TextBlock Grid.Column="1" Text="" />
 
                 <StackPanel Grid.Column="2">
-                    <TextBlock MinHeight="40" Text="Start Date" />
-                    <TextBlock MinHeight="40" Text="25/03/2024" />
+                    <TextBlock Text="Latest Session" />
+                    <TextBlock Text="25/03/2024" />
                 </StackPanel>
 
             </Grid>
         </Border>
 
-        <Border Grid.Row="3" BorderThickness="4" BorderBrush="Yellow">
+        <Border Grid.Row="3" BorderThickness="4" BorderBrush="Green">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center">
+                    <Span>Total Time: </Span>
+                    <Span>20 h 20 min</Span>
+                </TextBlock>
+            </StackPanel>
+        </Border>
 
+        <Border Grid.Row="4" BorderThickness="4" BorderBrush="Yellow">
+            <StackPanel>
+                <TextBlock>
+                    <Span>HERE IS THE GRAPH</Span>
+                </TextBlock>
+            </StackPanel>
         </Border>
 
 

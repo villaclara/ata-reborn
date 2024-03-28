@@ -4,9 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.WPF"
+        xmlns:views="clr-namespace:UI.WPF.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <views:TrackedAppItem MinWidth="200"/>
+            <views:TrackedAppItem MinWidth="200"/>
+            <views:TrackedAppItem MinWidth="200"/>
+        </StackPanel>
     </Grid>
+
 </Window>
