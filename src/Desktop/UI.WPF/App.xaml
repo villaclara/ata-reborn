@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:UI.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            
+            <!-- Global font -->
+            <FontFamily x:Key="AppNameFont"/>
+
+
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

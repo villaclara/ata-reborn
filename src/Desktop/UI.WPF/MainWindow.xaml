@@ -4,27 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.WPF"
-        xmlns:views="clr-namespace:UI.WPF.Views"
+        xmlns:components="clr-namespace:UI.WPF.Components"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="550" Width="900"
+        >
+    <Grid Background="#ececec">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="420"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
+
+
+        <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->
+        <ScrollViewer Grid.Row="1">
+            
+            <!-- Applications secion -->
+            <WrapPanel Orientation="Horizontal">
+
+                <components:TrackedAppItem MinWidth="250" MinHeight="420" Margin="10 0 0 0"/>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
+                <!--<components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>-->
+            </WrapPanel>
+        </ScrollViewer>  
+  
         
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <views:TrackedAppItem MinWidth="200"/>
-            <views:TrackedAppItem MinWidth="200"/>
-            <views:TrackedAppItem MinWidth="200"/>
-        </StackPanel>
+        <!-- Bottom toolbar -->
+        <Border Grid.Row="2"
+                BorderBrush="Black"
+                BorderThickness="2">
+            <StackPanel Orientation="Horizontal">
+                
+            </StackPanel>
+        </Border>
     </Grid>
 
 </Window>
