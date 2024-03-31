@@ -82,7 +82,7 @@
                     <StackPanel Grid.Column="0" 
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom">
-                        <TextBlock Text="Start Date" />
+                        <TextBlock Text="Start Date" Foreground="#FF676060"/>
                         <TextBlock Text="25/03/24" FontFamily="Cascadia Mono SemiLight" />
                     </StackPanel>
                     <TextBlock Grid.Column="1" Text="" />
@@ -90,7 +90,7 @@
                     <StackPanel Grid.Column="2"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom">
-                        <TextBlock Text="Latest Session" />
+                        <TextBlock Text="Latest Session" Foreground="#FF676060"/>
                         <TextBlock Text="25/03/24"
                                    FontFamily="Cascadia Mono SemiLight"
                                    HorizontalAlignment="Right"/>
@@ -107,7 +107,7 @@
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
-                        <Span>Total Time: </Span>
+                        <Span Foreground="#FF676060">Total Time: </Span>
                         <Span FontFamily="Cascadia Mono SemiBold">20h 20min</Span>
                     </TextBlock>
                 </StackPanel>
