@@ -48,7 +48,7 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 			nameof(UpdateTimeValues), timetoadd);
 
 		// Adding time to Current Session
-		trackedApp.CurrentSessionTime += timetoadd;
+		trackedApp.CurrentSessionTime = Math.Round(trackedApp.CurrentSessionTime + timetoadd, 2);
 
 		Log.Information("{@Method} - {@App} - {@CurrentSessionTime} - {@Value}",
 			nameof(UpdateTimeValues), trackedApp.ProcessNameInOS, nameof(trackedApp.CurrentSessionTime), trackedApp.CurrentSessionTime);
@@ -61,7 +61,7 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 		// If yes - We add one minute
 		if (today != null)
 		{
-			today.Minutes += timetoadd;
+			today.Minutes = Math.Round(today.Minutes + timetoadd, 2);
 		}
 		// if no - We add new object of UpTimes with minute
 		else
