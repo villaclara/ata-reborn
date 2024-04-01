@@ -99,9 +99,9 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 		// Check if the AppInstance was nearly launched (for example 10 sec ago), then we do not want to add time to it.
 		// We have LastTimeTrackedDate, which is set at the end of this method.
 		var timeDifference = trackedApp.LastStateCheckedDate - trackedApp.LastTimeTrackedDate;
-		if (timeDifference.TotalSeconds > ConstantValues.TIMER_INTERVAL_MS / 1000)
+		if (timeDifference.TotalSeconds > ConstantValues.TIMER_INTERVAL_MS / 1000 + 2)
 		{
-			Log.Information("{@Method} - {@App} - LastCheckedDate ({@LCD}) minus LastTimeTrackedDate ({@LTTD}) is > Interval ({@Interval}). The appTime won't be updated this time.", 
+			Log.Information("{@Method} - {@App} - LastCheckedDate ({@LCD}) minus LastTimeTrackedDate ({@LTTD}) is > Interval ({@Interval}) + 2. The appTime won't be updated this time.", 
 				nameof(TrackTime), trackedApp.ProcessNameInOS, trackedApp.LastStateCheckedDate, trackedApp.LastTimeTrackedDate, ConstantValues.TIMER_INTERVAL_MS);
 		}
 
