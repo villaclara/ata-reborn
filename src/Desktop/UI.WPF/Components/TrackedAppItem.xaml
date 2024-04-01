@@ -60,7 +60,7 @@
                     BorderBrush="#a9a9a9">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060">
-                        <Run FontSize="32" Text=""></Run>
+                        <Run FontSize="32" Text="{Binding AppCurrentSessionHours, Mode=OneWay}"></Run>
                         <Span>h</Span>
                         <Run FontSize="32" Text="{Binding AppCurrentSessionMinutes, Mode=OneWay}"></Run>
                         <Span>min</Span>
@@ -108,7 +108,10 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
                         <Span Foreground="#FF676060">Total Time: </Span>
-                        <Span FontFamily="Bahnschrift">20h 20min</Span>
+                        <Run Text="{Binding AppTotalHours, Mode=OneWay}" FontFamily="Bahnschrift"></Run>
+                        <Span>h</Span>
+                        <Run Text="{Binding AppTotalMinutes, Mode=OneWay}" FontFamily="Bahnschrift"></Run>
+                        <Span>min</Span>
                     </TextBlock>
                 </StackPanel>
             </Border>

@@ -1,6 +1,7 @@
 ﻿using Application.Common.Services;
 using Application.Director.Creation;
 using Serilog;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,10 +31,13 @@ namespace UI.WPF
 
 		private async void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			File.WriteAllText("log.txt", "");
+			
 			Log.Logger = new LoggerConfiguration()
 				.WriteTo.Console()
 				.WriteTo.File("log.txt")
 				.CreateLogger();
+
 
 			Log.Information("{@Method} - start.", nameof(Window_Loaded));
 
@@ -53,6 +57,7 @@ namespace UI.WPF
 				director.WorkDone += vm.Director_WorkDone;
 				TrackedAppItem item = new TrackedAppItem();
 				item.DataContext = vm;
+				item.Width = 300;
 				WrapPanelMain.Children.Add(item);
 			}
 		}
