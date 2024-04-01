@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI.WPF"
         xmlns:components="clr-namespace:UI.WPF.Components"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="900"
+        Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded"
         >
     <Grid Background="#ececec">
 
@@ -34,11 +34,11 @@
         <ScrollViewer Grid.Row="1">
             
             <!-- Applications secion -->
-            <WrapPanel Orientation="Horizontal">
+            <WrapPanel x:Name="WrapPanelMain" Orientation="Horizontal">
 
-                <components:TrackedAppItem MinWidth="250" MinHeight="420" Margin="10 0 0 0"/>
+                <!--<components:TrackedAppItem MinWidth="250" MinHeight="420" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
-                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>-->
                 <!--<components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>

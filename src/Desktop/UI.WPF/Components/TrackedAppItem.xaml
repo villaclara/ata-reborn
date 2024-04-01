@@ -41,11 +41,11 @@
                     <!-- NAME of App-->
                     <Viewbox Height="40">
 
-                        <TextBlock Text="Discord" FontFamily="Verdana" />
+                        <TextBlock Text="{Binding AppName}" FontFamily="Verdana" />
                     </Viewbox>
 
                     <!-- App Status -->
-                    <TextBlock Text="stopped" 
+                    <TextBlock Text="{Binding AppIsRunning}" 
                                FontSize="16" 
                                HorizontalAlignment="Center"
                                Foreground="Red" FontFamily="Verdana" FontWeight="Bold"/>
@@ -59,10 +59,10 @@
                     BorderThickness="0 0 0 2" 
                     BorderBrush="#a9a9a9">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock FontFamily="Cascadia Code SemiBold" Foreground="#FF676060">
-                        <Span FontSize="32">8</Span>
+                    <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060">
+                        <Run FontSize="32" Text=""></Run>
                         <Span>h</Span>
-                        <Span FontSize="32">20</Span>
+                        <Run FontSize="32" Text="{Binding AppCurrentSessionMinutes, Mode=OneWay}"></Run>
                         <Span>min</Span>
                     </TextBlock>
                 </StackPanel>
@@ -108,7 +108,7 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
                         <Span Foreground="#FF676060">Total Time: </Span>
-                        <Span FontFamily="Cascadia Mono SemiBold">20h 20min</Span>
+                        <Span FontFamily="Bahnschrift">20h 20min</Span>
                     </TextBlock>
                 </StackPanel>
             </Border>
