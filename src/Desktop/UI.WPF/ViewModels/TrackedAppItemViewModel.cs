@@ -27,19 +27,16 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	public AppInstance _app;
 
 
-	public string AppName { get => App.Name; }
-
-	public string AppIsRunning
-	{
-		get => App.IsRunning ? "running" : "stopped";
-	}
-
+	public string AppName => App.Name; 
+	public string AppIsRunning => App.IsRunning ? "running" : "stopped";
 	public uint AppCurrentSessionHours => (uint)App.CurrentSessionTime / 60;
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
 	public uint AppTotalHours => (uint)App.UpTimes.Sum(u => u.Minutes) / 60;
 	public uint AppTotalMinutes => (uint)App.UpTimes.Sum(u => u.Minutes) % 60;
 	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
 	public string AppFirstSessionDate => App.CreatedAt.ToString("dd/MM/yy");
+
+
 
 	public Task Director_WorkDone(object arg1, int arg2)
 	{
@@ -101,13 +98,13 @@ public partial class TrackedAppItemViewModel : ObservableObject
 		};
 
 
-		_labels = [$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6)).ToString("dd/MM")}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5)).ToString("dd/MM")}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4)).ToString("dd/MM")}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3)).ToString("dd/MM")}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2)).ToString("dd/MM")}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1)).ToString("dd/MM")}",
-			$"{DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM")}"
+		_labels = [ $"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6)):dd/MM}",
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5)):dd/MM}",
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4)):dd/MM}",
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3)):dd/MM}",
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2)):dd/MM}",
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1)):dd/MM}",
+			$"{DateOnly.FromDateTime(DateTime.Now):dd/MM}"
 		];
 		_formatter = value => value.ToString("N");
 
