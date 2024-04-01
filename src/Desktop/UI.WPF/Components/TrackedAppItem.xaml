@@ -83,7 +83,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom">
                         <TextBlock Text="Start Date" Foreground="#FF676060"/>
-                        <TextBlock Text="25/03/24" FontFamily="Cascadia Mono SemiLight" />
+                        <TextBlock Text="{Binding AppFirstSessionDate}" FontFamily="Cascadia Mono SemiLight" />
                     </StackPanel>
                     <TextBlock Grid.Column="1" Text="" />
 
@@ -91,7 +91,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom">
                         <TextBlock Text="Latest Session" Foreground="#FF676060"/>
-                        <TextBlock Text="25/03/24"
+                        <TextBlock Text="{Binding AppLastSessionDate}"
                                    FontFamily="Cascadia Mono SemiLight"
                                    HorizontalAlignment="Right"/>
                     </StackPanel>

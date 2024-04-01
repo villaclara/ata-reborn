@@ -22,6 +22,8 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	[NotifyPropertyChangedFor(nameof(AppCurrentSessionMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppTotalHours))]
 	[NotifyPropertyChangedFor(nameof(AppTotalMinutes))]
+	[NotifyPropertyChangedFor(nameof(AppFirstSessionDate))]
+	[NotifyPropertyChangedFor(nameof(AppLastSessionDate))]
 	public AppInstance _app;
 
 
@@ -36,13 +38,15 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
 	public uint AppTotalHours => (uint)App.UpTimes.Sum(u => u.Minutes) / 60;
 	public uint AppTotalMinutes => (uint)App.UpTimes.Sum(u => u.Minutes) % 60;
+	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
+	public string AppFirstSessionDate => App.CreatedAt.ToString("dd/MM/yy");
 
 	public Task Director_WorkDone(object arg1, int arg2)
 	{
 		var app = new DataIssuer(new ReadDataFromJsonFile()).GetAppDataByName(_app.Name);
 		App = MyMapService.Map<AppInstanceVM, AppInstance>(app)!;
 
-
+		
 
 		return Task.CompletedTask;
 
