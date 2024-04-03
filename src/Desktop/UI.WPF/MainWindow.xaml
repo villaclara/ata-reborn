@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.WPF"
         xmlns:components="clr-namespace:UI.WPF.Components"
+        xmlns:viewmodels="clr-namespace:UI.WPF.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded"
         >
@@ -34,16 +35,33 @@
         <ScrollViewer Grid.Row="1">
             
             <!-- Applications secion -->
-            <WrapPanel x:Name="WrapPanelMain" Orientation="Horizontal">
+            <!--<WrapPanel x:Name="WrapPanelMain" Orientation="Horizontal">
 
-                <!--<components:TrackedAppItem MinWidth="250" MinHeight="420" Margin="10 0 0 0"/>
+                
+                --><!--<components:TrackedAppItem MinWidth="250" MinHeight="420" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>-->
                 <!--<components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
                 <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>
-                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>-->
-            </WrapPanel>
+                <components:TrackedAppItem MinWidth="250" Margin="10 0 0 0"/>--><!--
+            </WrapPanel>-->
+
+            <ItemsControl ItemsSource="{Binding AppItems}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel>
+                        </WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:TrackedAppItemViewModel}" >
+                        <components:TrackedAppItem/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>  
   
         

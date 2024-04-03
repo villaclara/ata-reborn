@@ -27,39 +27,13 @@ namespace UI.WPF
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			this.DataContext = new MainWindowViewModel();
 		}
 
 		private async void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			File.WriteAllText("log.txt", "");
 			
-			Log.Logger = new LoggerConfiguration()
-				.WriteTo.Console()
-				.WriteTo.File("log.txt")
-				.CreateLogger();
-
-
-			Log.Information("{@Method} - start.", nameof(Window_Loaded));
-
-			var director = new DirectorBuilder()
-				.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
-				.SetWritableFile("apps.json")
-				.SetTimerCheckValue(5000)
-				.Build();
-
-			director.WorkDone += Director_WorkDone;
-
-			await director.RunAsync();
-
-			foreach(var app in director.Apps)
-			{
-				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(app);
-				director.WorkDone += vm.Director_WorkDone;
-				TrackedAppItem item = new TrackedAppItem();
-				item.DataContext = vm;
-				item.Width = 300;
-				WrapPanelMain.Children.Add(item);
-			}
 		}
 
 		private Task Director_WorkDone(object arg1, int arg2)
