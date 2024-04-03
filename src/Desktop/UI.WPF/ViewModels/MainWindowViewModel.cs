@@ -15,11 +15,13 @@ namespace UI.WPF.ViewModels;
 
 public  class MainWindowViewModel : ObservableObject
 {
-	public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
+	//public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
+	public List<TrackedAppItemViewModel> AppItems { get; }
 
 	public MainWindowViewModel()
 	{
-		AppItems = new ObservableCollection<TrackedAppItemViewModel>();
+		//AppItems = new ObservableCollection<TrackedAppItemViewModel>();
+		AppItems = [];
 
 		File.WriteAllText("log.txt", "");
 
