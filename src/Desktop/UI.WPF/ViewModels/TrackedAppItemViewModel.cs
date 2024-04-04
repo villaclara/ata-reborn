@@ -1,4 +1,5 @@
-﻿using Application.Common.Services;
+﻿using Application.Common.Abstracts;
+using Application.Common.Services;
 using Application.Models;
 using Application.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -24,27 +25,27 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	[NotifyPropertyChangedFor(nameof(AppTotalMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppFirstSessionDate))]
 	[NotifyPropertyChangedFor(nameof(AppLastSessionDate))]
-	public AppInstance _app;
-
+	private AppInstanceVM _app;
 
 	public string AppName => App.Name; 
 	public string AppIsRunning => App.IsRunning ? "running" : "stopped";
 	public uint AppCurrentSessionHours => (uint)App.CurrentSessionTime / 60;
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
-	public uint AppTotalHours => (uint)App.UpTimes.Sum(u => u.Minutes) / 60;
-	public uint AppTotalMinutes => (uint)App.UpTimes.Sum(u => u.Minutes) % 60;
+	public uint AppTotalHours => (uint)App.UpTimeList.Sum(u => u.Minutes) / 60;
+	public uint AppTotalMinutes => (uint)App.UpTimeList.Sum(u => u.Minutes) % 60;
 	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
 	public string AppFirstSessionDate => App.CreatedAt.ToString("dd/MM/yy");
 
 
+	private readonly IDataIssuer _dataIssuer;
+
 
 	public Task Director_WorkDone(object arg1, int arg2)
 	{
-		var app = new DataIssuer(new ReadDataFromJsonFile()).GetAppDataByName(_app.Name);
-		App = MyMapService.Map<AppInstanceVM, AppInstance>(app)!;
+		App = _dataIssuer.GetAppDataByName(App.Name) ?? App;
+		//App = MyMapService.Map<AppInstanceVM, AppInstance>(app)!;
 
-		
-
+	
 		return Task.CompletedTask;
 
 	}
@@ -75,10 +76,11 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	public Func<double, string> _formatter;
 
 
-	public TrackedAppItemViewModel(AppInstance app)
+	public TrackedAppItemViewModel(AppInstanceVM app, IDataIssuer dataIssuer)
 	{
 		_app = app;
 
+		_dataIssuer = dataIssuer;
 
 		_seriesCollection = new SeriesCollection()
 		{
@@ -86,13 +88,13 @@ public partial class TrackedAppItemViewModel : ObservableObject
 			{
 				Title = "Time",
 				Values = new ChartValues<double> {
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
+			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
 				}
 			}
 		};
