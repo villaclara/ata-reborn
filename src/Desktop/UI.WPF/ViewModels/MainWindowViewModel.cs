@@ -21,6 +21,10 @@ public  class MainWindowViewModel : ObservableObject
 	//public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
 	public List<TrackedAppItemViewModel> AppItems { get; }
 
+
+
+	public ToolbarViewModel ToolbarViewModel { get; }
+
 	public MainWindowViewModel()
 	{
 		//AppItems = new ObservableCollection<TrackedAppItemViewModel>();
@@ -50,7 +54,7 @@ public  class MainWindowViewModel : ObservableObject
 		{
 			var appVM = MyMapService.Map<AppInstance, AppInstanceVM>(app);
 
-			if(appVM != null)
+			if (appVM != null)
 			{
 				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, dataIssuer);
 				director.WorkDone += vm.Director_WorkDone;
@@ -63,6 +67,8 @@ public  class MainWindowViewModel : ObservableObject
 			//item.Width = 300;
 
 		}
+
+		ToolbarViewModel = new ToolbarViewModel(director);
 
 	}
 }

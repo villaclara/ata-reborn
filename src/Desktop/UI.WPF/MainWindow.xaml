@@ -27,7 +27,7 @@
                 BorderBrush="Black"
                 BorderThickness="2">
 
-            <components:Toolbar Margin="50 10 50 10"/>
+            <components:Toolbar DataContext="{Binding ToolbarViewModel}" Margin="50 10 50 10"/>
 
         </Border>
 

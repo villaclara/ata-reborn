@@ -16,8 +16,8 @@
         <!-- First Column, TrackedApp related Buttons -->
         <Border Grid.Column="0" >
             <StackPanel Orientation="Horizontal">
-                <Button Content="Add" MinWidth="50"/>
-                
+                <Button Content="Add" MinWidth="50" Command="{Binding DoCommand}"/>
+                <TextBlock Text="Bruh" />
             </StackPanel>
 
 

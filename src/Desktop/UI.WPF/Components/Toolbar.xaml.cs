@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.WPF.ViewModels;
 
-namespace UI.WPF.Components
+namespace UI.WPF.Components;
+
+/// <summary>
+/// Interaction logic for Toolbar.xaml
+/// </summary>
+public partial class Toolbar : UserControl
 {
-    /// <summary>
-    /// Interaction logic for Toolbar.xaml
-    /// </summary>
-    public partial class Toolbar : UserControl
+    public Toolbar()
     {
-        public Toolbar()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
+
+   
 }
