@@ -56,22 +56,22 @@ public class DirectorBuilder : IDirectorBuilder
 			return this;
 		}
 
-		// Check extension if it is .json
+		// check extension
 		var split = where.Split('.');
-		var ext = string.Empty;
-		if(split.Length > 1)
+		var name = where;
+		var ext = ".json";
+
+		// if the Extension is .json then we remove it to later add "_backup" and only then Extension ".json"
+		if (split[^1] == "json")
 		{
-			if(split[1] != "json")
-			{
-				ext = ".json";
-			}
-		
+			var index = where.LastIndexOf(".json");
+			name = where.Substring(0, index);
 		}
 
 
 		// Add the extension .json to the filename
-		ConstantValues.MAIN_FILE_NAME = where + ext;
-		ConstantValues.BACKUP_MAIN_FILE_NAME = where + "_backup" + ext;
+		ConstantValues.MAIN_FILE_NAME = name + ext;
+		ConstantValues.BACKUP_MAIN_FILE_NAME = name + "_backup" + ext;
 
 		return this;
 

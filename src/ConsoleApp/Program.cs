@@ -64,7 +64,7 @@ Log.Information("Start app - {@Program}", nameof(Program));
 
 var director = new DirectorBuilder()
 	.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
-	.SetWritableFile("apps.json")
+	.SetWritableFile("appsaa12.json")
 	.SetTimerCheckValue(6000)
 	.Build();
 

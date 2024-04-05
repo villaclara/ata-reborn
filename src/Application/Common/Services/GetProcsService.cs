@@ -1,4 +1,5 @@
 ﻿using Application.Common.Abstracts;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +29,11 @@ public class GetProcsService : IGetProcs
 			if(useSystemManagement)
 			{
 				var extraInfo = GetExtraInfo(proc.Id);
-				result.Add(proc.ProcessName, extraInfo.Item2 ?? proc.ProcessName);
+				
+				if (!result.ContainsKey(proc.ProcessName))
+				{
+					result.Add(proc.ProcessName, extraInfo.Item2 ?? proc.ProcessName);
+				}
 			}
 			else
 			{
@@ -39,6 +44,47 @@ public class GetProcsService : IGetProcs
 		return result;
 	}
 
+
+	public IEnumerable<UniqueProcess> GetUniqueProcessesAsList(bool useSystemManagement)
+	{
+		var result = new Dictionary<string, string>();
+		var resultList = new List<UniqueProcess>();
+
+		var procs = Process.GetProcesses().Distinct();
+
+		foreach (var proc in procs)
+		{
+			if (useSystemManagement)
+			{
+				var extraInfo = GetExtraInfo(proc.Id);
+
+				if (!result.ContainsKey(proc.ProcessName))
+				{
+					result.Add(proc.ProcessName, extraInfo.Item2 ?? proc.ProcessName);
+					resultList.Add(new UniqueProcess
+					{
+						ProcessName = proc.ProcessName,
+						AppName = extraInfo.Item2 ?? proc.ProcessName
+					});
+				}
+			}
+			else
+			{
+				if (!result.ContainsKey(proc.ProcessName))
+				{
+					result.Add(proc.ProcessName, proc.ProcessName);
+					resultList.Add(new UniqueProcess
+					{
+						ProcessName = proc.ProcessName,
+						AppName = proc.ProcessName
+					});
+				}
+				result.Add(proc.ProcessName, proc.ProcessName);
+			}
+		}
+
+		return resultList;
+	}
 
 	// first string - appName, second string - processName
 	private static (string?, string?) GetExtraInfo(int pId)
