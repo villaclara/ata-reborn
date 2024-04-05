@@ -27,8 +27,9 @@
                 BorderBrush="Black"
                 BorderThickness="2">
 
-            <components:Toolbar DataContext="{Binding ToolbarViewModel}" Margin="50 10 50 10"/>
+            <!--<components:Toolbar DataContext="{Binding ToolbarViewModel}" Margin="50 10 50 10"/>-->
 
+            <components:ProcessListView DataContext="{Binding ProcessListViewModel}" />
         </Border>
 
         <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->

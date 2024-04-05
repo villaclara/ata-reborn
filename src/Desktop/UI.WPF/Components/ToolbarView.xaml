@@ -16,12 +16,19 @@
         <!-- First Column, TrackedApp related Buttons -->
         <Border Grid.Column="0" >
             <StackPanel Orientation="Horizontal">
-                <Button Content="Add" MinWidth="50" Command="{Binding DoCommand}"/>
+                <Button Content="Add" MinWidth="50" Command="{Binding AddAppInstanceCommand}"/>
                 <TextBlock Text="Bruh" />
             </StackPanel>
 
 
 
+        </Border>
+
+        <Border Grid.Column="0">
+            <Canvas>
+                <Rectangle Panel.ZIndex="0"  Width="100" Height="100" Fill="Black" />
+                <Button Content="alo" />
+            </Canvas> 
         </Border>
 
 

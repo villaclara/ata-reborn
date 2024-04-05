@@ -25,6 +25,8 @@ public  class MainWindowViewModel : ObservableObject
 
 	public ToolbarViewModel ToolbarViewModel { get; }
 
+	public ProcessListViewModel ProcessListViewModel { get; }
+
 	public MainWindowViewModel()
 	{
 		//AppItems = new ObservableCollection<TrackedAppItemViewModel>();
@@ -69,6 +71,8 @@ public  class MainWindowViewModel : ObservableObject
 		}
 
 		ToolbarViewModel = new ToolbarViewModel(director);
+
+		ProcessListViewModel = new ProcessListViewModel(new GetProcsService());
 
 	}
 }
