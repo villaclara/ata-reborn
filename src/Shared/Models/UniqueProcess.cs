@@ -8,6 +8,6 @@ namespace Shared.Models;
 
 public class UniqueProcess
 {
-	public string ProcessName { get; set; }
-	public string AppName {  get; set; }
+	public string ProcessName { get; set; }	
+	public string AppName { get; set; }
 }

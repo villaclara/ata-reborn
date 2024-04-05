@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,4 +21,5 @@ public interface IGetProcs
 	/// <param name="useSystemManagement">Pass True if want to try SystemManagement method. Otherwise pass False.</param>
 	/// <returns></returns>
 	IDictionary<string, string> GetUniqueProcesses(bool useSystemManagement);
+	IEnumerable<UniqueProcess> GetUniqueProcessesAsList(bool useSystemManagement);
 }

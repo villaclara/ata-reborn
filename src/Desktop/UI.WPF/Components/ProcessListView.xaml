@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -22,7 +22,8 @@
                 BorderBrush="Black"
                 BorderThickness="1">
 
-            <ListBox x:Name="ProcessesListBox">
+            <ListBox x:Name="ProcessesListBox" 
+                     ItemsSource="{Binding ProcessesList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -31,8 +32,8 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding }" Grid.Column="0" />
-                            <TextBlock Text="AppName" Grid.Column="1"/>
+                            <TextBlock Text="{Binding ProcessName}" Grid.Column="0" />
+                            <TextBlock Text="{Binding AppName}" Grid.Column="1"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

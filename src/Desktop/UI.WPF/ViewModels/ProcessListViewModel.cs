@@ -1,4 +1,5 @@
 ﻿using Application.Common.Abstracts;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,11 @@ public class ProcessListViewModel
 	public ProcessListViewModel(IGetProcs getProcessesService)
 	{
 		_getProcessesService = getProcessesService;
-		ProcessesList = _getProcessesService.GetUniqueProcesses(useSystemManagement: true);
+		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: true);
 	}
 
-	public IDictionary<string, string> ProcessesList { get; }
+	public IEnumerable<UniqueProcess> ProcessesList { get; }
+
 
 
 }
