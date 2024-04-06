@@ -15,7 +15,7 @@ public class ProcessListViewModel
 	public ProcessListViewModel(IGetProcs getProcessesService)
 	{
 		_getProcessesService = getProcessesService;
-		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: true);
+		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: true).OrderBy(p => p.ProcessName);
 	}
 
 	public IEnumerable<UniqueProcess> ProcessesList { get; }

@@ -22,23 +22,31 @@
                 BorderBrush="Black"
                 BorderThickness="1">
 
-            <ListBox x:Name="ProcessesListBox" 
-                     ItemsSource="{Binding ProcessesList}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="{Binding ProcessName}" Grid.Column="0" />
-                            <TextBlock Text="{Binding AppName}" Grid.Column="1"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                
-            </ListBox>
+            <ListView x:Name="ProcessesListView"
+                      ItemsSource="{Binding ProcessesList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Process Name" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProcessName}"
+                                               FontSize="16"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="App Name" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProcessName}"
+                                                FontSize="16"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+           
         </Border>
 
 
