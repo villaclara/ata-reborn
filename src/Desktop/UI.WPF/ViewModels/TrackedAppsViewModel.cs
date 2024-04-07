@@ -2,6 +2,7 @@
 using Application.Director.Instance;
 using Application.Models;
 using Application.Utilities;
+using Serilog;
 using Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace UI.WPF.ViewModels;
 
-public class TrackedAppsViewModel
+public class TrackedAppsViewModel : BaseViewModel
 {
 	public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
 
@@ -20,12 +21,14 @@ public class TrackedAppsViewModel
 
     public TrackedAppsViewModel(IDirector director)
     {
+		Log.Information("{@Method} - Start constructor.", nameof(TrackedAppItemViewModel));
 		AppItems = [];
 
 		_director = director;
 
 
 		var dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
+		Log.Information("{@Method} - Data issuer created - {@dataissuer}", nameof(TrackedAppItemViewModel), dataIssuer);
 
 		foreach (var app in director.Apps)
 		{
@@ -36,6 +39,9 @@ public class TrackedAppsViewModel
 				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, dataIssuer);
 				director.WorkDone += vm.Director_WorkDone;
 				AppItems.Add(vm);
+
+				Log.Information("{@Method} - Created VM ({@vm}) for ({@app}).", nameof(TrackedAppItemViewModel), nameof(vm), app.ProcessNameInOS);
+				Log.Information("{@Method} - {@AppItems} count - {@count}.", nameof(TrackedAppItemViewModel), nameof(AppItems), AppItems.Count);
 			}
 
 

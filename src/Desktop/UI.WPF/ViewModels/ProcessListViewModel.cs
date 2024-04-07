@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace UI.WPF.ViewModels;
 
-public class ProcessListViewModel
+public class ProcessListViewModel : BaseViewModel
 {
 	private readonly IGetProcs _getProcessesService;
 
 	public ProcessListViewModel(IGetProcs getProcessesService)
 	{
 		_getProcessesService = getProcessesService;
-		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: true).OrderBy(p => p.ProcessName);
+		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: false).OrderBy(p => p.ProcessName);
 	}
 
 	public IEnumerable<UniqueProcess> ProcessesList { get; }

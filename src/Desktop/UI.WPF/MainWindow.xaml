@@ -8,6 +8,7 @@
         xmlns:viewmodels="clr-namespace:UI.WPF.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded"
+        d:DataContext="{Binding MainWindowViewModel}"
         >
     <Grid Background="#ececec">
 
@@ -35,7 +36,9 @@
         <Border Grid.Row="1">
             
             <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->
-            <components:TrackedAppsView DataContext="{Binding TrackedAppsViewModel}"/>
+            <!--<components:TrackedAppsView DataContext="{Binding TrackedAppsViewModel}"/>-->
+
+            <ContentControl Content="{Binding Navigation.CurrentView}"/>
 
         </Border>
 

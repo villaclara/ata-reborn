@@ -28,7 +28,7 @@ namespace UI.WPF
 		{
 			InitializeComponent();
 
-			this.DataContext = new MainWindowViewModel();
+			//this.DataContext = new MainWindowViewModel();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

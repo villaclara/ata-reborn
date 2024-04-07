@@ -31,7 +31,7 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Center">
-                <Button Content="Add" MinWidth="50" Command="{Binding ShowProcessListScreenCommand}"/>
+                <Button Content="Add Process" MinWidth="50" Command="{Binding ShowProcessListScreenCommand}"/>
             </StackPanel>
         </Border>
         

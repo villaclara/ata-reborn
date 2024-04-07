@@ -80,11 +80,15 @@ public class MainDirector : IDirector
 
 	public async Task RunAsync()
 	{
+		Log.Information("{@Method} - method started.", nameof(RunAsync));
 		var apps = ReadDataService.RetrieveData();
+		Log.Information("{@Method} - read apps count - {@count}.", nameof(RunAsync), apps.Count);
 		foreach(var app in apps)
 		{
 			Apps.Add(app);
 			Handlers.Add(new AppHandler(new Interactor(app)));
+
+			Log.Information("{@Method} - App ({@app}) was added to {@Apps} and {@Handlers}", nameof(RunAsync), app, nameof(Apps), nameof(Handlers));
 		}
 
 		Timer = StaticTimerService.GetInstance();

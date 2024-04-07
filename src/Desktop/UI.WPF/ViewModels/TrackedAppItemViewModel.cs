@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace UI.WPF.ViewModels;
 
-public partial class TrackedAppItemViewModel : ObservableObject
+public partial class TrackedAppItemViewModel : BaseViewModel
 {
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(AppName))]

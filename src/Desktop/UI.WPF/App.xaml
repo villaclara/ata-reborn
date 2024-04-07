@@ -2,10 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:UI.WPF"
+             xmlns:components="clr-namespace:UI.WPF.Components"
+             xmlns:viewmodels="clr-namespace:UI.WPF.ViewModels"
              >
     <!--StartupUri="MainWindow.xaml"-->
     <Application.Resources>
-        <ResourceDictionary>
+
+        <DataTemplate DataType="{x:Type TypeName=viewmodels:TrackedAppsViewModel}">
+            <components:TrackedAppsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewmodels:ProcessListViewModel}">
+            <components:ProcessListView/>
+        </DataTemplate>
+        
+        
+        <ResourceDictionary x:Key="RDictionary">
             
             <!-- Global font -->
             <FontFamily x:Key="AppNameFont"/>
