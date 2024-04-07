@@ -27,6 +27,8 @@ public  class MainWindowViewModel : ObservableObject
 
 	public ProcessListViewModel ProcessListViewModel { get; }
 
+	public TrackedAppsViewModel TrackedAppsViewModel { get; }
+
 	public MainWindowViewModel()
 	{
 		//AppItems = new ObservableCollection<TrackedAppItemViewModel>();
@@ -50,25 +52,27 @@ public  class MainWindowViewModel : ObservableObject
 
 		director.RunAsync();
 
-		var dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
+		//var dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
 
-		foreach (var app in director.Apps)
-		{
-			var appVM = MyMapService.Map<AppInstance, AppInstanceVM>(app);
+		//foreach (var app in director.Apps)
+		//{
+		//	var appVM = MyMapService.Map<AppInstance, AppInstanceVM>(app);
 
-			if (appVM != null)
-			{
-				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, dataIssuer);
-				director.WorkDone += vm.Director_WorkDone;
-				AppItems.Add(vm);
-			}
+		//	if (appVM != null)
+		//	{
+		//		TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, dataIssuer);
+		//		director.WorkDone += vm.Director_WorkDone;
+		//		AppItems.Add(vm);
+		//	}
 
 
-			//TrackedAppItem item = new TrackedAppItem();
-			//item.DataContext = vm;
-			//item.Width = 300;
+		//	//TrackedAppItem item = new TrackedAppItem();
+		//	//item.DataContext = vm;
+		//	//item.Width = 300;
 
-		}
+		//}
+
+		TrackedAppsViewModel = new TrackedAppsViewModel(director);
 
 		ToolbarViewModel = new ToolbarViewModel(director);
 

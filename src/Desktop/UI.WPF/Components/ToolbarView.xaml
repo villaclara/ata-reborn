@@ -9,30 +9,52 @@
     <Grid Background="White">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <!-- First Column, TrackedApp related Buttons -->
+        <!-- First Column -->
         <Border Grid.Column="0" >
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Add" MinWidth="50" Command="{Binding AddAppInstanceCommand}"/>
-                <TextBlock Text="Bruh" />
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center">
+                <Button Content="Home" MinWidth="50" Command="{Binding ShowHomeScreenCommand}"/>
             </StackPanel>
-
-
-
-        </Border>
-
-        <Border Grid.Column="0">
-            <Canvas>
-                <Rectangle Panel.ZIndex="0"  Width="100" Height="100" Fill="Black" />
-                <Button Content="alo" />
-            </Canvas> 
         </Border>
 
 
-        <!-- Second Column, Settings -->
+        <!-- Second Column -->
+        <Border Grid.Column="1" >
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center">
+                <Button Content="Add" MinWidth="50" Command="{Binding ShowProcessListScreenCommand}"/>
+            </StackPanel>
+        </Border>
+        
+            
+        <!-- Third Column -->
+        <Border Grid.Column="2" >
+            <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center">
+                <Button Content="Settings" MinWidth="50" Command="{Binding ShowSettingsScreenCommand}"/>
+            </StackPanel>
+        </Border>
+        
+        
+        <!-- Fourth Column -->
+        <Border Grid.Column="3" >
+            <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center">
+                <Button Content="DayNightButton" MinWidth="50" Command="{Binding ToggleDayNightThemeCommand}"/>
+            </StackPanel>
+        </Border>
+        
         
     </Grid>
 </UserControl>

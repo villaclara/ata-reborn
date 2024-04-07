@@ -26,11 +26,11 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<IDirector>(new DirectorBuilder()
 					.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
 					.SetWritableFile("apps.json")
-					.SetTimerCheckValue(5000)
+					.SetTimerCheckValue(6000)
 					.Build());
 				
 				services.AddSingleton<MainWindow>();
-
+				services.AddSingleton<TrackedAppsViewModel>();
 
 				services.AddSingleton<ToolbarViewModel>();
 			})

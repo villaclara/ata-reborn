@@ -11,18 +11,41 @@ namespace UI.WPF.ViewModels;
 
 public partial class ToolbarViewModel
 {
-	public IRelayCommand AddAppInstanceCommand { get; }
+
+	private readonly IDirector _director;
 
 	public ToolbarViewModel(IDirector director)
 	{
-		AddAppInstanceCommand = new AddAppInstanceCommand(director);
+		_director = director;
 	}
 
 
 	[RelayCommand]
-	private void DoCommand()
+	private void ShowProcessListScreen()
+	{
+		_director.AddAppToTrackedList("notepad");
+	}
+
+
+	[RelayCommand]
+	private void ShowHomeScreen()
 	{
 
 	}
+
+	[RelayCommand]
+	private void ShowSettingsScreen()
+	{
+
+	}
+
+	[RelayCommand]
+	private void ToggleDayNightTheme()
+	{
+
+	}
+
+
+	
 
 }
