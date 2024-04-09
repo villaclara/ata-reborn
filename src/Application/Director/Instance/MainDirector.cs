@@ -85,6 +85,9 @@ public class MainDirector : IDirector
 		Log.Information("{@Method} - read apps count - {@count}.", nameof(RunAsync), apps.Count);
 		foreach(var app in apps)
 		{
+			// when first running reset the CurrentSessionTime for each app. 
+			// Not ideal, but works for now.
+			app.CurrentSessionTime = 0;
 			Apps.Add(app);
 			Handlers.Add(new AppHandler(new Interactor(app)));
 
