@@ -48,9 +48,22 @@
                     <TextBlock Text="{Binding AppIsRunning}" 
                                FontSize="16" 
                                HorizontalAlignment="Center"
-                               Foreground="Red" FontFamily="Verdana" FontWeight="Bold"/>
+                               FontFamily="Verdana" FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <!-- default color is red as the app is not running by default -->
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <!-- If the app is running - we set the font color to Green -->
+                                    <DataTrigger Binding="{Binding AppIsRunning}" Value="running">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
-                    </StackPanel>
+                </StackPanel>
 
             </Border>
 
