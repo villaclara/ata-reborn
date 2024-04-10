@@ -23,7 +23,8 @@
                 BorderThickness="1">
 
             <ListView x:Name="ProcessesListView"
-                      ItemsSource="{Binding ProcessesList}">
+                      ItemsSource="{Binding ProcessesList}"
+                      SelectedItem="{Binding SelectedProcess}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Process Name" Width="200">
@@ -55,7 +56,8 @@
             <WrapPanel HorizontalAlignment="Center"
                        VerticalAlignment="Center">
                 <Button Content="Select"
-                        Command="{Binding AddSelectedAppToTrackCommand}"/>
+                        Command="{Binding AddSelectedAppToTrackCommand}"
+                        CommandParameter="{Binding SelectedProcess}"/>
             </WrapPanel>
         </Border>
     </Grid>
