@@ -2,6 +2,7 @@
 using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using Shared.Models;
 using System;
@@ -40,6 +41,8 @@ public partial class ProcessListViewModel : BaseViewModel
 		{
 			Log.Information("{@Method} - Try block for adding ({@app}) by director.", nameof(AddSelectedAppToTrack), selectedProcess?.ProcessName);
 			_director.AddAppToTrackedList(selectedProcess!.ProcessName, selectedProcess.AppName ?? null);
+			StrongReferenceMessenger.Default.Send(new TrackedAppAddedMessage());
+			Log.Information("{@Method} - ({@Message}) was sent to recepients.", nameof(AddSelectedAppToTrack), nameof(TrackedAppAddedMessage));
 		}
 		catch(Exception ex)
 		{
