@@ -9,16 +9,29 @@ using UI.WPF.ViewModels;
 
 namespace UI.WPF.Services;
 
-
+/// <summary>
+/// Interface for navigating between UserControls in Application.
+/// </summary>
 public interface INavigationService
 {
+	/// <summary>
+	/// Has the current ViewModel object.
+	/// </summary>
 	BaseViewModel CurrentView { get; } 
+
+	/// <summary>
+	/// Navigate to desired ViewModel. Where T : BaseViewModel.
+	/// </summary>
+	/// <typeparam name="T">The type/class name of the ViewModel to Navigate where.</typeparam>
 	void NavigateTo<T>() where T : BaseViewModel;
 }
-public class NavigationService : ObservableObject, INavigationService
+
+
+public class NavigationService(Func<Type, BaseViewModel> viewModelFactory, TrackedAppsViewModel trackedAppsViewModel) : ObservableObject, INavigationService
 {
-	private BaseViewModel _currentView;
-	private readonly Func<Type, BaseViewModel> _viewModelFactory;
+	// trackedAppsViewModel - is the default model with TrackedApps, sent to the navigator. To be displayed at start.
+	private BaseViewModel _currentView = trackedAppsViewModel;
+	private readonly Func<Type, BaseViewModel> _viewModelFactory = viewModelFactory;
 
 	public BaseViewModel CurrentView
 	{
@@ -30,13 +43,7 @@ public class NavigationService : ObservableObject, INavigationService
 		}
 	}
 
-    public NavigationService(Func<Type, BaseViewModel> viewModelFactory)
-    {
-        _viewModelFactory = viewModelFactory;
-
-    }
-
-    public void NavigateTo<T>() where T : BaseViewModel
+	public void NavigateTo<T>() where T : BaseViewModel
 	{
 
 		BaseViewModel model = _viewModelFactory.Invoke(typeof(T));

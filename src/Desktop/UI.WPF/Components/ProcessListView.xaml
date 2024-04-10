@@ -54,7 +54,8 @@
 
             <WrapPanel HorizontalAlignment="Center"
                        VerticalAlignment="Center">
-                <Button Content="Select" />
+                <Button Content="Select"
+                        Command="{Binding AddSelectedAppToTrackCommand}"/>
             </WrapPanel>
         </Border>
     </Grid>

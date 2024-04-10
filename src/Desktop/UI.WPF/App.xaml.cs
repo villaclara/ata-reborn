@@ -45,12 +45,11 @@ public partial class App : System.Windows.Application
 					.SetTimerCheckValue(6000)
 					.Build());
 
-				// Add MainWindow and set the DataContext here
-				services.AddSingleton<MainWindow>(sp => new MainWindow()
-				{
-					DataContext = sp.GetRequiredService<MainWindowViewModel>()
-				});
-				services.AddSingleton<MainWindowViewModel>();
+				// Different Services, not ViewModels
+				services.AddSingleton<INavigationService, NavigationService>();
+				services.AddSingleton<IGetProcs, GetProcsService>();
+				
+				
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
 
@@ -58,15 +57,18 @@ public partial class App : System.Windows.Application
 				// Now the Process List is retrieved in Constructor. 
 				services.AddTransient<ProcessListViewModel>();
 
-
-				services.AddSingleton<INavigationService, NavigationService>();
-				services.AddSingleton<IGetProcs, GetProcsService>();
-
+				services.AddSingleton<MainWindowViewModel>();
 				// Gets the Required ViewModel by Navigation
 				services.AddSingleton<Func<Type, BaseViewModel>>(sp =>
 					viewModelType => (BaseViewModel)sp.GetRequiredService(viewModelType));
 
 
+				
+				// Add MainWindow and set the DataContext here
+				services.AddSingleton<MainWindow>(sp => new MainWindow()
+				{
+					DataContext = sp.GetRequiredService<MainWindowViewModel>()
+				});
 
 			})
 			.Build();
@@ -74,14 +76,14 @@ public partial class App : System.Windows.Application
 
 	protected override void OnStartup(StartupEventArgs e)
 	{
+		// director first to initialize it. Initialization is performed at RunAsync()
+		var director = AppHost.Services.GetRequiredService<IDirector>();
+		director.RunAsync();
 
 		AppHost.Start();
 
 		MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
 		MainWindow.Show();
-
-		var director = AppHost.Services.GetRequiredService<IDirector>();
-		director.RunAsync();
 
 		base.OnStartup(e);
 	}

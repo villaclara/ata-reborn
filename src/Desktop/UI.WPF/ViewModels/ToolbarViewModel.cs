@@ -1,5 +1,6 @@
 ﻿using Application.Director.Instance;
 using CommunityToolkit.Mvvm.Input;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ public partial class ToolbarViewModel : BaseViewModel
 	[RelayCommand]
 	private void ShowProcessListScreen()
 	{
+		Log.Information("{@Method} - Navigating to {@view}", nameof(ShowProcessListScreen), typeof(ProcessListViewModel));
 		_navigation.NavigateTo<ProcessListViewModel>();
 	}
 
@@ -34,6 +36,7 @@ public partial class ToolbarViewModel : BaseViewModel
 	[RelayCommand]
 	private void ShowHomeScreen()
 	{
+		Log.Information("{@Method} - Navigating to {@view}", nameof(ShowHomeScreen), typeof(TrackedAppsViewModel));
 		_navigation.NavigateTo<TrackedAppsViewModel>();
 	}
 

@@ -18,54 +18,25 @@ using UI.WPF.Services;
 
 namespace UI.WPF.ViewModels;
 
-public  class MainWindowViewModel : ObservableObject
+public class MainWindowViewModel: ObservableObject
 {
-	//public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
-	public List<TrackedAppItemViewModel> AppItems { get; }
-
-
-	private INavigationService _navigation; 
-
-
-	public INavigationService Navigation { 
-		get => _navigation; 
-		set
-		{
-			_navigation = value;
-			OnPropertyChanged();
-		}
-	}
-
-	
-	public ToolbarViewModel ToolbarViewModel { get; }
-
-	public ProcessListViewModel ProcessListViewModel { get; }
-
-	public TrackedAppsViewModel TrackedAppsViewModel { get; }
-
-
-	private IDirector _director;
-
-	public MainWindowViewModel(INavigationService navigation, IDirector director)
+	public MainWindowViewModel(INavigationService navigation, ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel)
 	{
-		Log.Information("{@Method} - start.", nameof(MainWindowViewModel));
-		
-		
-		Navigation = navigation;
+		_navigation = navigation;
 
-		//AppItems = new ObservableCollection<TrackedAppItemViewModel>();
-		AppItems = [];
-
-
-		_director = director;
-
-		//director.RunAsync();
-
-
-		TrackedAppsViewModel = new TrackedAppsViewModel(_director);
-
-		ToolbarViewModel = new ToolbarViewModel(_director, Navigation);
-
-
+		ToolbarViewModel = toolbarViewModel;
+		TrackedAppsViewModel = trackedAppsViewModel;
 	}
+
+
+	// For Binding purposes.
+	public ToolbarViewModel ToolbarViewModel { get; }
+	public TrackedAppsViewModel TrackedAppsViewModel { get; } 
+
+
+	// Is taking part in Binging Current View.
+	public INavigationService Navigation => _navigation;
+	private readonly INavigationService _navigation;
+
+
 }
