@@ -5,6 +5,7 @@ using Application.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Serilog;
 using Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -42,10 +43,9 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 	public Task Director_WorkDone(object arg1, int arg2)
 	{
+		Log.Information("{@Method} - Get data for ({@app}).", nameof(Director_WorkDone), App.Name);
 		App = _dataIssuer.GetAppDataByName(App.Name) ?? App;
-		//App = MyMapService.Map<AppInstanceVM, AppInstance>(app)!;
-
-	
+		Log.Information("{@Method} - ({@App}) values updated.", nameof(Director_WorkDone), App.Name);
 		return Task.CompletedTask;
 
 	}

@@ -29,7 +29,7 @@ public class DataIssuer(IReadData readData) : IDataIssuer
 
 	public AppInstanceVM? GetAppDataByName(string name)
 	{
-		var appsList = readData.RetrieveData();
+		var appsList = _readData.RetrieveData();
 
 		if (appsList.Count == 0)
 		{

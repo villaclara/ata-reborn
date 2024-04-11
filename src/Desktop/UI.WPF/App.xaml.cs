@@ -34,7 +34,8 @@ public partial class App : System.Windows.Application
 			{
 
 				Log.Logger = new LoggerConfiguration()
-					.WriteTo.File("log.txt", fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true, retainedFileCountLimit: 3, shared: true)
+					.WriteTo.File("log.txt", fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true, retainedFileCountLimit: 3, shared: true,
+									restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
 					.CreateLogger();
 				Log.Logger.Information("{@Method} - start serilog in WPF.", nameof(App));
 
