@@ -41,6 +41,13 @@
 
         </Border>
 
+
+        <Border Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Last checked: "/>
+                <TextBlock Text="{Binding LastDirectorWorkDone}"/>
+            </StackPanel>
+        </Border>
     </Grid>
 
 </Window>

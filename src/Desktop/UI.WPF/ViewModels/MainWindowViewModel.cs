@@ -18,14 +18,22 @@ using UI.WPF.Services;
 
 namespace UI.WPF.ViewModels;
 
-public class MainWindowViewModel: ObservableObject
+public partial class MainWindowViewModel: ObservableObject
 {
-	public MainWindowViewModel(INavigationService navigation, ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel)
+	public MainWindowViewModel(INavigationService navigation, ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, IDirector director)
 	{
 		_navigation = navigation;
+		_director = director;
+		_director.WorkDone += _director_WorkDone;
 
 		ToolbarViewModel = toolbarViewModel;
 		TrackedAppsViewModel = trackedAppsViewModel;
+	}
+
+	private Task _director_WorkDone(object arg1, int arg2)
+	{
+		LastDirectorWorkDone = _director.LastWorkDoneDate;
+		return Task.CompletedTask;
 	}
 
 
@@ -37,6 +45,9 @@ public class MainWindowViewModel: ObservableObject
 	// Is taking part in Binging Current View.
 	public INavigationService Navigation => _navigation;
 	private readonly INavigationService _navigation;
+	private readonly IDirector _director;
 
+	[ObservableProperty]
+	private DateTime _lastDirectorWorkDone;
 
 }

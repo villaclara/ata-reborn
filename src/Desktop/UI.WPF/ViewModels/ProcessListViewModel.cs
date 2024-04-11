@@ -16,16 +16,14 @@ namespace UI.WPF.ViewModels;
 
 public partial class ProcessListViewModel : BaseViewModel
 {
-	public ProcessListViewModel(IDirector director, IGetProcs getProcessesService, INavigationService navigation)
+	public ProcessListViewModel(IGetProcs getProcessesService, INavigationService navigation)
 	{
-		_director = director;
 		_navigation = navigation;
 		_getProcessesService = getProcessesService;
 		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: false).OrderBy(p => p.ProcessName);
 	}
 
 
-	private readonly IDirector _director;
 	private readonly IGetProcs _getProcessesService;
 	private readonly INavigationService _navigation;
 

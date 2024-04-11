@@ -44,6 +44,8 @@ public class MainDirector : IDirector
 
 	public StaticTimerService Timer { get; private set; }
 
+	public DateTime LastWorkDoneDate { get; private set; }
+
 	public event Func<object, int, Task>? WorkDone;
 
 	public void AddAppToTrackedList(string processName, string? appName = null)
@@ -108,7 +110,8 @@ public class MainDirector : IDirector
 	public async Task RunOnceManuallyAsync()
 	{
 		Log.Information("{@Method} - ({@Director}) Method Started.", nameof(RunOnceManuallyAsync), typeof(MainDirector));
-		await DoWork();
+		//await DoWork();
+		await OnTimerElapsed(this, ConstantValues.TIMER_INTERVAL_MS);
 
 	}
 
@@ -138,5 +141,7 @@ public class MainDirector : IDirector
 		bool result = WriteDataService.WriteData(Apps);
 
 		Log.Information("{@Method} - end", nameof(DoWork));
+		LastWorkDoneDate = DateTime.Now;
+		Log.Information("{@Method} - Director LastWorkDoneDate ({@last}).", nameof(DoWork), LastWorkDoneDate);
 	}
 }
