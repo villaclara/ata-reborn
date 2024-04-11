@@ -11,7 +11,4 @@ internal class Messages
 }
 
 
-public class TrackedAppAddedMessage
-{
-
-}
+public record class TrackedAppAddedMessage();

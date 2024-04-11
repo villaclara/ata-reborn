@@ -34,9 +34,8 @@ public partial class App : System.Windows.Application
 			{
 
 				Log.Logger = new LoggerConfiguration()
-						.WriteTo.Console()
-						.WriteTo.File("log.txt")
-						.CreateLogger();
+					.WriteTo.File("log.txt", fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true, retainedFileCountLimit: 3, shared: true)
+					.CreateLogger();
 				Log.Logger.Information("{@Method} - start serilog in WPF.", nameof(App));
 
 				services.AddSingleton<IDirector>(new DirectorBuilder()
@@ -48,8 +47,8 @@ public partial class App : System.Windows.Application
 				// Different Services, not ViewModels
 				services.AddSingleton<INavigationService, NavigationService>();
 				services.AddSingleton<IGetProcs, GetProcsService>();
-				
-				
+
+
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
 
@@ -63,7 +62,7 @@ public partial class App : System.Windows.Application
 					viewModelType => (BaseViewModel)sp.GetRequiredService(viewModelType));
 
 
-				
+
 				// Add MainWindow and set the DataContext here
 				services.AddSingleton<MainWindow>(sp => new MainWindow()
 				{
