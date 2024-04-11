@@ -14,7 +14,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="420"/>
+            <RowDefinition Height="440"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -25,7 +25,6 @@
 
         <!-- Top toolbar -->
         <Border Grid.Row="0"
-                BorderBrush="Black"
                 BorderThickness="2">
 
             <components:Toolbar DataContext="{Binding ToolbarViewModel}" Margin="50 10 50 10"/>

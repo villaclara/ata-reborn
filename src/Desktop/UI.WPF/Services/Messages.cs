@@ -11,4 +11,12 @@ internal class Messages
 }
 
 
-public record class TrackedAppAddedMessage();
+/// <summary>
+/// Message sent when the Selected App from Processes List was added to Tracking.
+/// </summary>
+public record class TrackedAppAddedMessage(string ProcessName, string? AppName);
+
+/// <summary>
+/// Message sent when the Selected App from TrackedAppItemViewModel was removed from Tracking.
+/// </summary>
+public record class TrackedAppDeletedMessage(string AppName);

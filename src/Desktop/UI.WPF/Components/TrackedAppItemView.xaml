@@ -7,8 +7,7 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="420" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance local:TrackedAppItem}"
-             >
+             d:DataContext="{d:DesignInstance local:TrackedAppItem}">
 
     <UserControl.Resources>
 
@@ -34,15 +33,31 @@
             <Border Grid.Row="0" 
                     BorderBrush="Black" 
                     BorderThickness="0 0 0 0">
-                    
-                    <StackPanel HorizontalAlignment="Center" 
-                            VerticalAlignment="Center">
-                    
-                    <!-- NAME of App-->
-                    <Viewbox Height="40">
 
+                <StackPanel 
+                            VerticalAlignment="Center">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0">
+                            
+                    <!-- NAME of App-->
+                    <Viewbox Height="40" Grid.Column="0">
                         <TextBlock Text="{Binding AppName}" FontFamily="Verdana" />
                     </Viewbox>
+                        </Border>
+
+                       <Button Grid.Column="1"
+                               Content="X" 
+                               Command="{Binding DeleteTrackedAppCommand}"/>
+
+
+                    </Grid>
 
                     <!-- App Status -->
                     <TextBlock Text="{Binding AppIsRunning}" 
@@ -89,7 +104,6 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" 
@@ -98,9 +112,8 @@
                         <TextBlock Text="Start Date" Foreground="#FF676060"/>
                         <TextBlock Text="{Binding AppFirstSessionDate}" FontFamily="Cascadia Mono SemiLight" />
                     </StackPanel>
-                    <TextBlock Grid.Column="1" Text="" />
 
-                    <StackPanel Grid.Column="2"
+                    <StackPanel Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom">
                         <TextBlock Text="Latest Session" Foreground="#FF676060"/>
@@ -112,7 +125,7 @@
                 </Grid>
             </Border>
 
-            
+
             <!-- Total Time Section -->
             <Border Grid.Row="3" 
              BorderThickness="0 0 0 2"
@@ -129,7 +142,7 @@
                 </StackPanel>
             </Border>
 
-            
+
             <!-- Chart section -->
             <Border Grid.Row="4">
                 <StackPanel>

@@ -17,7 +17,7 @@ using UI.WPF.Services;
 
 namespace UI.WPF.ViewModels;
 
-public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMessage>
+public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<TrackedAppDeletedMessage>
 {
 	public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
 
@@ -31,6 +31,7 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 		try
 		{
 			StrongReferenceMessenger.Default.Register<TrackedAppAddedMessage>(this);
+			StrongReferenceMessenger.Default.Register<TrackedAppDeletedMessage>(this);
 			Log.Information("{@Method} - Registered ({@Message}) will be received in ({@type}).", nameof(TrackedAppItemViewModel), nameof(TrackedAppAddedMessage), typeof(TrackedAppItemViewModel));
 		}
 		catch(Exception ex)
@@ -70,9 +71,49 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 	}
 
 
-	public void Receive(TrackedAppAddedMessage message)
+	public async void Receive(TrackedAppAddedMessage message)
 	{
-		AppItems.Clear();
-		SetUpAppItems();
+		try
+		{
+			_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
+
+			var added = MyMapService.Map<AppInstance, AppInstanceVM>(_director.Apps.Last());
+			TrackedAppItemViewModel vm = new(added!, _dataIssuer);
+			AppItems.Add(vm);
+
+			_director.WorkDone -= vm.Director_WorkDone;
+			_director.WorkDone += vm.Director_WorkDone;
+
+			Log.Information("{@Method} - ({@App}) was added to ({@director}) and ({@AppItems}).", nameof(Receive), added?.Name, nameof(_director), nameof(AppItems));
+			await _director.RunOnceManuallyAsync();
+			//await vm.Director_WorkDone(new object(), 0);
+		}
+		catch(Exception ex)
+		{
+			Log.Error("{@Method} - {@ex}.", nameof(Receive), ex.Message);
+		}
+
+	}
+
+	public void Receive(TrackedAppDeletedMessage message)
+	{
+		try
+		{
+			var appvm = AppItems.Where(item => item.AppName == message.AppName).FirstOrDefault();
+			if(appvm != null)
+			{
+				_director.RemoveAppFromTrackedList(message.AppName);
+				_director.WorkDone -= appvm.Director_WorkDone;
+				AppItems.Remove(appvm);
+				_director.RunOnceManuallyAsync();
+			}
+
+			Log.Information("{@Method} - ({@App}) was removed from ({@director}) and ({@AppItems}).", nameof(Receive), message.AppName, nameof(_director), nameof(AppItems));
+
+		}
+		catch (Exception ex)
+		{
+			Log.Error("{@MEthod} - {@ex}.", nameof(Receive), ex.Message);
+		}
 	}
 }

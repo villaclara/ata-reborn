@@ -67,9 +67,13 @@ public class MainDirector : IDirector
 		WorkDone?.Invoke(this, minutes);
 	}
 
-	public void RemoveAppFromTrackedList(string processName)
+	public void RemoveAppFromTrackedList(string appName, string? processName = null)
 	{
-		var app = Apps.Where(a => a.ProcessNameInOS == processName).FirstOrDefault();
+		// try by processName at first, however if it is mising then by appName.
+		var app = processName != null 
+			? Apps.Where(a => a.ProcessNameInOS == processName).FirstOrDefault() 
+			: Apps.Where(a => a.ProcessNameInOS == appName).FirstOrDefault();
+
 		if (app != null)
 		{
 			var index = Apps.IndexOf(app);
@@ -91,7 +95,7 @@ public class MainDirector : IDirector
 			Apps.Add(app);
 			Handlers.Add(new AppHandler(new Interactor(app)));
 
-			Log.Information("{@Method} - App ({@app}) was added to {@Apps} and {@Handlers}", nameof(RunAsync), app, nameof(Apps), nameof(Handlers));
+			Log.Information("{@Method} - App ({@app}) was added to ({@Apps}) and ({@Handlers})", nameof(RunAsync), app.ProcessNameInOS, nameof(Apps), nameof(Handlers));
 		}
 
 		Timer = StaticTimerService.GetInstance();
@@ -103,6 +107,7 @@ public class MainDirector : IDirector
 
 	public async Task RunOnceManuallyAsync()
 	{
+		Log.Information("{@Method} - ({@Director}) Method Started.", nameof(RunOnceManuallyAsync), typeof(MainDirector));
 		await DoWork();
 
 	}

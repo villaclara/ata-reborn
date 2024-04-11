@@ -39,10 +39,8 @@ public partial class ProcessListViewModel : BaseViewModel
 	{
 		try
 		{
-			Log.Information("{@Method} - Try block for adding ({@app}) by director.", nameof(AddSelectedAppToTrack), selectedProcess?.ProcessName);
-			_director.AddAppToTrackedList(selectedProcess!.ProcessName, selectedProcess.AppName ?? null);
-			StrongReferenceMessenger.Default.Send(new TrackedAppAddedMessage());
-			Log.Information("{@Method} - ({@Message}) was sent to recepients.", nameof(AddSelectedAppToTrack), nameof(TrackedAppAddedMessage));
+			StrongReferenceMessenger.Default.Send(new TrackedAppAddedMessage(selectedProcess.ProcessName, selectedProcess.AppName ?? null));
+			Log.Information("{@Method} - ({@Message}) with AppName({@AppName}) and ProcName({@Proc}) was sent.", nameof(AddSelectedAppToTrack), nameof(TrackedAppAddedMessage), selectedProcess.AppName, selectedProcess.ProcessName);
 		}
 		catch(Exception ex)
 		{

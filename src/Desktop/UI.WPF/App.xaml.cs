@@ -42,7 +42,7 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<IDirector>(new DirectorBuilder()
 					.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
 					.SetWritableFile("apps.json")
-					.SetTimerCheckValue(6000)
+					.SetTimerCheckValue(18000)
 					.Build());
 
 				// Different Services, not ViewModels

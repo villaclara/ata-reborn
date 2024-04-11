@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
 
-        <Border BorderBrush="Black" BorderThickness="3">
+        <Border>
             
         <ScrollViewer>
             <ItemsControl ItemsSource="{Binding AppItems}">
@@ -23,8 +23,11 @@
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:TrackedAppItemViewModel}" >
-                        <components:TrackedAppItem/>
+                    <DataTemplate DataType="{x:Type viewmodels:TrackedAppItemViewModel}">
+                        <components:TrackedAppItem 
+                            Width="200"
+                            Height="380"
+                            Margin="10 10 0 10"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

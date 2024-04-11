@@ -37,7 +37,6 @@ public class ReadDataFromJsonFile : IReadData
         {             
             var read = ReadFromFile(ConstantValues.MAIN_FILE_NAME);
             apps = GetListFromStringData(read);
-			Serilog.Events.LogEventLevel.
             //Log.Information("{@Method} - Data - {@Apps}", nameof(RetrieveData), apps);
             return apps;
         }

@@ -63,7 +63,7 @@ public interface IDirector
 	/// <summary>
 	/// Remove the application from tracking.
 	/// </summary>
-	void RemoveAppFromTrackedList(string processName);
+	void RemoveAppFromTrackedList(string appName, string? processName = null);
 
 	/// <summary>
 	/// Event is raised when Director has done the full one cycle of work.

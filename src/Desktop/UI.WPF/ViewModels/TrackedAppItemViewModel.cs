@@ -3,6 +3,8 @@ using Application.Common.Services;
 using Application.Models;
 using Application.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Serilog;
@@ -12,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.WPF.Services;
 
 namespace UI.WPF.ViewModels;
 
@@ -110,5 +113,20 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		];
 		_formatter = value => value.ToString("N");
 
+	}
+
+
+
+	[RelayCommand]
+	private void DeleteTrackedApp()
+	{
+		try
+		{
+			StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
+		}
+		catch (Exception ex)
+		{
+
+		}
 	}
 }
