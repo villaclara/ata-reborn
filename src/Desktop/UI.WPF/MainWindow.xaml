@@ -9,8 +9,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded"
         d:DataContext="{Binding MainWindowViewModel}"
+        ResizeMode="CanMinimize"
         >
-    <Grid Background="#ececec">
+    
+    
+    <Grid Background="{DynamicResource MainBackground}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -25,14 +28,17 @@
 
         <!-- Top toolbar -->
         <Border Grid.Row="0"
-                BorderThickness="2">
+                BorderThickness="0 0 0 3"
+                BorderBrush="{DynamicResource MainBackground}"
+                Background="{DynamicResource SecondaryBackground}">
 
             <components:Toolbar DataContext="{Binding ToolbarViewModel}" Margin="50 10 50 10"/>
 
             <!--<components:ProcessListView DataContext="{Binding ProcessListViewModel}" />-->
         </Border>
 
-        <Border Grid.Row="1">
+        <Border Grid.Row="1"
+                Background="{DynamicResource SecondaryBackground}">
             
             <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->
             <!--<components:TrackedAppsView DataContext="{Binding TrackedAppsViewModel}"/>-->
@@ -42,7 +48,10 @@
         </Border>
 
 
-        <Border Grid.Row="2">
+        <Border Grid.Row="2"
+                BorderThickness="0 2 0 0"
+                BorderBrush="{DynamicResource MainBackground}"
+                Background="{DynamicResource MainBackground}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Last checked: "/>
                 <TextBlock Text="{Binding LastDirectorWorkDone}"/>

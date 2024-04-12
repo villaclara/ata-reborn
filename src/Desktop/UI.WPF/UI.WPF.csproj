@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\moon.png" />
+    <None Remove="Resources\Images\sun.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\" />
   </ItemGroup>
@@ -21,6 +26,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Application.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\moon.png" />
+    <Resource Include="Resources\Images\sun.png" />
   </ItemGroup>
 
 </Project>

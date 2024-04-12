@@ -24,6 +24,8 @@ public partial class App : System.Windows.Application
 
 	public App()
 	{
+		InitializeComponent();
+
 		// Clear the log file. 
 		// 
 		// Maybe it is worth to move it somewhere else, idk

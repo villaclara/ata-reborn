@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="800">
-    <Grid Background="White">
+             d:DesignHeight="100" d:DesignWidth="800">
+    <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
@@ -51,7 +51,40 @@
             <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center">
-                <Button Content="DayNightButton" MinWidth="50" Command="{Binding ToggleDayNightThemeCommand}"/>
+                <!--<Button Content="DayNightButton" MinWidth="50" Command="{Binding ToggleDayNightThemeCommand}"/>-->
+
+
+                <Border MaxWidth="20" MaxHeight="20" Margin="0 0 5 0">
+                    <Image Source="/Resources/Images/sun.png"/>
+                </Border>
+                <!-- Button to change Theme -->
+                <ToggleButton Command="{Binding ToggleDayNightThemeCommand}">
+                    <ToggleButton.Template>
+                        <ControlTemplate>
+                            <Border x:Name="SwitchBorder" Width="40" Height="16" CornerRadius="8" Background="{DynamicResource CardSecondaryForeground}">
+                                <Border x:Name="SwitchShape" Width="11" Height="11" Margin="4 0 4 0" Background="{DynamicResource CardBackground}"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="15" BorderBrush="Gray">
+                                    <Border.Effect>
+                                        <DropShadowEffect Opacity=".1"/>
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                    <Setter TargetName="SwitchShape" Property="HorizontalAlignment" Value="Right"/>
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+
+
+
+                <Border MaxWidth="20" MaxHeight="20" Margin="5 0 0 0">
+                    <Image Source="/Resources/Images/moon.png"/>
+                </Border>
             </StackPanel>
         </Border>
         

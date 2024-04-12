@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using UI.WPF.Commands;
 using UI.WPF.Services;
 
@@ -13,6 +14,7 @@ namespace UI.WPF.ViewModels;
 
 public partial class ToolbarViewModel : BaseViewModel
 {
+	private bool _isLightTheme = true;
 
 	private readonly IDirector _director;
 
@@ -49,7 +51,12 @@ public partial class ToolbarViewModel : BaseViewModel
 	[RelayCommand]
 	private void ToggleDayNightTheme()
 	{
+		_isLightTheme = !_isLightTheme;
 
+		string newThemePath = _isLightTheme ? "Resources/Dictionaries/LightTheme.xaml" : "Resources/Dictionaries/DarkTheme.xaml";
+		var newTheme = (ResourceDictionary)System.Windows.Application.LoadComponent(new Uri(newThemePath, UriKind.Relative));
+		System.Windows.Application.Current.Resources.MergedDictionaries.Clear();
+		System.Windows.Application.Current.Resources.MergedDictionaries.Add(newTheme);
 	}
 
 
