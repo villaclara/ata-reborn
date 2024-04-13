@@ -15,7 +15,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!-- First Column -->
         <Border Grid.Column="0" >
             <StackPanel Orientation="Horizontal" 
@@ -34,8 +34,8 @@
                 <Button Content="Add Process" MinWidth="50" Command="{Binding ShowProcessListScreenCommand}"/>
             </StackPanel>
         </Border>
-        
-            
+
+
         <!-- Third Column -->
         <Border Grid.Column="2" >
             <StackPanel Orientation="Horizontal"
@@ -44,8 +44,8 @@
                 <Button Content="Settings" MinWidth="50" Command="{Binding ShowSettingsScreenCommand}"/>
             </StackPanel>
         </Border>
-        
-        
+
+
         <!-- Fourth Column -->
         <Border Grid.Column="3" >
             <StackPanel Orientation="Horizontal"
@@ -70,11 +70,35 @@
                                 </Border>
                             </Border>
 
+                            <!-- Animations. -->
                             <ControlTemplate.Triggers>
                                 <Trigger Property="ToggleButton.IsChecked" Value="True">
-                                    <Setter TargetName="SwitchShape" Property="HorizontalAlignment" Value="Right"/>
-                                </Trigger>
+                                   
+                                    <!-- Animation moving the slider to the right. -->
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard x:Name="MoveRightAnimation">
+                                                <ThicknessAnimation Storyboard.TargetName="SwitchShape"
+                                                                    Storyboard.TargetProperty="Margin"
+                                                                    To="25 0 4 0"
+                                                                    Duration="00:00:0.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
 
+                                    <!-- Animation moving slider back to the left. -->
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard >
+                                                <ThicknessAnimation Storyboard.TargetName="SwitchShape"
+                                                                    Storyboard.TargetProperty="Margin"
+                                                                    To="4 0 25 0"
+                                                                    Duration="00:00:00.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+
+                                </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </ToggleButton.Template>
@@ -87,7 +111,7 @@
                 </Border>
             </StackPanel>
         </Border>
-        
-        
+
+
     </Grid>
 </UserControl>
