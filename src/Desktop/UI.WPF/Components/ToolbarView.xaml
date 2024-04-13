@@ -62,7 +62,7 @@
                     <ToggleButton.Template>
                         <ControlTemplate>
                             <Border x:Name="SwitchBorder" Width="40" Height="16" CornerRadius="8" Background="{DynamicResource CardSecondaryForeground}">
-                                <Border x:Name="SwitchShape" Width="11" Height="11" Margin="4 0 4 0" Background="{DynamicResource CardBackground}"
+                                <Border x:Name="SwitchShape" Width="11" Height="11" Margin="{Binding ToggleMargin}" Background="{DynamicResource CardBackground}"
                                         HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="15" BorderBrush="Gray">
                                     <Border.Effect>
                                         <DropShadowEffect Opacity=".1"/>
