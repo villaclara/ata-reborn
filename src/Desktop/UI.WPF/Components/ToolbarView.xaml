@@ -58,11 +58,14 @@
                     <Image Source="/Resources/Images/sun.png"/>
                 </Border>
                 <!-- Button to change Theme -->
-                <ToggleButton Command="{Binding ToggleDayNightThemeCommand}">
+                <ToggleButton Cursor="Hand" 
+                              Command="{Binding ToggleDayNightThemeCommand}"
+                              x:Name="ToggleThemeButton"
+                              IsChecked="{Binding ThemeButtonIsChecked}">
                     <ToggleButton.Template>
                         <ControlTemplate>
                             <Border x:Name="SwitchBorder" Width="40" Height="16" CornerRadius="8" Background="{DynamicResource CardSecondaryForeground}">
-                                <Border x:Name="SwitchShape" Width="11" Height="11" Margin="{Binding ToggleMargin}" Background="{DynamicResource CardBackground}"
+                                <Border x:Name="SwitchShape" Width="11" Height="11" Margin="{Binding ToggleMarginDefaultPos}" Background="{DynamicResource CardBackground}"
                                         HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="15" BorderBrush="Gray">
                                     <Border.Effect>
                                         <DropShadowEffect Opacity=".1"/>
