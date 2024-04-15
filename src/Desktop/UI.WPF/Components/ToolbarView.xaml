@@ -55,7 +55,20 @@
 
 
                 <Border MaxWidth="20" MaxHeight="20" Margin="0 0 5 0">
-                    <Image Source="/Resources/Images/sun.png"/>
+                    <Image Height="20">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
+                                        <Setter Property="Source" Value="/Resources/Images/sun_black.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
+                                        <Setter Property="Source" Value="/Resources/Images/sun_white.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
                 </Border>
                 <!-- Button to change Theme -->
                 <ToggleButton Cursor="Hand" 
@@ -110,7 +123,20 @@
 
 
                 <Border MaxWidth="20" MaxHeight="20" Margin="5 0 0 0">
-                    <Image Source="/Resources/Images/moon.png"/>
+                    <Image Height="20">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
+                                        <Setter Property="Source" Value="/Resources/Images/moon_black.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
+                                        <Setter Property="Source" Value="/Resources/Images/moon_white.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
                 </Border>
             </StackPanel>
         </Border>

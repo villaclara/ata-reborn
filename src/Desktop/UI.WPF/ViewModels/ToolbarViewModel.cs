@@ -1,4 +1,5 @@
 ﻿using Application.Director.Instance;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
 using System.Configuration;
@@ -10,6 +11,7 @@ namespace UI.WPF.ViewModels;
 
 public partial class ToolbarViewModel : BaseViewModel
 {
+	[ObservableProperty]
 	private bool _isLightTheme = true;
 
 	private readonly IDirector _director;
@@ -62,9 +64,9 @@ public partial class ToolbarViewModel : BaseViewModel
 	[RelayCommand]
 	private void ToggleDayNightTheme()
 	{
-		_isLightTheme = !_isLightTheme;
+		IsLightTheme = !IsLightTheme;
 
-		string s = _isLightTheme ? "True" : "False";
+		string s = IsLightTheme ? "True" : "False";
 		// set the value in App.Config
 
 
@@ -84,10 +86,10 @@ public partial class ToolbarViewModel : BaseViewModel
 		//config.Save(ConfigurationSaveMode.Modified);
 
 		var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-		config.AppSettings.Settings["IsLightTheme"].Value = _isLightTheme ? "True" : "False";
+		config.AppSettings.Settings["IsLightTheme"].Value = IsLightTheme ? "True" : "False";
 		config.Save(ConfigurationSaveMode.Modified);
 
-		string newThemePath = _isLightTheme ? "Resources/Dictionaries/LightTheme.xaml" : "Resources/Dictionaries/DarkTheme.xaml";
+		string newThemePath = IsLightTheme ? "Resources/Dictionaries/LightTheme.xaml" : "Resources/Dictionaries/DarkTheme.xaml";
 		var newTheme = (ResourceDictionary)System.Windows.Application.LoadComponent(new Uri(newThemePath, UriKind.Relative));
 		System.Windows.Application.Current.Resources.MergedDictionaries.Clear();
 		System.Windows.Application.Current.Resources.MergedDictionaries.Add(newTheme);

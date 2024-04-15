@@ -9,8 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\moon.png" />
-    <None Remove="Resources\Images\sun.png" />
+    <None Remove="Resources\Images\moon_black.png" />
+    <None Remove="Resources\Images\moon_white.png" />
+    <None Remove="Resources\Images\sun_black.png" />
+    <None Remove="Resources\Images\sun_white.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,8 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\moon.png" />
-    <Resource Include="Resources\Images\sun.png" />
+    <Resource Include="Resources\Images\moon_black.png" />
+    <Resource Include="Resources\Images\moon_white.png" />
+    <Resource Include="Resources\Images\sun_black.png" />
+    <Resource Include="Resources\Images\sun_white.png" />
   </ItemGroup>
 
 </Project>
