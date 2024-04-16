@@ -10,9 +10,16 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\close_black.png" />
+    <None Remove="Resources\Images\dashboard_blackyellow.png" />
+    <None Remove="Resources\Images\home_black.png" />
+    <None Remove="Resources\Images\home_white.png" />
     <None Remove="Resources\Images\minimize_black.png" />
     <None Remove="Resources\Images\moon_black.png" />
     <None Remove="Resources\Images\moon_white.png" />
+    <None Remove="Resources\Images\plus_black.png" />
+    <None Remove="Resources\Images\plus_white.png" />
+    <None Remove="Resources\Images\settings_black.png" />
+    <None Remove="Resources\Images\settings_white.png" />
     <None Remove="Resources\Images\sun_black.png" />
     <None Remove="Resources\Images\sun_white.png" />
   </ItemGroup>
@@ -34,9 +41,16 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\close_black.png" />
+    <Resource Include="Resources\Images\dashboard_blackyellow.png" />
+    <Resource Include="Resources\Images\home_black.png" />
+    <Resource Include="Resources\Images\home_white.png" />
     <Resource Include="Resources\Images\minimize_black.png" />
     <Resource Include="Resources\Images\moon_black.png" />
     <Resource Include="Resources\Images\moon_white.png" />
+    <Resource Include="Resources\Images\plus_black.png" />
+    <Resource Include="Resources\Images\plus_white.png" />
+    <Resource Include="Resources\Images\settings_black.png" />
+    <Resource Include="Resources\Images\settings_white.png" />
     <Resource Include="Resources\Images\sun_black.png" />
     <Resource Include="Resources\Images\sun_white.png" />
   </ItemGroup>

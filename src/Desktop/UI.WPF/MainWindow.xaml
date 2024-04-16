@@ -27,7 +27,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
@@ -46,7 +46,8 @@
                 BorderBrush="{DynamicResource MainBackground}"
                 Background="{DynamicResource SecondaryBackground}">
 
-            <components:Toolbar DataContext="{Binding ToolbarViewModel}" Margin="50 10 50 10"/>
+            <components:Toolbar DataContext="{Binding ToolbarViewModel}"
+                                Margin="30 0 30 0"/>
 
             <!--<components:ProcessListView DataContext="{Binding ProcessListViewModel}" />-->
         </Border>

@@ -11,11 +11,6 @@ namespace UI.WPF.ViewModels;
 public partial class TopRowViewModel : BaseViewModel
 {
 
-	public TopRowViewModel()
-	{
-
-	}
-
 	[RelayCommand]
 	public void CloseWindow()
 	{

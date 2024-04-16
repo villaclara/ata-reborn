@@ -17,7 +17,7 @@
                         Margin="10 0 0 0"
                         VerticalAlignment="Center">
                 <TextBlock Text="ATA Reborn" 
-                           Foreground="Black" FontFamily="Arial Black"/>
+                           Foreground="Black" FontFamily="DejaVu Sans" FontWeight="Bold"/>
             </StackPanel>
         </Border>
 

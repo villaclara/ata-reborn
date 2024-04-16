@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="800">
+             d:DesignHeight="60" d:DesignWidth="800">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -14,26 +14,90 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
         <!-- First Column -->
         <Border Grid.Column="0" >
             <StackPanel Orientation="Horizontal" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Center">
+                        HorizontalAlignment="Center"
+                        Margin="0 5 0 5">
+                
+                
+                <!-- Home Button -->
                 <Button Margin="10 0 10 0"
                         Style="{DynamicResource ButtonTemplateToolbar}" 
-                        Content="Home" 
                         MinWidth="50" 
                         Command="{Binding ShowHomeScreenCommand}">
-                
+
+                    <Button.Content>
+                        <Image Height="30">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
+                                            <Setter Property="Source" Value="/Resources/Images/home_black.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
+                                            <Setter Property="Source" Value="/Resources/Images/home_white.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </Button.Content>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" Background="{DynamicResource SecondaryBackground}" CornerRadius="5">
+                                <ContentPresenter/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource MainBackgroundLighter}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
+
                 
-                <Button Margin="10 0 10 0" 
-                        Content="Add Process" 
-                        MinWidth="50" 
-                        Command="{Binding ShowProcessListScreenCommand}"/>
+                <!-- Add Process Button -->
+                <Button Margin="10 0 5 0"
+                    Style="{DynamicResource ButtonTemplateToolbar}" 
+                    MinWidth="50"
+                    Command="{Binding ShowProcessListScreenCommand}">
+
+                    <Button.Content>
+                        <Image Height="30">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
+                                            <Setter Property="Source" Value="/Resources/Images/plus_black.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
+                                            <Setter Property="Source" Value="/Resources/Images/plus_white.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </Button.Content>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" Background="{DynamicResource SecondaryBackground}"
+                                    CornerRadius="5">
+                                <ContentPresenter/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource MainBackgroundLighter}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
             </StackPanel>
         </Border>
@@ -49,25 +113,61 @@
         </Border>
 
 
-        <!-- Third Column -->
+        <!-- Fourth Column -->
         <Border Grid.Column="3" >
             <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center" 
                         HorizontalAlignment="Right"
-                        Margin="0 0 10 0">
-                <Button Content="Settings" MinWidth="50" Command="{Binding ShowSettingsScreenCommand}"/>
+                        Margin="0 5 10 5">
+                
+                <!-- Settings Button -->
+                <Button Margin="10 0 5 0" 
+                        Style="{DynamicResource ButtonTemplateToolbar}" 
+                        MinWidth="50"
+                        Command="{Binding}">
+
+                    <Button.Content>
+                        <Image Height="30">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
+                                            <Setter Property="Source" Value="/Resources/Images/settings_black.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
+                                            <Setter Property="Source" Value="/Resources/Images/settings_white.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </Button.Content>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" Background="{DynamicResource SecondaryBackground}" 
+                                    CornerRadius="5">
+                                <ContentPresenter/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource MainBackgroundLighter}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StackPanel>
         </Border>
 
 
-        <!-- Fourth Column -->
+        <!-- Fifth Column -->
         <Border Grid.Column="4" >
             <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center" 
-                HorizontalAlignment="Center">
+                HorizontalAlignment="Right">
                 <!--<Button Content="DayNightButton" MinWidth="50" Command="{Binding ToggleDayNightThemeCommand}"/>-->
 
-
+                <!-- Toggle Day / Night Theme section -->
                 <Border MaxWidth="20" MaxHeight="20" Margin="0 0 5 0">
                     <Image Height="20">
                         <Image.Style>
@@ -91,9 +191,17 @@
                               IsChecked="{Binding ThemeButtonIsChecked}">
                     <ToggleButton.Template>
                         <ControlTemplate>
-                            <Border x:Name="SwitchBorder" Width="40" Height="16" CornerRadius="8" Background="{DynamicResource CardSecondaryForeground}">
-                                <Border x:Name="SwitchShape" Width="11" Height="11" Margin="{Binding ToggleMarginDefaultPos}" Background="{DynamicResource CardBackground}"
-                                        HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="15" BorderBrush="Gray">
+                            <Border x:Name="SwitchBorder" 
+                                    Width="40" Height="16" 
+                                    CornerRadius="8" 
+                                    Background="{DynamicResource CardSecondaryForeground}">
+                                <Border x:Name="SwitchShape" 
+                                        Width="11" Height="11" 
+                                        Margin="{Binding ToggleMarginDefaultPos}" 
+                                        Background="{DynamicResource CardBackground}"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                        CornerRadius="15" 
+                                        BorderBrush="Gray">
                                     <Border.Effect>
                                         <DropShadowEffect Opacity=".1"/>
                                     </Border.Effect>
@@ -103,7 +211,7 @@
                             <!-- Animations. -->
                             <ControlTemplate.Triggers>
                                 <Trigger Property="ToggleButton.IsChecked" Value="True">
-                                   
+
                                     <!-- Animation moving the slider to the right. -->
                                     <Trigger.EnterActions>
                                         <BeginStoryboard>
