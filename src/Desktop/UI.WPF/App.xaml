@@ -26,6 +26,27 @@
                 <components:ProcessListView/>
             </DataTemplate>
             
+            
+            <!-- Template for Processes List Screen Header of Table -->
+            <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Border Background="Transparent" BorderBrush="Black"
+                                    BorderThickness="0 0 0 2"
+                                    Height="30">
+                                <TextBlock x:Name="ContentHeader" HorizontalAlignment="Center" Text="{TemplateBinding Content}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            
+            
         </ResourceDictionary>
 
     </Application.Resources>
