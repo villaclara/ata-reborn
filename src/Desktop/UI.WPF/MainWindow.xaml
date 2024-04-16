@@ -9,25 +9,39 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded"
         d:DataContext="{Binding MainWindowViewModel}"
-        ResizeMode="CanMinimize"
+        ResizeMode="CanResizeWithGrip"
+        WindowStyle="None"
+        WindowState="Normal" 
+        ShowInTaskbar="True"
+        
         >
     
-    
+    <!-- To be able to resize window without small borders on sides. -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+
     <Grid Background="{DynamicResource MainBackground}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="440"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
 
+        <Border Grid.Row="0" 
+                Background="Transparent"
+                MouseDown="TopRow_MouseDown"
+                Margin="0 0 0 0">
+            <components:TopRow DataContext="{Binding TopRowViewModel}" />
+        </Border>
+        
         <!-- Top toolbar -->
-        <Border Grid.Row="0"
+        <Border Grid.Row="1"
                 BorderThickness="0 0 0 3"
                 BorderBrush="{DynamicResource MainBackground}"
                 Background="{DynamicResource SecondaryBackground}">
@@ -37,7 +51,7 @@
             <!--<components:ProcessListView DataContext="{Binding ProcessListViewModel}" />-->
         </Border>
 
-        <Border Grid.Row="1"
+        <Border Grid.Row="2"
                 Background="{DynamicResource SecondaryBackground}">
             
             <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->
@@ -48,7 +62,7 @@
         </Border>
 
 
-        <Border Grid.Row="2"
+        <Border Grid.Row="3"
                 BorderThickness="0 2 0 0"
                 BorderBrush="{DynamicResource MainBackground}"
                 Background="{DynamicResource MainBackground}">

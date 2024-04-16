@@ -7,4 +7,6 @@
     <SolidColorBrush Color="#979197" x:Key="CardBorderForeground"/>
     <SolidColorBrush Color="#1c1b21" x:Key="CardMainForeground"/>
     <SolidColorBrush Color="#979197" x:Key="CardSecondaryForeground"/>
+
+    <SolidColorBrush Color="#eeeff0" x:Key="MainBackgroundLighter"/>
 </ResourceDictionary>

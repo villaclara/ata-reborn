@@ -20,7 +20,8 @@ namespace UI.WPF.ViewModels;
 
 public partial class MainWindowViewModel: ObservableObject
 {
-	public MainWindowViewModel(INavigationService navigation, ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, IDirector director)
+	public MainWindowViewModel(INavigationService navigation, IDirector director,
+		ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, TopRowViewModel topRowViewModel)
 	{
 		_navigation = navigation;
 		_director = director;
@@ -28,6 +29,7 @@ public partial class MainWindowViewModel: ObservableObject
 
 		ToolbarViewModel = toolbarViewModel;
 		TrackedAppsViewModel = trackedAppsViewModel;
+		TopRowViewModel = topRowViewModel;
 	}
 
 	private Task _director_WorkDone(object arg1, int arg2)
@@ -39,7 +41,8 @@ public partial class MainWindowViewModel: ObservableObject
 
 	// For Binding purposes.
 	public ToolbarViewModel ToolbarViewModel { get; }
-	public TrackedAppsViewModel TrackedAppsViewModel { get; } 
+	public TrackedAppsViewModel TrackedAppsViewModel { get; }
+	public TopRowViewModel TopRowViewModel { get; }
 
 
 	// Is taking part in Binging Current View.

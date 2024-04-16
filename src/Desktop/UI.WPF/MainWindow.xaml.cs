@@ -40,5 +40,13 @@ namespace UI.WPF
 		{
 			return Task.CompletedTask;
 		}
-	}
+
+		private void TopRow_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if(e.ChangedButton == MouseButton.Left)
+			{
+				this.DragMove();
+			}
+        }
+    }
 }

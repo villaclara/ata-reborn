@@ -9,11 +9,12 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
         <!-- First Column -->
@@ -21,7 +22,19 @@
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Center">
-                <Button Content="Home" MinWidth="50" Command="{Binding ShowHomeScreenCommand}"/>
+                <Button Margin="10 0 10 0"
+                        Style="{DynamicResource ButtonTemplateToolbar}" 
+                        Content="Home" 
+                        MinWidth="50" 
+                        Command="{Binding ShowHomeScreenCommand}">
+                
+                </Button>
+                
+                <Button Margin="10 0 10 0" 
+                        Content="Add Process" 
+                        MinWidth="50" 
+                        Command="{Binding ShowProcessListScreenCommand}"/>
+
             </StackPanel>
         </Border>
 
@@ -31,23 +44,24 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Center">
-                <Button Content="Add Process" MinWidth="50" Command="{Binding ShowProcessListScreenCommand}"/>
+
             </StackPanel>
         </Border>
 
 
         <!-- Third Column -->
-        <Border Grid.Column="2" >
+        <Border Grid.Column="3" >
             <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Center">
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right"
+                        Margin="0 0 10 0">
                 <Button Content="Settings" MinWidth="50" Command="{Binding ShowSettingsScreenCommand}"/>
             </StackPanel>
         </Border>
 
 
         <!-- Fourth Column -->
-        <Border Grid.Column="3" >
+        <Border Grid.Column="4" >
             <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center">

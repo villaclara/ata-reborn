@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\close_black.png" />
+    <None Remove="Resources\Images\minimize_black.png" />
     <None Remove="Resources\Images\moon_black.png" />
     <None Remove="Resources\Images\moon_white.png" />
     <None Remove="Resources\Images\sun_black.png" />
@@ -31,6 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\close_black.png" />
+    <Resource Include="Resources\Images\minimize_black.png" />
     <Resource Include="Resources\Images\moon_black.png" />
     <Resource Include="Resources\Images\moon_white.png" />
     <Resource Include="Resources\Images\sun_black.png" />

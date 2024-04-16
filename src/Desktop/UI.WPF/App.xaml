@@ -12,6 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Dictionaries/DarkTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionaries/LightTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/ButtonTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -24,8 +25,7 @@
             <DataTemplate DataType="{x:Type TypeName=viewmodels:ProcessListViewModel}">
                 <components:ProcessListView/>
             </DataTemplate>
-
-
+            
         </ResourceDictionary>
 
     </Application.Resources>
