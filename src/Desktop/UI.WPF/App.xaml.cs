@@ -9,7 +9,8 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Windows;
-using UI.WPF.Services;
+using UI.WPF.Services.Abstracts;
+using UI.WPF.Services.Implementations;
 using UI.WPF.ViewModels;
 using UI.WPF.Views;
 
@@ -53,6 +54,8 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<IGetProcs, GetProcsService>();
 				services.AddSingleton<IThemeChangeService, ThemeChangeService>();
 
+
+				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();

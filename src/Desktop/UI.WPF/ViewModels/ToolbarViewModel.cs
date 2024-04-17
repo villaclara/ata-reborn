@@ -6,7 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Windows;
 using UI.WPF.Enums;
-using UI.WPF.Services;
+using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UI.WPF.Components;
-using UI.WPF.Services;
+using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 

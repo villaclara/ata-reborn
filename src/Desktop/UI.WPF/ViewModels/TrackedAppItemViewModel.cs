@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UI.WPF.Enums;
 using UI.WPF.Services;
+using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
@@ -43,7 +44,7 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 
 	private readonly IDataIssuer _dataIssuer;
-	private readonly IThemeChangeService _themeChanger;
+	private readonly ICustomDialogService _customDialog;
 
 	[ObservableProperty]
 	private bool _isLightTheme = true;
@@ -84,23 +85,13 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	public Func<double, string> _formatter;
 
 
-	public TrackedAppItemViewModel(AppInstanceVM app, IDataIssuer dataIssuer, IThemeChangeService themeChangeService)
+	public TrackedAppItemViewModel(AppInstanceVM app, IDataIssuer dataIssuer, ICustomDialogService customDialog)
 	{
 		_app = app;
 
 		_dataIssuer = dataIssuer;
-		_themeChanger = themeChangeService;
-
-		var stringTheme = _themeChanger.CurrentTheme switch
-		{
-			UIThemes.Light => "Light",
-			UIThemes.Dark => "Dark",
-			_ => "Light"
-		};
-
-		// Set the ToggleButton location (to the Left or to the Right) based on Theme.
-		IsLightTheme = stringTheme == "Light";
-
+		_customDialog = customDialog;
+		
 		_seriesCollection = new SeriesCollection()
 		{
 			new ColumnSeries
@@ -138,11 +129,16 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	{
 		try
 		{
-			StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
+			var result = _customDialog.ShowYesNoDialog("WTF", "You sure want to remove application form tracking?");
+			if(result == CustomDialogResult.Yes)
+			{
+				StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
+
+			}
 		}
 		catch (Exception ex)
 		{
-
+			Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
 		}
 	}
 }

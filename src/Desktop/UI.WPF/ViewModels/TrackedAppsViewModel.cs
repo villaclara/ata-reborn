@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UI.WPF.Services;
+using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
@@ -23,9 +24,9 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 	private readonly IDirector _director;
 	private readonly IDataIssuer _dataIssuer;
-	private readonly IThemeChangeService _themeChanger;
+	private readonly ICustomDialogService _customDialog;
 
-    public TrackedAppsViewModel(IDirector director, IThemeChangeService themeChangeService)
+    public TrackedAppsViewModel(IDirector director, ICustomDialogService customDialog)
     {
 		Log.Information("{@Method} - Start constructor.", nameof(TrackedAppItemViewModel));
 		
@@ -42,8 +43,8 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 		AppItems = [];
 		_director = director;
+		_customDialog = customDialog;
 		_dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
-		_themeChanger = themeChangeService;
 		Log.Information("{@Method} - Data issuer created - {@dataissuer}", nameof(TrackedAppItemViewModel), _dataIssuer);
 
 		SetUpAppItems();
@@ -58,7 +59,7 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 			if (appVM != null)
 			{
-				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, _dataIssuer, _themeChanger);
+				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, _dataIssuer, _customDialog);
 				AppItems.Add(vm);
 
 				// Event to update values in the UI
@@ -80,7 +81,7 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 			_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
 
 			var added = MyMapService.Map<AppInstance, AppInstanceVM>(_director.Apps.Last());
-			TrackedAppItemViewModel vm = new(added!, _dataIssuer, _themeChanger);
+			TrackedAppItemViewModel vm = new(added!, _dataIssuer, _customDialog);
 			AppItems.Add(vm);
 
 			_director.WorkDone -= vm.Director_WorkDone;

@@ -52,28 +52,18 @@
                         </Border>
 
                         <Button Grid.Column="1"
-                               Command="{Binding DeleteTrackedAppCommand}">
+                                Command="{Binding DeleteTrackedAppCommand}"
+                                Height="25"
+                                Margin="5 0 0 0">
 
                             <Button.Content>
-                                <Image Height="30">
-                                    <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
-                                                    <Setter Property="Source" Value="/Resources/Images/remove_black.png"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
-                                                    <Setter Property="Source" Value="/Resources/Images/remove_white.png"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Image.Style>
+                                <Image Height="20" Source="/Resources/Images/remove_black.png">
                                 </Image>
                             </Button.Content>
 
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="border" Background="{DynamicResource SecondaryBackground}" CornerRadius="5">
+                                    <Border x:Name="border" Background="#ff8080" CornerRadius="5">
                                         <ContentPresenter/>
                                     </Border>
                                     <ControlTemplate.Triggers>
