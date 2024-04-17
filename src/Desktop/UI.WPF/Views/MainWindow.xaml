@@ -1,4 +1,4 @@
-﻿<Window x:Class="UI.WPF.MainWindow"
+﻿<Window x:Class="UI.WPF.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
         xmlns:components="clr-namespace:UI.WPF.Components"
         xmlns:viewmodels="clr-namespace:UI.WPF.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="900" Loaded="Window_Loaded"
+        Title="MainWindow" Height="550" Width="900"
         d:DataContext="{Binding MainWindowViewModel}"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
@@ -23,6 +23,8 @@
         ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
 
+    <Border BorderBrush="{DynamicResource SecondaryBackground}" BorderThickness="1">
+        
     <Grid Background="{DynamicResource MainBackground}">
 
         <Grid.RowDefinitions>
@@ -73,5 +75,6 @@
             </StackPanel>
         </Border>
     </Grid>
+    </Border>
 
 </Window>

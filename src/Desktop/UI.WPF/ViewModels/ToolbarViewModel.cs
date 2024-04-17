@@ -86,7 +86,14 @@ public partial class ToolbarViewModel : BaseViewModel
 		//config.Save(ConfigurationSaveMode.Modified);
 
 		var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-		config.AppSettings.Settings["IsLightTheme"].Value = IsLightTheme ? "True" : "False";
+		if (config.AppSettings.Settings["IsLightTheme"] is null)
+		{
+			config.AppSettings.Settings.Add("IsLightTheme", s);
+		}
+		else
+		{
+			config.AppSettings.Settings["IsLightTheme"].Value = _isLightTheme ? "True" : "False";
+		}
 		config.Save(ConfigurationSaveMode.Modified);
 
 		string newThemePath = IsLightTheme ? "Resources/Dictionaries/LightTheme.xaml" : "Resources/Dictionaries/DarkTheme.xaml";
