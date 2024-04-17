@@ -39,8 +39,7 @@
                         <GridViewColumn Header="App Name" Width="236">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="{DynamicResource MainBackground}"
-                                            BorderThickness="1">
+                                    <Border>
                                         <TextBlock Text="{Binding ProcessName}"
                                                 FontSize="16" Foreground="Black"/>
                                     </Border>
