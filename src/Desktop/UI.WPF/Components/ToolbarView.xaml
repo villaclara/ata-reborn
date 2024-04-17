@@ -106,7 +106,7 @@
                         Command="{Binding RunDirectorOnceCommand}">
 
                     <Button.Content>
-                        <Image Height="30">
+                        <Image Height="30" RenderTransformOrigin=".5,.5">
                             <Image.Style>
                                 <Style TargetType="{x:Type Image}">
                                     <Style.Triggers>
@@ -119,6 +119,23 @@
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
+                            <Image.RenderTransform>
+                                <RotateTransform x:Name="AnimatedRotateTransform" Angle="0" />
+                            </Image.RenderTransform>
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="MouseDown">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform" 
+                                                             Storyboard.TargetProperty="Angle" 
+                                                             By="10"        
+                                                             To="360" 
+                                                             Duration="0:0:0.5"
+                                                             FillBehavior="Stop" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Image.Triggers>
                         </Image>
                     </Button.Content>
 
@@ -136,21 +153,6 @@
                         </ControlTemplate>
                     </Button.Template>
 
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation 
-                  Storyboard.TargetName="UpArrow"  
-                  Storyboard.TargetProperty="RenderTransform.Children[2].(RotateTransform.Angle)" 
-                  From="0" 
-                  To="360" 
-                  Duration="0:0:2" 
-                  RepeatBehavior="Forever" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
                 </Button>
 
 
