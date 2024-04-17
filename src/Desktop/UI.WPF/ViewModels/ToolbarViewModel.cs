@@ -62,6 +62,12 @@ public partial class ToolbarViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
+	private async Task RunDirectorOnce()
+	{
+		await _director.RunOnceManuallyAsync();
+	}
+
+	[RelayCommand]
 	private void ShowSettingsScreen()
 	{
 

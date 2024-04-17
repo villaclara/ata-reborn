@@ -33,7 +33,7 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	[NotifyPropertyChangedFor(nameof(AppLastSessionDate))]
 	private AppInstanceVM _app;
 
-	public string AppName => App.Name; 
+	public string AppName => App.Name;
 	public string AppIsRunning => App.IsRunning ? "running" : "stopped";
 	public uint AppCurrentSessionHours => (uint)App.CurrentSessionTime / 60;
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
@@ -45,10 +45,6 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 	private readonly IDataIssuer _dataIssuer;
 	private readonly ICustomDialogService _customDialog;
-
-	[ObservableProperty]
-	private bool _isLightTheme = true;
-
 
 	public Task Director_WorkDone(object arg1, int arg2)
 	{
@@ -91,21 +87,22 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 		_dataIssuer = dataIssuer;
 		_customDialog = customDialog;
-		
+
 		_seriesCollection = new SeriesCollection()
 		{
 			new ColumnSeries
 			{
 				Title = "Time",
 				Values = new ChartValues<double> {
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
+					App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
 				}
+
 			}
 		};
 
@@ -129,8 +126,9 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	{
 		try
 		{
+			// Maybe not so good to put it here, but anyway it works.
 			var result = _customDialog.ShowYesNoDialog("WTF", "You sure want to remove application form tracking?");
-			if(result == CustomDialogResult.Yes)
+			if (result == CustomDialogResult.Yes)
 			{
 				StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
 

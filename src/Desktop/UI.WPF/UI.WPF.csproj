@@ -18,6 +18,8 @@
     <None Remove="Resources\Images\moon_white.png" />
     <None Remove="Resources\Images\plus_black.png" />
     <None Remove="Resources\Images\plus_white.png" />
+    <None Remove="Resources\Images\refresh_black.png" />
+    <None Remove="Resources\Images\refresh_white.png" />
     <None Remove="Resources\Images\remove_black.png" />
     <None Remove="Resources\Images\remove_white.png" />
     <None Remove="Resources\Images\settings_black.png" />
@@ -50,6 +52,8 @@
     <Resource Include="Resources\Images\moon_white.png" />
     <Resource Include="Resources\Images\plus_black.png" />
     <Resource Include="Resources\Images\plus_white.png" />
+    <Resource Include="Resources\Images\refresh_black.png" />
+    <Resource Include="Resources\Images\refresh_white.png" />
     <Resource Include="Resources\Images\remove_black.png" />
     <Resource Include="Resources\Images\remove_white.png" />
     <Resource Include="Resources\Images\settings_black.png" />
