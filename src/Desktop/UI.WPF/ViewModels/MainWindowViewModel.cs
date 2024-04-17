@@ -53,4 +53,6 @@ public partial class MainWindowViewModel: ObservableObject
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 
+	public string AppVersion { get; set; } = "v0.1.0";
+
 }

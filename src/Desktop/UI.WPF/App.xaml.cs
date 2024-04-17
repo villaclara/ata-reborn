@@ -51,6 +51,7 @@ public partial class App : System.Windows.Application
 				// Different Services, not ViewModels
 				services.AddSingleton<INavigationService, NavigationService>();
 				services.AddSingleton<IGetProcs, GetProcsService>();
+				services.AddSingleton<IThemeChangeService, ThemeChangeService>();
 
 
 				services.AddSingleton<TrackedAppsViewModel>();

@@ -69,11 +69,32 @@
                 BorderThickness="0 2 0 0"
                 BorderBrush="{DynamicResource MainBackground}"
                 Background="{DynamicResource MainBackground}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Last checked: "/>
-                <TextBlock Text="{Binding LastDirectorWorkDone}"/>
-            </StackPanel>
-        </Border>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0">
+                        
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10 0 0 0">
+                        <TextBlock Text="Last checked: "/>
+                        <TextBlock Text="{Binding LastDirectorWorkDone}"/>
+                    </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1">
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Right"
+                                    Margin="0 0 20 0">
+                            <TextBlock Text="ata reborn "/>
+                            <TextBlock Text="{Binding AppVersion}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
     </Grid>
     </Border>
 

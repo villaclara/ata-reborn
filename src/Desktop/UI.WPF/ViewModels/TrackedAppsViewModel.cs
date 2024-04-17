@@ -23,8 +23,9 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 	private readonly IDirector _director;
 	private readonly IDataIssuer _dataIssuer;
+	private readonly IThemeChangeService _themeChanger;
 
-    public TrackedAppsViewModel(IDirector director)
+    public TrackedAppsViewModel(IDirector director, IThemeChangeService themeChangeService)
     {
 		Log.Information("{@Method} - Start constructor.", nameof(TrackedAppItemViewModel));
 		
@@ -42,6 +43,7 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 		AppItems = [];
 		_director = director;
 		_dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
+		_themeChanger = themeChangeService;
 		Log.Information("{@Method} - Data issuer created - {@dataissuer}", nameof(TrackedAppItemViewModel), _dataIssuer);
 
 		SetUpAppItems();
@@ -56,7 +58,7 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 			if (appVM != null)
 			{
-				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, _dataIssuer);
+				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, _dataIssuer, _themeChanger);
 				AppItems.Add(vm);
 
 				// Event to update values in the UI
@@ -78,7 +80,7 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 			_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
 
 			var added = MyMapService.Map<AppInstance, AppInstanceVM>(_director.Apps.Last());
-			TrackedAppItemViewModel vm = new(added!, _dataIssuer);
+			TrackedAppItemViewModel vm = new(added!, _dataIssuer, _themeChanger);
 			AppItems.Add(vm);
 
 			_director.WorkDone -= vm.Director_WorkDone;

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.WPF.Enums;
 using UI.WPF.Services;
 
 namespace UI.WPF.ViewModels;
@@ -42,6 +43,10 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 
 	private readonly IDataIssuer _dataIssuer;
+	private readonly IThemeChangeService _themeChanger;
+
+	[ObservableProperty]
+	private bool _isLightTheme = true;
 
 
 	public Task Director_WorkDone(object arg1, int arg2)
@@ -79,11 +84,22 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	public Func<double, string> _formatter;
 
 
-	public TrackedAppItemViewModel(AppInstanceVM app, IDataIssuer dataIssuer)
+	public TrackedAppItemViewModel(AppInstanceVM app, IDataIssuer dataIssuer, IThemeChangeService themeChangeService)
 	{
 		_app = app;
 
 		_dataIssuer = dataIssuer;
+		_themeChanger = themeChangeService;
+
+		var stringTheme = _themeChanger.CurrentTheme switch
+		{
+			UIThemes.Light => "Light",
+			UIThemes.Dark => "Dark",
+			_ => "Light"
+		};
+
+		// Set the ToggleButton location (to the Left or to the Right) based on Theme.
+		IsLightTheme = stringTheme == "Light";
 
 		_seriesCollection = new SeriesCollection()
 		{

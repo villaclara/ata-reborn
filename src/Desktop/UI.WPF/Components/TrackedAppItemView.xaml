@@ -51,9 +51,39 @@
                     </Viewbox>
                         </Border>
 
-                       <Button Grid.Column="1"
-                               Content="X" 
-                               Command="{Binding DeleteTrackedAppCommand}"/>
+                        <Button Grid.Column="1"
+                               Command="{Binding DeleteTrackedAppCommand}">
+
+                            <Button.Content>
+                                <Image Height="30">
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsLightTheme}" Value="True">
+                                                    <Setter Property="Source" Value="/Resources/Images/remove_black.png"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsLightTheme}" Value="False">
+                                                    <Setter Property="Source" Value="/Resources/Images/remove_white.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </Button.Content>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border" Background="{DynamicResource SecondaryBackground}" CornerRadius="5">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource MainBackgroundLighter}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
 
                     </Grid>
@@ -143,12 +173,12 @@
                         <Run Text="{Binding AppTotalHours, Mode=OneWay}" FontFamily="Bahnschrift"
                              Foreground="{DynamicResource CardMainForeground}"/>
                         
-                        <Span>h</Span>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}">h</Span>
                         
                         <Run Text="{Binding AppTotalMinutes, Mode=OneWay}" FontFamily="Bahnschrift" 
                              Foreground="{DynamicResource CardMainForeground}"/>
                         
-                        <Span>min</Span>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}">min</Span>
                     </TextBlock>
                 </StackPanel>
             </Border>
