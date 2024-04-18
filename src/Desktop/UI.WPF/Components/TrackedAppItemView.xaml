@@ -9,15 +9,10 @@
              d:DesignHeight="420" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance local:TrackedAppItem}">
 
-    <UserControl.Resources>
-
-    </UserControl.Resources>
-
     <Border BorderBrush="{DynamicResource CardBorderForeground}"
          BorderThickness="2"
          CornerRadius="5"
          Background="{DynamicResource CardBackground}">
-
 
         <Grid Margin="5 5 5 5" >
 
@@ -32,11 +27,9 @@
             <!-- Top Section -->
             <Border>
 
-                <StackPanel 
-                            VerticalAlignment="Center">
-
+                <StackPanel VerticalAlignment="Center">
+                    
                     <Grid>
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
@@ -44,13 +37,15 @@
 
                         <Border Grid.Column="0">
                             
-                    <!-- NAME of App-->
-                    <Viewbox Height="40" Grid.Column="0">
-                        <TextBlock Text="{Binding AppName}" FontFamily="Verdana"
-                                   Foreground="{DynamicResource CardMainForeground}"/>
-                    </Viewbox>
+                            <!-- NAME of App-->
+                            <Viewbox Height="40" Grid.Column="0">
+                            <TextBlock Text="{Binding AppName}" 
+                                       FontFamily="Verdana"
+                                       Foreground="{DynamicResource CardMainForeground}"/>
+                            </Viewbox>
                         </Border>
 
+                        <!-- Delete app Button -->
                         <Button Grid.Column="1"
                                 Command="{Binding DeleteTrackedAppCommand}"
                                 Height="25"
@@ -74,8 +69,7 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-
-
+                        
                     </Grid>
 
                     <!-- App Status -->
@@ -108,14 +102,14 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060">
                         <Run FontSize="32" Text="{Binding AppCurrentSessionHours, Mode=OneWay}" 
-                             Foreground="{DynamicResource CardSecondaryForeground}"></Run>
+                             Foreground="{DynamicResource CardMainForeground}"></Run>
                         
-                        <Span Foreground="{DynamicResource CardMainForeground}">h</Span>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}">h</Span>
                         
                         <Run FontSize="32" Text="{Binding AppCurrentSessionMinutes, Mode=OneWay}" 
-                             Foreground="{DynamicResource CardSecondaryForeground}"></Run>
+                             Foreground="{DynamicResource CardMainForeground}"></Run>
                         
-                        <Span Foreground="{DynamicResource CardMainForeground}">min</Span>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}">min</Span>
                     </TextBlock>
                 </StackPanel>
             </Border>
@@ -133,7 +127,7 @@
                     <StackPanel Grid.Column="0" 
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom">
-                        <TextBlock Text="Start Date" Foreground="{DynamicResource CardSecondaryForeground}"/>
+                        <TextBlock Text="From" Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding AppFirstSessionDate}" FontFamily="Cascadia Mono SemiLight"
                                    Foreground="{DynamicResource CardMainForeground}"/>
                     </StackPanel>
@@ -141,7 +135,7 @@
                     <StackPanel Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom">
-                        <TextBlock Text="Latest Session" Foreground="{DynamicResource CardSecondaryForeground}"/>
+                        <TextBlock Text="Latest Session" Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding AppLastSessionDate}"
                                    FontFamily="Cascadia Mono SemiLight"
                                    HorizontalAlignment="Right"
@@ -159,7 +153,7 @@
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}">Total Time: </Span>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Total Time: </Span>
                         <Run Text="{Binding AppTotalHours, Mode=OneWay}" FontFamily="Bahnschrift"
                              Foreground="{DynamicResource CardMainForeground}"/>
                         

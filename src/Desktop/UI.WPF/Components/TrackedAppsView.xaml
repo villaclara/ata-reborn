@@ -32,6 +32,13 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+
         </Border>
+            <TextBlock Text="No tracked Applications. Please press '+' and select one to track."
+                       Visibility="{Binding DefaultTextVisibility}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="{DynamicResource CardMainForeground}"/>
     </Grid>
 </UserControl>

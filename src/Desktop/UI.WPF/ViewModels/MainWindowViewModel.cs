@@ -26,6 +26,7 @@ public partial class MainWindowViewModel: ObservableObject
 		_navigation = navigation;
 		_director = director;
 		_director.WorkDone += _director_WorkDone;
+		LastDirectorWorkDone = DateTime.Now;
 
 		ToolbarViewModel = toolbarViewModel;
 		TrackedAppsViewModel = trackedAppsViewModel;

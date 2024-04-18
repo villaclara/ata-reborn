@@ -10,6 +10,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,6 @@ public class MainDirector : IDirector
 	{
 		Apps = [];
 		Handlers = [];
-
 
 		// setting default values to prevent null reference
 		// but these should be set via Builder
@@ -44,7 +44,7 @@ public class MainDirector : IDirector
 
 	public StaticTimerService Timer { get; private set; }
 
-	public DateTime LastWorkDoneDate { get; private set; }
+	public DateTime LastWorkDoneDate { get; private set; } = DateTime.Now;
 
 	public event Func<object, int, Task>? WorkDone;
 
@@ -75,12 +75,15 @@ public class MainDirector : IDirector
 		var app = processName != null 
 			? Apps.Where(a => a.ProcessNameInOS == processName).FirstOrDefault() 
 			: Apps.Where(a => a.ProcessNameInOS == appName).FirstOrDefault();
+		Log.Information("{@Method} - app({@app}), proc({@proc}) found result - {@result}.", nameof(RemoveAppFromTrackedList), appName, processName, app?.Name);
 
 		if (app != null)
 		{
 			var index = Apps.IndexOf(app);
 			Apps.RemoveAt(index);
 			Handlers.RemoveAt(index);
+			Log.Information("{@Method} - App(@app) removed from {@Handler}, {@Apps} at index - {@index}.", nameof(RemoveAppFromTrackedList), nameof(Handlers), nameof(Apps), index);
+			Log.Information("{@Method} - {@apps} count {@countapps}, {@Handlers} count {@counthanlders}.", nameof(RemoveAppFromTrackedList), nameof(Apps), Apps.Count, nameof(Handlers), Handlers.Count);
 		}
 	}
 
@@ -117,27 +120,25 @@ public class MainDirector : IDirector
 
 	private async Task DoWork()
 	{
-		Log.Information("\n");
-		Log.Information("\n");
 		Log.Information("{@Method} - started.", nameof(DoWork));
 
 		if (Handlers.Count == 0)
 		{
 			Log.Warning("{@Method} - {@List} of handlers is empty, nothing to do", nameof(DoWork), nameof(List<AppHandler>));
-			return;
 		}
-
-
-		// run task for each app handler
-		var tasks = new List<Task>();
-		foreach (var h in Handlers)
+		else
 		{
-			tasks.Add(Task.Run(h.StartTrackingApp));
+
+			// run task for each app handler
+			var tasks = new List<Task>();
+			foreach (var h in Handlers)
+			{
+				tasks.Add(Task.Run(h.StartTrackingApp));
+			}
+
+			await Task.WhenAll(tasks);
 		}
 
-		await Task.WhenAll(tasks);
-
-		string json = AppsJsonStringConverter.ConvertAppsToJson(Apps);
 		bool result = WriteDataService.WriteData(Apps);
 
 		Log.Information("{@Method} - end", nameof(DoWork));

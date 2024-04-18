@@ -3,6 +3,7 @@ using Application.Common.Services;
 using Application.Director.Instance;
 using Application.Models;
 using Application.Utilities;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using Shared.ViewModels;
@@ -18,7 +19,7 @@ using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
-public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<TrackedAppDeletedMessage>
+public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<TrackedAppDeletedMessage>
 {
 	public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
 
@@ -26,7 +27,11 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 	private readonly IDataIssuer _dataIssuer;
 	private readonly ICustomDialogService _customDialog;
 
-    public TrackedAppsViewModel(IDirector director, ICustomDialogService customDialog)
+	[ObservableProperty]
+	private string _defaultTextVisibility = "Visible";
+
+
+	public TrackedAppsViewModel(IDirector director, ICustomDialogService customDialog)
     {
 		Log.Information("{@Method} - Start constructor.", nameof(TrackedAppItemViewModel));
 		
@@ -53,6 +58,11 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 	
 	private void SetUpAppItems()
 	{
+		if(_director.Apps.Count != 0)
+		{
+			DefaultTextVisibility = "Hidden";
+		}
+
 		foreach (var app in _director.Apps)
 		{
 			var appVM = MyMapService.Map<AppInstance, AppInstanceVM>(app);
@@ -89,15 +99,19 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 			Log.Information("{@Method} - ({@App}) was added to ({@director}) and ({@AppItems}).", nameof(Receive), added?.Name, nameof(_director), nameof(AppItems));
 			await _director.RunOnceManuallyAsync();
-			//await vm.Director_WorkDone(new object(), 0);
+
+			// Set the Default text to be hidden as we have at least one app
+			DefaultTextVisibility = "Hidden";
+
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Log.Error("{@Method} - {@ex}.", nameof(Receive), ex.Message);
 		}
 
 	}
 
+	// Removing Application from tracking and removing TrackedAppItemView.
 	public void Receive(TrackedAppDeletedMessage message)
 	{
 		try
@@ -113,6 +127,11 @@ public class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMes
 
 			Log.Information("{@Method} - ({@App}) was removed from ({@director}) and ({@AppItems}).", nameof(Receive), message.AppName, nameof(_director), nameof(AppItems));
 
+			// Set the Default text to be visible
+			if(_director.Apps.Count == 0)
+			{
+				DefaultTextVisibility = "Visible";
+			}
 		}
 		catch (Exception ex)
 		{
