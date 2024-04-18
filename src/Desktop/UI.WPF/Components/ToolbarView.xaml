@@ -22,13 +22,12 @@
                         HorizontalAlignment="Center"
                         Margin="0 5 0 5">
                 
-                
                 <!-- Home Button -->
                 <Button Margin="10 0 10 0"
                         Style="{DynamicResource ButtonTemplateToolbar}" 
                         MinWidth="50" 
                         Command="{Binding ShowHomeScreenCommand}">
-
+                    
                     <Button.Content>
                         <Image Height="30">
                             <Image.Style>
@@ -149,22 +148,9 @@
                                     <Setter Property="Background" TargetName="border" Value="{DynamicResource MainBackgroundLighter}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
-
                         </ControlTemplate>
                     </Button.Template>
-
                 </Button>
-
-
-            </StackPanel>
-        </Border>
-
-
-        <!-- Second Column -->
-        <Border Grid.Column="1" >
-            <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Center">
 
             </StackPanel>
         </Border>
@@ -219,12 +205,13 @@
 
         <!-- Fifth Column -->
         <Border Grid.Column="4" >
+            
+            <!-- Toggle Day / Night Theme section -->
             <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right">
-                <!--<Button Content="DayNightButton" MinWidth="50" Command="{Binding ToggleDayNightThemeCommand}"/>-->
 
-                <!-- Toggle Day / Night Theme section -->
+                <!-- Light Theme icon -->
                 <Border MaxWidth="20" MaxHeight="20" Margin="0 0 5 0">
                     <Image Height="20">
                         <Image.Style>
@@ -299,8 +286,7 @@
                     </ToggleButton.Template>
                 </ToggleButton>
 
-
-
+                <!-- Dark theme icon -->
                 <Border MaxWidth="20" MaxHeight="20" Margin="5 0 0 0">
                     <Image Height="20">
                         <Image.Style>
@@ -319,7 +305,6 @@
                 </Border>
             </StackPanel>
         </Border>
-
 
     </Grid>
 </UserControl>

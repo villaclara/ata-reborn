@@ -14,10 +14,11 @@
 
         <Border Grid.Column="0">
             <StackPanel Orientation="Horizontal"
-                        Margin="10 0 0 0"
+                        Margin="3 0 0 0"
                         VerticalAlignment="Center">
-                <TextBlock Text="ATA Reborn" 
-                           Foreground="Black" FontFamily="DejaVu Sans" FontWeight="Bold"/>
+                <Image Source="/Resources/Images/A_letter.png" Height="16" Margin="0 0 5 0"/>
+                <TextBlock Text="ATA Reborn" VerticalAlignment="Bottom" 
+                           Foreground="Black" FontFamily="DejaVu Sans" FontWeight="Medium" FontSize="15"/>
             </StackPanel>
         </Border>
 

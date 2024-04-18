@@ -15,13 +15,12 @@
          Background="{DynamicResource CardBackground}">
 
         <Grid Margin="5 5 5 5" >
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*" />
                 <RowDefinition Height="1.5*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="4*" />
+                <RowDefinition Height="3.5*" />
             </Grid.RowDefinitions>
 
             <!-- Top Section -->
@@ -148,8 +147,8 @@
 
             <!-- Total Time Section -->
             <Border Grid.Row="3" 
-             BorderThickness="0 0 0 2"
-             BorderBrush="{DynamicResource CardBorderForeground}">
+                    BorderThickness="0 0 0 2"
+                    BorderBrush="{DynamicResource CardBorderForeground}">
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
@@ -169,16 +168,16 @@
 
 
             <!-- Chart section -->
-            <Border Grid.Row="4">
+            <Border Grid.Row="4" Margin="0 2 0 0">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">
-                        <Span Foreground="{DynamicResource CardMainForeground}">Time Last Week</Span>
+                        <Span Foreground="{DynamicResource CardMainForeground}" FontWeight="Light">Time Last Week</Span>
                     </TextBlock>
 
                     <!-- CHART -->
                     <lvc:CartesianChart Series="{Binding SeriesCollection}"
                                         LegendLocation="None" 
-                                        MinHeight="150"
+                                        MinHeight="130"
                                         Foreground="Black">
                         <lvc:CartesianChart.SeriesColors>
                             <lvc:ColorsCollection>
@@ -186,21 +185,18 @@
                             </lvc:ColorsCollection>
                         </lvc:CartesianChart.SeriesColors>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Days" Labels="{Binding Labels}">
+                            <lvc:Axis Labels="{Binding Labels}" Foreground="{DynamicResource CardSecondaryForeground}">
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Minutes" Labels="{Binding Formatter}"></lvc:Axis>
+                            <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="{DynamicResource CardSecondaryForeground}"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
 
                     </lvc:CartesianChart>
 
-
                 </StackPanel>
             </Border>
-
-
 
         </Grid>
     </Border>

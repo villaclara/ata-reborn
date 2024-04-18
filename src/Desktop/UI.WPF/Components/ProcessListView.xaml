@@ -19,6 +19,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- The ListView of Processes. -->
         <Border Grid.Row="1" Grid.Column="1"
                 BorderBrush="Black"
                 BorderThickness="1">
@@ -49,11 +50,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            
-           
         </Border>
 
-
+        <!-- Select button -->
         <Border Grid.Row="2" Grid.Column="1">
 
             <WrapPanel HorizontalAlignment="Center"
@@ -62,7 +61,6 @@
                         CommandParameter="{Binding SelectedProcess}"
                         Height="40"
                         Cursor="Hand">
-                    
                     <Button.Content>
                         <TextBlock Text="Select"
                                    FontSize="16"/>
