@@ -7,68 +7,64 @@
         xmlns:components="clr-namespace:UI.WPF.Components"
         xmlns:viewmodels="clr-namespace:UI.WPF.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="900"
+        Title="MainWindow" Height="530" Width="870"
         d:DataContext="{Binding MainWindowViewModel}"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
         WindowState="Normal" 
-        ShowInTaskbar="True"
-        
-        >
-    
+        ShowInTaskbar="True">
+
     <!-- To be able to resize window without small borders on sides. -->
     <WindowChrome.WindowChrome>
-        <WindowChrome 
-        CaptionHeight="0"
-        ResizeBorderThickness="5" />
+        <WindowChrome CaptionHeight="0"
+                      ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
 
     <Border BorderBrush="{DynamicResource SecondaryBackground}" BorderThickness="1">
-        
-    <Grid Background="{DynamicResource MainBackground}">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
+        <Grid Background="{DynamicResource MainBackground}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
 
 
-        <Border Grid.Row="0" 
-                Background="Transparent"
-                MouseDown="TopRow_MouseDown"
-                Margin="0 0 0 0">
-            <components:TopRow DataContext="{Binding TopRowViewModel}" />
-        </Border>
-        
-        <!-- Top toolbar -->
-        <Border Grid.Row="1"
-                BorderThickness="0 0 0 3"
-                BorderBrush="{DynamicResource MainBackground}"
+            <Border Grid.Row="0" 
+                    Background="Transparent"
+                    MouseDown="TopRow_MouseDown"
+                    Margin="0 0 0 0">
+                <components:TopRow DataContext="{Binding TopRowViewModel}" />
+            </Border>
+
+            <!-- Top toolbar -->
+            <Border Grid.Row="1"
+                    BorderThickness="0 0 0 3"
+                    BorderBrush="{DynamicResource MainBackground}"
+                    Background="{DynamicResource SecondaryBackground}">
+
+                <components:Toolbar DataContext="{Binding ToolbarViewModel}"
+                                    Margin="30 0 30 0"/>
+
+            </Border>
+
+            <Border Grid.Row="2"
                 Background="{DynamicResource SecondaryBackground}">
 
-            <components:Toolbar DataContext="{Binding ToolbarViewModel}"
-                                Margin="30 0 30 0"/>
+                <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->
+                <!--<components:TrackedAppsView DataContext="{Binding TrackedAppsViewModel}"/>-->
 
-            <!--<components:ProcessListView DataContext="{Binding ProcessListViewModel}" />-->
-        </Border>
+                <ContentControl Content="{Binding Navigation.CurrentView}"/>
 
-        <Border Grid.Row="2"
-                Background="{DynamicResource SecondaryBackground}">
-            
-            <!-- Tracked Apps Section. ScrollViewer allows to be displayed scrollbar -->
-            <!--<components:TrackedAppsView DataContext="{Binding TrackedAppsViewModel}"/>-->
-
-            <ContentControl Content="{Binding Navigation.CurrentView}"/>
-
-        </Border>
+            </Border>
 
 
-        <Border Grid.Row="3"
-                BorderThickness="0 2 0 0"
-                BorderBrush="{DynamicResource MainBackground}"
-                Background="{DynamicResource MainBackground}">
+            <Border Grid.Row="3"
+                    BorderThickness="0 2 0 0"
+                    BorderBrush="{DynamicResource MainBackground}"
+                    Background="{DynamicResource MainBackground}">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -77,25 +73,24 @@
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="0">
-                        
-                    <StackPanel Orientation="Horizontal"
-                                Margin="10 0 0 0">
-                        <TextBlock Text="Last checked: "/>
-                        <TextBlock Text="{Binding LastDirectorWorkDone}"/>
-                    </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 0 0 0">
+                            <TextBlock Text="Last checked: "/>
+                            <TextBlock Text="{Binding LastDirectorWorkDone}"/>
+                        </StackPanel>
                     </Border>
 
                     <Border Grid.Column="1">
                         <StackPanel Orientation="Horizontal" 
                                     HorizontalAlignment="Right"
-                                    Margin="0 0 20 0">
-                            <TextBlock Text="ata reborn "/>
+                                    Margin="0 0 25 0">
                             <TextBlock Text="{Binding AppVersion}" />
                         </StackPanel>
                     </Border>
                 </Grid>
             </Border>
-    </Grid>
+        </Grid>
     </Border>
 
 </Window>

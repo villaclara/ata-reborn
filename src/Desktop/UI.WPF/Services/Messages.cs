@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace UI.WPF.Services;
 
-internal class Messages
-{
-}
-
 
 /// <summary>
 /// Message sent when the Selected App from Processes List was added to Tracking.

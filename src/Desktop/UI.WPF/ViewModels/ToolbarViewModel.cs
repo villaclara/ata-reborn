@@ -2,9 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
-using System.Configuration;
-using System.IO;
-using System.Windows;
 using UI.WPF.Enums;
 using UI.WPF.Services.Abstracts;
 
@@ -29,7 +26,6 @@ public partial class ToolbarViewModel : BaseViewModel
 		_director = director;
 		_navigation = navigation;
 		_themeChange = themeChange;
-
 
 		var stringTheme = _themeChange.CurrentTheme switch
 		{

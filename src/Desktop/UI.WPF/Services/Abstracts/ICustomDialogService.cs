@@ -17,6 +17,6 @@ public interface ICustomDialogService
 	/// </summary>
 	/// <param name="title">Title of the window.</param>
 	/// <param name="message">Message displaying.</param>
-	/// <returns><see cref="CustomDialogResult.Yes"/> if user selected Yes, otherwise <see cref="CustomDialogResult.No"/>.</returns>
+	/// <returns><see cref="CustomDialogResult"/> based on user choice.</returns>
 	CustomDialogResult ShowYesNoDialog(string title, string message);
 }

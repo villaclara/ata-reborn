@@ -25,7 +25,7 @@ public class ThemeChangeService : IThemeChangeService
             _ => UIThemes.Light
         };
 
-        SetNewTheme(CurrentTheme);
+        SetThemeInConfig(CurrentTheme);
 
     }
 
@@ -50,10 +50,10 @@ public class ThemeChangeService : IThemeChangeService
         }
         config.Save(ConfigurationSaveMode.Modified);
 
-        SetNewTheme(theme);
+        SetThemeInConfig(theme);
     }
 
-    private void SetNewTheme(UIThemes? theme)
+    private void SetThemeInConfig(UIThemes? theme)
     {
         string newThemePath = theme switch
         {

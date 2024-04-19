@@ -66,6 +66,7 @@ public class MainDirector : IDirector
 	public async Task OnTimerElapsed(object? sender, int minutes)
 	{
 		await DoWork();
+		Log.Information("{@Method} - Invoking {@WorkDone} with subscribers - {@subs}.", nameof(OnTimerElapsed), nameof(WorkDone), WorkDone?.Target?.GetType() ?? null);
 		WorkDone?.Invoke(this, minutes);
 	}
 

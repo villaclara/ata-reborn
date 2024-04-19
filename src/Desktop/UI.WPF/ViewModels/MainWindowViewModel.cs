@@ -1,31 +1,19 @@
-﻿using Application.Common.Services;
-using Application.Director.Creation;
-using Application.Director.Instance;
-using Application.Models;
-using Application.Utilities;
+﻿using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Serilog;
-using Shared.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UI.WPF.Components;
 using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
-public partial class MainWindowViewModel: ObservableObject
+public partial class MainWindowViewModel : ObservableObject
 {
 	public MainWindowViewModel(INavigationService navigation, IDirector director,
 		ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, TopRowViewModel topRowViewModel)
 	{
 		_navigation = navigation;
 		_director = director;
-		_director.WorkDone += _director_WorkDone;
+		_director.WorkDone -= MainWindoVM_Director_WorkDone;
+		_director.WorkDone += MainWindoVM_Director_WorkDone;
 		LastDirectorWorkDone = DateTime.Now;
 
 		ToolbarViewModel = toolbarViewModel;
@@ -33,8 +21,10 @@ public partial class MainWindowViewModel: ObservableObject
 		TopRowViewModel = topRowViewModel;
 	}
 
-	private Task _director_WorkDone(object arg1, int arg2)
+	// Update the Value displaying Last Checked date.
+	private Task MainWindoVM_Director_WorkDone(object arg1, int arg2)
 	{
+		Log.Information("{@Method} - From ({@MainWindow}), dir LWD - {@last}.", nameof(MainWindoVM_Director_WorkDone), nameof(MainWindowViewModel), _director.LastWorkDoneDate);
 		LastDirectorWorkDone = _director.LastWorkDoneDate;
 		return Task.CompletedTask;
 	}
@@ -54,6 +44,6 @@ public partial class MainWindowViewModel: ObservableObject
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 
-	public string AppVersion { get; set; } = "v0.1.0";
+	public string AppVersion { get; set; } = "v1.0.0.0";
 
 }

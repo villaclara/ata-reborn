@@ -1,15 +1,9 @@
 ﻿using Application.Common.Abstracts;
-using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UI.WPF.Services;
 using UI.WPF.Services.Abstracts;
 
@@ -41,20 +35,14 @@ public partial class ProcessListViewModel : BaseViewModel
 			StrongReferenceMessenger.Default.Send(new TrackedAppAddedMessage(selectedProcess.ProcessName, selectedProcess.AppName ?? null));
 			Log.Information("{@Method} - ({@Message}) with AppName({@AppName}) and ProcName({@Proc}) was sent.", nameof(AddSelectedAppToTrack), nameof(TrackedAppAddedMessage), selectedProcess.AppName, selectedProcess.ProcessName);
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			Log.Error("{@Method} - Exception ({@ex}) when adding ({@app}). App was not added.", nameof(AddSelectedAppToTrack), ex.Message, selectedProcess?.ProcessName);
 		}
 		finally
 		{
 			_navigation.NavigateTo<TrackedAppsViewModel>();
-			this.Dispose();
 		}
-
-	}
-
-	public void Dispose()
-	{
 
 	}
 }

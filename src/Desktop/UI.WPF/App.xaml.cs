@@ -49,23 +49,26 @@ public partial class App : System.Windows.Application
 					.SetTimerCheckValue(18000)
 					.Build());
 
-				// Different Services, not ViewModels
+				// Add Services
 				services.AddSingleton<INavigationService, NavigationService>();
 				services.AddSingleton<IGetProcs, GetProcsService>();
 				services.AddSingleton<IThemeChangeService, ThemeChangeService>();
-
+				services.AddSingleton<IRetrieveChartService, RetrieveChartService>();
 
 				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
+
+
+				// Add ViewModels 
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
 				services.AddSingleton<TopRowViewModel>();
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
-				// Now the Process List is retrieved in Constructor. 
 				services.AddTransient<ProcessListViewModel>();
 
 				services.AddSingleton<MainWindowViewModel>();
+
 				// Gets the Required ViewModel by Navigation
 				services.AddSingleton<Func<Type, BaseViewModel>>(sp =>
 					viewModelType => (BaseViewModel)sp.GetRequiredService(viewModelType));
