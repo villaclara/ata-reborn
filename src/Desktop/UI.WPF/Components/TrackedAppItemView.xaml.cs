@@ -23,7 +23,7 @@ namespace UI.WPF.Components;
 /// <summary>
 /// Interaction logic for TrackedAppItem.xaml
 /// </summary>
-public partial class TrackedAppItem : UserControl
+public partial class TrackedAppItem : System.Windows.Controls.UserControl
 {
 	public TrackedAppItem()
 	{

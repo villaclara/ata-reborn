@@ -16,7 +16,7 @@ public partial class TopRowViewModel : BaseViewModel
 	[RelayCommand]
 	public void MinimizeWindow()
 	{
-		//System.Windows.Application.Current.MainWindow.Hide();
+		System.Windows.Application.Current.MainWindow.Hide();
 		System.Windows.Application.Current.MainWindow.WindowState = System.Windows.WindowState.Minimized;
 	}
 }

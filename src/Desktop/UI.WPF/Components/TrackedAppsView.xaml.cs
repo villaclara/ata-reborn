@@ -18,7 +18,7 @@ namespace UI.WPF.Components
 	/// <summary>
 	/// Interaction logic for TrackedAppsView.xaml
 	/// </summary>
-	public partial class TrackedAppsView : UserControl
+	public partial class TrackedAppsView : System.Windows.Controls.UserControl
 	{
 		public TrackedAppsView()
 		{

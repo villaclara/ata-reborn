@@ -15,7 +15,7 @@ public class CustomDialogService : ICustomDialogService
 {
 	public CustomDialogResult ShowYesNoDialog(string title, string message)
 	{
-		var customDialog = MessageBox.Show(message, title, MessageBoxButton.YesNo);
+		var customDialog = System.Windows.MessageBox.Show(message, title, MessageBoxButton.YesNo);
 
 		var result = customDialog == MessageBoxResult.Yes ? CustomDialogResult.Yes : CustomDialogResult.No;
 		Log.Information("{@Method} - User chosen - {@result}.", nameof(ShowYesNoDialog), result);

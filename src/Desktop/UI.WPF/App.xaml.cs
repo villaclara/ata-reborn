@@ -5,14 +5,14 @@ using Application.Director.Instance;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System.Configuration;
-using System.Data;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using UI.WPF.Services.Abstracts;
 using UI.WPF.Services.Implementations;
 using UI.WPF.ViewModels;
 using UI.WPF.Views;
+using Forms = System.Windows.Forms;
 
 namespace UI.WPF;
 
@@ -23,6 +23,7 @@ public partial class App : System.Windows.Application
 {
 	public IHost AppHost { get; private set; }
 
+	private readonly Forms.NotifyIcon _notifyIcon;
 
 	public App()
 	{
@@ -32,6 +33,8 @@ public partial class App : System.Windows.Application
 		// 
 		// Maybe it is worth to move it somewhere else, idk
 		File.WriteAllText("log.txt", "");
+
+		_notifyIcon = new Forms.NotifyIcon();
 
 		AppHost = Host.CreateDefaultBuilder()
 			.ConfigureServices(services =>
@@ -83,6 +86,7 @@ public partial class App : System.Windows.Application
 
 			})
 			.Build();
+
 	}
 
 	protected override void OnStartup(StartupEventArgs e)
@@ -96,7 +100,24 @@ public partial class App : System.Windows.Application
 		MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
 		MainWindow.Show();
 
+		_notifyIcon.Icon = new Icon(System.Windows.Application.GetResourceStream(new Uri("/Resources/Images/atav2.ico", UriKind.Relative)).Stream);
+		_notifyIcon.Visible = true;
+		_notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+
 		base.OnStartup(e);
+	}
+
+	private void NotifyIcon_DoubleClick(object? sender, EventArgs e)
+	{
+		MainWindow.Show();
+		MainWindow.WindowState = WindowState.Normal;
+	}
+
+	protected override void OnExit(ExitEventArgs e)
+	{
+		_notifyIcon.Dispose();
+
+		base.OnExit(e);
 	}
 
 }

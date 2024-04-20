@@ -44,8 +44,9 @@
                 <Setter Property="FontFamily" Value="Segoe UI"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
-            
-            
+
+            <Image x:Key="iconImage" Source="/Resources/Images/atav2.ico"/>
+
         </ResourceDictionary>
 
     </Application.Resources>

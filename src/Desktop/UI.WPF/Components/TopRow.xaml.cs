@@ -18,7 +18,7 @@ namespace UI.WPF.Components
     /// <summary>
     /// Interaction logic for TopRow.xaml
     /// </summary>
-    public partial class TopRow : UserControl
+    public partial class TopRow : System.Windows.Controls.UserControl
     {
         public TopRow()
         {

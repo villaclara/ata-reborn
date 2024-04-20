@@ -18,7 +18,7 @@ namespace UI.WPF.Components;
 /// <summary>
 /// Interaction logic for ProcessListView.xaml
 /// </summary>
-public partial class ProcessListView : UserControl
+public partial class ProcessListView : System.Windows.Controls.UserControl
 {
 	public ProcessListView()
 	{

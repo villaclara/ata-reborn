@@ -8,11 +8,8 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>ATA Reborn</AssemblyName>
     <ApplicationIcon>Resources\Images\atav2.ico</ApplicationIcon>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="Resources\Images\atav2.ico" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
@@ -32,8 +29,9 @@
     <Resource Include="Resources\Images\atav2.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\atav2png.png" />
-    <Resource Include="Resources\Images\A_letter.png" />
+    <Resource Include="Resources\Images\atav2png.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\close_black.png" />
     <Resource Include="Resources\Images\dashboard_blackyellow.png" />
     <Resource Include="Resources\Images\home_black.png" />

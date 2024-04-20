@@ -19,7 +19,7 @@ namespace UI.WPF.Components;
 /// <summary>
 /// Interaction logic for Toolbar.xaml
 /// </summary>
-public partial class Toolbar : UserControl
+public partial class Toolbar : System.Windows.Controls.UserControl
 {
     public Toolbar()
     {
