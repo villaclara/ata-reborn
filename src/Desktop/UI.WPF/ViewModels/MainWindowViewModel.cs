@@ -1,6 +1,8 @@
 ﻿using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Serilog;
+using System.Reflection;
+using System.Windows;
 using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
@@ -44,6 +46,6 @@ public partial class MainWindowViewModel : ObservableObject
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 
-	public string AppVersion { get; set; } = "v1.0.0.0";
+	public string AppVersion { get; set; } = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
 
 }

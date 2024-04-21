@@ -45,6 +45,7 @@ public partial class App : System.Windows.Application
 									restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
 					.CreateLogger();
 				Log.Logger.Information("{@Method} - start serilog in WPF.", nameof(App));
+				Log.Logger.Information("{@Method} - WPF version - {@wpf}.", nameof(App), Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "null");
 
 				services.AddSingleton<IDirector>(new DirectorBuilder()
 					.AddIOServices(new ReadDataFromJsonFile(), new WriteDataStringToFile())
