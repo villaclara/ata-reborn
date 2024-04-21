@@ -1,6 +1,4 @@
-﻿using LiveCharts.Wpf;
-using LiveCharts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Shared.ViewModels;
-using Application.Models;
-using UI.WPF.ViewModels;
 
-namespace UI.WPF.Components;
-
-/// <summary>
-/// Interaction logic for TrackedAppItem.xaml
-/// </summary>
-public partial class TrackedAppItem : UserControl
+namespace UI.WPF.Components
 {
-	public TrackedAppItem()
-	{
-		InitializeComponent();
-	}
-	
+    /// <summary>
+    /// Interaction logic for TopRow.xaml
+    /// </summary>
+    public partial class TopRow : System.Windows.Controls.UserControl
+    {
+        public TopRow()
+        {
+            InitializeComponent();
+        }
 
+    }
 }

@@ -1,19 +1,17 @@
-﻿using Application.Common.Services;
-using Application.Models;
-using Application.Utilities;
+﻿using Application.Common.Abstracts;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
-using LiveCharts.Wpf;
+using Serilog;
 using Shared.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UI.WPF.Enums;
+using UI.WPF.Services;
+using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
-public partial class TrackedAppItemViewModel : ObservableObject
+public partial class TrackedAppItemViewModel : BaseViewModel
 {
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(AppName))]
@@ -24,46 +22,34 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	[NotifyPropertyChangedFor(nameof(AppTotalMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppFirstSessionDate))]
 	[NotifyPropertyChangedFor(nameof(AppLastSessionDate))]
-	public AppInstance _app;
+	[NotifyPropertyChangedFor(nameof(SeriesCollection))]
+	private AppInstanceVM _app;
 
-
-	public string AppName => App.Name; 
+	public string AppName => App.Name;
 	public string AppIsRunning => App.IsRunning ? "running" : "stopped";
 	public uint AppCurrentSessionHours => (uint)App.CurrentSessionTime / 60;
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
-	public uint AppTotalHours => (uint)App.UpTimes.Sum(u => u.Minutes) / 60;
-	public uint AppTotalMinutes => (uint)App.UpTimes.Sum(u => u.Minutes) % 60;
+	public uint AppTotalHours => (uint)App.UpTimeList.Sum(u => u.Minutes) / 60;
+	public uint AppTotalMinutes => (uint)App.UpTimeList.Sum(u => u.Minutes) % 60;
 	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
 	public string AppFirstSessionDate => App.CreatedAt.ToString("dd/MM/yy");
 
 
+	private readonly IDataIssuer _dataIssuer;
+	private readonly ICustomDialogService _customDialog;
+	private readonly IRetrieveChartService _retrieveChartService;
 
-	public Task Director_WorkDone(object arg1, int arg2)
+
+	// Reassign tracked App to new values.
+	public Task TrackedAppItemVM_Director_WorkDone(object arg1, int arg2)
 	{
-		var app = new DataIssuer(new ReadDataFromJsonFile()).GetAppDataByName(_app.Name);
-		App = MyMapService.Map<AppInstanceVM, AppInstance>(app)!;
+		Log.Information("{@Method} - Get data for ({@app}).", nameof(TrackedAppItemVM_Director_WorkDone), App.Name);
+		App = _dataIssuer.GetAppDataByName(App.Name) ?? App;
 
-		
-
+		Log.Information("{@Method} - ({@App}) values updated.", nameof(TrackedAppItemVM_Director_WorkDone), App.Name);
 		return Task.CompletedTask;
 
 	}
-
-	//LIVECHARTS STUFF
-	// INCLUDE IN CONSTRUCTOR OR SOMEWHERE ELSE
-	//SeriesCollection = new SeriesCollection()
-	//{
-	//	new ColumnSeries
-	//	{
-	//		Title = "Time",
-	//		Values = new ChartValues<double> { 10, 20, 30, 0, 20, 1, 0 }
-	//	}
-	//};
-
-
-	//	Labels = new[] { "23/03", "24/03", "25/03", "26/03", "27/03", "28/03", "29/03" };
-	//	Formatter = value => value.ToString("N");
-
 
 	[ObservableProperty]
 	public SeriesCollection _seriesCollection;
@@ -75,38 +61,39 @@ public partial class TrackedAppItemViewModel : ObservableObject
 	public Func<double, string> _formatter;
 
 
-	public TrackedAppItemViewModel(AppInstance app)
+	public TrackedAppItemViewModel(AppInstanceVM app,
+		IDataIssuer dataIssuer, ICustomDialogService customDialog, IRetrieveChartService retrieveChartService)
 	{
 		_app = app;
 
+		_dataIssuer = dataIssuer;
+		_customDialog = customDialog;
+		_retrieveChartService = retrieveChartService;
 
-		_seriesCollection = new SeriesCollection()
-		{
-			new ColumnSeries
-			{
-				Title = "Time",
-				Values = new ChartValues<double> {
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-			App.UpTimes.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
-				}
-			}
-		};
-
-
-		_labels = [ $"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now):dd/MM}"
-		];
+		_seriesCollection = _retrieveChartService.GetSeriesForApp(_app);
+		_labels = _retrieveChartService.GetLabels();
 		_formatter = value => value.ToString("N");
 
+	}
+
+
+
+	[RelayCommand]
+	private void DeleteTrackedApp()
+	{
+		try
+		{
+			// Maybe not so good to put it here, but anyway it works.
+			var result = _customDialog.ShowYesNoDialog("WTF", "You sure want to remove application form tracking?");
+			if (result == CustomDialogResult.Yes)
+			{
+				StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
+
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
+		}
 	}
 }

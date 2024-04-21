@@ -6,13 +6,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <AssemblyName>ATA Reborn</AssemblyName>
+    <ApplicationIcon>Resources\Images\atav2.ico</ApplicationIcon>
+    <UseWindowsForms>True</UseWindowsForms>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
@@ -22,6 +22,32 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Application.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\atav2.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\atav2png.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\close_black.png" />
+    <Resource Include="Resources\Images\dashboard_blackyellow.png" />
+    <Resource Include="Resources\Images\home_black.png" />
+    <Resource Include="Resources\Images\home_white.png" />
+    <Resource Include="Resources\Images\minimize_black.png" />
+    <Resource Include="Resources\Images\moon_black.png" />
+    <Resource Include="Resources\Images\moon_white.png" />
+    <Resource Include="Resources\Images\plus_black.png" />
+    <Resource Include="Resources\Images\plus_white.png" />
+    <Resource Include="Resources\Images\refresh_black.png" />
+    <Resource Include="Resources\Images\refresh_white.png" />
+    <Resource Include="Resources\Images\remove_black.png" />
+    <Resource Include="Resources\Images\remove_white.png" />
+    <Resource Include="Resources\Images\settings_black.png" />
+    <Resource Include="Resources\Images\settings_white.png" />
+    <Resource Include="Resources\Images\sun_black.png" />
+    <Resource Include="Resources\Images\sun_white.png" />
   </ItemGroup>
 
 </Project>

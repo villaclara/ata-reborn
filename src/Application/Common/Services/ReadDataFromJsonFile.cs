@@ -37,8 +37,7 @@ public class ReadDataFromJsonFile : IReadData
         {             
             var read = ReadFromFile(ConstantValues.MAIN_FILE_NAME);
             apps = GetListFromStringData(read);
-
-            Log.Information("{@Method} - Data - {@Apps}", nameof(RetrieveData), apps);
+            //Log.Information("{@Method} - Data - {@Apps}", nameof(RetrieveData), apps);
             return apps;
         }
         catch (Exception)
@@ -93,7 +92,7 @@ public class ReadDataFromJsonFile : IReadData
 		try
 		{
 			var apps = AppsJsonStringConverter.ConvertJsonToApps(data);
-			Log.Information("{@Method} - Data - {@Apps}", nameof(GetListFromStringData), apps);
+			//Log.Information("{@Method} - Data - {@Apps}", nameof(GetListFromStringData), apps);
 
 			return apps;
 		}

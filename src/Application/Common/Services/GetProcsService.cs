@@ -79,7 +79,6 @@ public class GetProcsService : IGetProcs
 						AppName = proc.ProcessName
 					});
 				}
-				result.Add(proc.ProcessName, proc.ProcessName);
 			}
 		}
 

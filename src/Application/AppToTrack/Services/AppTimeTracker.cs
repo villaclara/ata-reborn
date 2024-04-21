@@ -91,6 +91,8 @@ public class AppTimeTracker(IInteractor interactor) : IAppTimeTracker
 		if (!trackedApp.IsRunning)
 		{
 			trackedApp.CurrentSessionTime = 0;
+
+			Log.Information("{@Method} - App ({@App}) is not running. CurrentSessionTime to 0 and return.", nameof(TrackTime), trackedApp.ProcessNameInOS);
 			return;
 		}
 

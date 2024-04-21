@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.WPF.Components
+namespace UI.WPF.Components;
+
+/// <summary>
+/// Interaction logic for ProcessListView.xaml
+/// </summary>
+public partial class ProcessListView : System.Windows.Controls.UserControl
 {
-    /// <summary>
-    /// Interaction logic for Toolbar.xaml
-    /// </summary>
-    public partial class Toolbar : UserControl
-    {
-        public Toolbar()
-        {
-            InitializeComponent();
-        }
-    }
+	public ProcessListView()
+	{
+		InitializeComponent();
+	}
 }
