@@ -27,6 +27,7 @@ public static class MyMapService
 				Name = fromModel.Name,
 				IsRunning = fromModel.IsRunning,
 				CurrentSessionTime = fromModel.CurrentSessionTime,
+				CreatedAt = fromModel.CreatedAt,
 				LastRunningDate = fromModel.LastRunningDate,
 				UpTimeList = fromModel.UpTimes.ToList()
 			};
@@ -42,6 +43,7 @@ public static class MyMapService
 				Name = fromVM.Name,
 				IsRunning = fromVM.IsRunning,
 				CurrentSessionTime = fromVM.CurrentSessionTime,
+				CreatedAt = fromVM.CreatedAt,
 				LastRunningDate = fromVM.LastRunningDate,
 				UpTimes = fromVM.UpTimeList
 			};

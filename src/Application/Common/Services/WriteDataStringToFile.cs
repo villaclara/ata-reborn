@@ -21,7 +21,7 @@ public class WriteDataStringToFile : IWriteData
     /// <summary>
     /// Inherited method. Writes the string to the <see cref="ConstantValues.MAIN_FILE_NAME"/> file.
     /// </summary>
-    /// <param name="strToWrite">Value to be written.</param>
+    /// <param name="apps">List of <see cref="AppInstance"/> to be written.</param>
     /// <returns>Returns whether the writing was successfull.</returns>
     public bool WriteData(List<AppInstance> apps)
     {
