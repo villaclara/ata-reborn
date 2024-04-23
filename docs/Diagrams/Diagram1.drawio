@@ -1,4 +1,65 @@
 <mxfile host="65bd71144e">
+    <diagram id="Sq76xkwmjCW06V4b-h0d" name="MainFlow">
+        <mxGraphModel dx="1071" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-1" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 17px; background-color: initial;&quot;&gt;1. The IDirector object is created via DirectorBuilder class with minimum required properties, such as:&lt;/span&gt;&lt;/div&gt;&lt;font style=&quot;&quot;&gt;&lt;div style=&quot;font-size: 17px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- FileToSave&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 17px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Timeout value (ms)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 17px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Adds Read and Write Services.&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 17px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;span style=&quot;font-size: 17px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;2. The method IDirector.RunAsync() is called to begin the work.&lt;/span&gt;&lt;/div&gt;&lt;/span&gt;&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;span style=&quot;font-size: 17px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;3. After the Timeout ends,&amp;nbsp; the Director will perform work and update all tracked Apps, and will call WriteService to write info into file.&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry y="60" width="850" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-2" value="Application Main Flow" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="10" width="80" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-11" value="" style="edgeStyle=none;html=1;fontSize=14;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-4" target="USzmQiBSqQcF5wfpKRN4-10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-4" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;IDirectorBuilder&lt;/font&gt;" style="html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="410" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-13" value="" style="edgeStyle=none;html=1;fontSize=14;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-10" target="USzmQiBSqQcF5wfpKRN4-12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-10" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Builds IDirector object&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="402.5" width="170" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-16" value="" style="edgeStyle=none;html=1;fontSize=14;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-12" target="USzmQiBSqQcF5wfpKRN4-15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-12" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;IDirector&lt;/font&gt;" style="whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="407.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-25" value="" style="edgeStyle=none;html=1;fontSize=15;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-15" target="USzmQiBSqQcF5wfpKRN4-24">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-15" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Start doing all work&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="397.5" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-27" value="" style="edgeStyle=none;html=1;fontSize=15;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-24" target="USzmQiBSqQcF5wfpKRN4-26">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-24" value="OnTimer Elapsed" style="ellipse;whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="652.5" y="557.5" width="105" height="102.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-32" value="" style="edgeStyle=none;html=1;fontSize=13;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-26" target="USzmQiBSqQcF5wfpKRN4-31">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-26" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Run Task for checking and updating every Application state&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="563.75" width="202.5" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-33" style="edgeStyle=none;html=1;fontSize=13;" edge="1" parent="1" source="USzmQiBSqQcF5wfpKRN4-31" target="USzmQiBSqQcF5wfpKRN4-24">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="189" y="760"/>
+                            <mxPoint x="705" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="USzmQiBSqQcF5wfpKRN4-31" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Write new Information to file&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=17;" vertex="1" parent="1">
+                    <mxGeometry x="87.5" y="563.75" width="202.5" height="90" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
     <diagram id="BZ-cO62DnmGgJZc8tXrm" name="TrackedAppWorkFlow">
         <mxGraphModel dx="1071" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
@@ -121,7 +182,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="vio9tZY0HiVOnr2UPps9" name="TrackedAppClasses">
-        <mxGraphModel dx="1260" dy="973" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1071" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -320,44 +381,26 @@
                 <mxCell id="dMN4HTIztsLSaWl279la-12" style="edgeStyle=none;html=1;" parent="1" source="dMN4HTIztsLSaWl279la-2" target="dMN4HTIztsLSaWl279la-7" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-13" style="edgeStyle=none;html=1;" parent="1" source="dMN4HTIztsLSaWl279la-2" target="dMN4HTIztsLSaWl279la-8" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-14" style="edgeStyle=none;html=1;" parent="1" source="dMN4HTIztsLSaWl279la-2" target="dMN4HTIztsLSaWl279la-9" edge="1">
+                <mxCell id="0_K2Uuh_r8VEKyFQl3do-5" style="edgeStyle=none;html=1;fontSize=13;" edge="1" parent="1" source="dMN4HTIztsLSaWl279la-2" target="0_K2Uuh_r8VEKyFQl3do-4">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="dMN4HTIztsLSaWl279la-2" value="Track App" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="310" y="280" width="140" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-16" style="edgeStyle=none;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dMN4HTIztsLSaWl279la-3" target="dMN4HTIztsLSaWl279la-6" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-17" style="edgeStyle=none;html=1;" parent="1" source="dMN4HTIztsLSaWl279la-3" target="dMN4HTIztsLSaWl279la-5" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-18" style="edgeStyle=none;html=1;" parent="1" source="dMN4HTIztsLSaWl279la-3" target="dMN4HTIztsLSaWl279la-4" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-3" value="Change Settings" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="dMN4HTIztsLSaWl279la-3" value="Change Theme Light/Dark" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="310" y="570" width="140" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-4" value="Change Theme" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="510" y="690" width="140" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-5" value="Change Launch Settings" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="310" y="720" width="140" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-6" value="Change DateTime Format" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="120" y="690" width="140" height="70" as="geometry"/>
+                <mxCell id="0_K2Uuh_r8VEKyFQl3do-1" style="edgeStyle=none;html=1;fontSize=13;dashed=1;" edge="1" parent="1" source="dMN4HTIztsLSaWl279la-7" target="dMN4HTIztsLSaWl279la-8">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="dMN4HTIztsLSaWl279la-7" value="Add App to Track" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="120" y="160" width="140" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="dMN4HTIztsLSaWl279la-8" value="Remove App from Tracking" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="310" y="130" width="140" height="70" as="geometry"/>
+                    <mxGeometry x="310" y="30" width="140" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="dMN4HTIztsLSaWl279la-9" value="Reset Tracked App Time ??" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="510" y="160" width="140" height="70" as="geometry"/>
+                <mxCell id="0_K2Uuh_r8VEKyFQl3do-4" value="Refresh / Run Director Once" style="ellipse;whiteSpace=wrap;html=1;fontSize=13;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="140" width="140" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
