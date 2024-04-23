@@ -1,13 +1,13 @@
 <mxfile host="65bd71144e">
     <diagram id="BZ-cO62DnmGgJZc8tXrm" name="TrackedAppWorkFlow">
-        <mxGraphModel dx="1530" dy="1181" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1071" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-60" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="11">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-60" style="edgeStyle=none;html=1;" parent="1" source="2" target="11" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-61" value="Has List of" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="vjMBUKkElE8_SVuK97PD-60">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-61" value="Has List of" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="vjMBUKkElE8_SVuK97PD-60" vertex="1" connectable="0">
                     <mxGeometry x="-0.3556" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
@@ -29,7 +29,7 @@
                         <mxPoint x="400" y="289.23076923076906" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-62" value="Gets The AppInstance" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="44">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-62" value="Gets The AppInstance" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="44" vertex="1" connectable="0">
                     <mxGeometry x="-0.2991" y="-3" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
@@ -75,46 +75,46 @@
                 <mxCell id="Bc6zjtvQ-QecZ-7PF7hh-61" value="TimerService" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="130" y="120" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-53" style="edgeStyle=none;html=1;" edge="1" parent="1" source="vjMBUKkElE8_SVuK97PD-52" target="2">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-53" style="edgeStyle=none;html=1;" parent="1" source="vjMBUKkElE8_SVuK97PD-52" target="2" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-54" value="Creates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="vjMBUKkElE8_SVuK97PD-53">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-54" value="Creates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="vjMBUKkElE8_SVuK97PD-53" vertex="1" connectable="0">
                     <mxGeometry x="-0.3593" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-52" value="AppInstanceCreator" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-52" value="AppInstanceCreator" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="690" y="420" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-66" style="edgeStyle=none;html=1;" edge="1" parent="1" source="vjMBUKkElE8_SVuK97PD-55" target="vjMBUKkElE8_SVuK97PD-59">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-66" style="edgeStyle=none;html=1;" parent="1" source="vjMBUKkElE8_SVuK97PD-55" target="vjMBUKkElE8_SVuK97PD-59" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-67" value="Creates List of Apps from file" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="vjMBUKkElE8_SVuK97PD-66">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-67" value="Creates List of Apps from file" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="vjMBUKkElE8_SVuK97PD-66" vertex="1" connectable="0">
                     <mxGeometry x="0.2867" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-55" value="ReadData" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-55" value="ReadData" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="460" y="695" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-56" value="WriteData" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-56" value="WriteData" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="660" y="695" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-63" style="edgeStyle=none;html=1;" edge="1" parent="1" source="vjMBUKkElE8_SVuK97PD-58" target="vjMBUKkElE8_SVuK97PD-59">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-63" style="edgeStyle=none;html=1;" parent="1" source="vjMBUKkElE8_SVuK97PD-58" target="vjMBUKkElE8_SVuK97PD-59" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-64" value="Creates handler for each app form LIst" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="vjMBUKkElE8_SVuK97PD-63">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-64" value="Creates handler for each app form LIst" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="vjMBUKkElE8_SVuK97PD-63" vertex="1" connectable="0">
                     <mxGeometry x="-0.3093" y="1" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-58" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;List&amp;lt;AppHandler&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;StartTracking()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-58" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;List&amp;lt;AppHandler&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;StartTracking()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
                     <mxGeometry x="425" y="525" width="160" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-59" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;List&amp;lt;AppInstance&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;field1 = value1&lt;br&gt;field2 = value2&lt;br&gt;field3 = value3&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-59" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;List&amp;lt;AppInstance&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;field1 = value1&lt;br&gt;field2 = value2&lt;br&gt;field3 = value3&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
                     <mxGeometry x="50" y="680" width="160" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="vjMBUKkElE8_SVuK97PD-69" value="1. ReadData Gets the List&amp;lt;AppInstance&amp;gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;2. List&amp;lt;AppHandler&amp;gt; is created and added new objects for each AppInstance from List&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;OR&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;1. AppInstanceCreator creates the AppInstance&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;2. Add AppInstance to List&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;3. Add AppHandler to List&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;NEXT&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;OnTimerElapsed event:&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;1. AppHandler.StartTracking() is called and it updates the AppInstance&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;2. WriteData writes the List&amp;lt;AppInstance&amp;gt; into file" style="html=1;fontSize=14;" vertex="1" parent="1">
+                <mxCell id="vjMBUKkElE8_SVuK97PD-69" value="1. ReadData Gets the List&amp;lt;AppInstance&amp;gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;2. List&amp;lt;AppHandler&amp;gt; is created and added new objects for each AppInstance from List&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;OR&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;1. AppInstanceCreator creates the AppInstance&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;2. Add AppInstance to List&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;3. Add AppHandler to List&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;NEXT&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;OnTimerElapsed event:&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;1. AppHandler.StartTracking() is called and it updates the AppInstance&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;2. WriteData writes the List&amp;lt;AppInstance&amp;gt; into file" style="html=1;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="130" y="780" width="550" height="290" as="geometry"/>
                 </mxCell>
             </root>
@@ -166,8 +166,8 @@
                 <mxCell id="c5aE6hKna7cGHucHUaRy-8" value="+ method(type): type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="c5aE6hKna7cGHucHUaRy-5" vertex="1">
                     <mxGeometry y="60" width="160" height="26" as="geometry"/>
                 </mxCell>
-                <mxCell id="M_Fn2lDX56Cs01cFmTBk-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;IAppStateChecker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ AppInteractor : Interactor&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ GetAppState () : bool&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ UpdateStatus() : EventHandler&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="10" y="720" width="190" height="140" as="geometry"/>
+                <mxCell id="M_Fn2lDX56Cs01cFmTBk-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;IAppStateChecker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ AppInteractor : Interactor&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ GetAppState () : bool&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ SetAppState(AppInstanceState) : void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="720" width="220" height="140" as="geometry"/>
                 </mxCell>
                 <mxCell id="wEJZX17gfzbtgvIJ9ov2-2" style="edgeStyle=none;html=1;" parent="1" source="M_Fn2lDX56Cs01cFmTBk-3" target="2riPED5oYC9T3TNb9gyd-1" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -175,17 +175,17 @@
                 <mxCell id="M_Fn2lDX56Cs01cFmTBk-3" value="&lt;&lt;Interface&gt;&gt;&#10;IInteractor" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=41;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="425" y="474.5" width="190" height="101" as="geometry"/>
                 </mxCell>
-                <mxCell id="M_Fn2lDX56Cs01cFmTBk-4" value="+ App : AppInstance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="M_Fn2lDX56Cs01cFmTBk-3" vertex="1">
+                <mxCell id="M_Fn2lDX56Cs01cFmTBk-4" value="- App : AppInstance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="M_Fn2lDX56Cs01cFmTBk-3" vertex="1">
                     <mxGeometry y="41" width="190" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="M_Fn2lDX56Cs01cFmTBk-5" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="M_Fn2lDX56Cs01cFmTBk-3" vertex="1">
                     <mxGeometry y="67" width="190" height="8" as="geometry"/>
                 </mxCell>
-                <mxCell id="M_Fn2lDX56Cs01cFmTBk-6" value="+ GetAppById (int) : AppInstance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="M_Fn2lDX56Cs01cFmTBk-3" vertex="1">
+                <mxCell id="M_Fn2lDX56Cs01cFmTBk-6" value="+ GetAppInstance() : AppInstance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="M_Fn2lDX56Cs01cFmTBk-3" vertex="1">
                     <mxGeometry y="75" width="190" height="26" as="geometry"/>
                 </mxCell>
-                <mxCell id="xKE1cE81m3nqjKy4N8sU-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ITimeTracker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ AppInteractor : Interactor&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ UpdateAppTime() : void&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="250" y="720" width="190" height="140" as="geometry"/>
+                <mxCell id="xKE1cE81m3nqjKy4N8sU-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ITimeTracker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ AppInteractor : Interactor&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ GetCurrentSessionTime (bool) : double&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ GetSessionTimeForDate (DateOnly) : double&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ UpdateTimeValues(TimeSpan) : void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ TrackTime() : void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="720" width="260" height="140" as="geometry"/>
                 </mxCell>
                 <mxCell id="vB-PPDz6NzqkqVzL-LXA-5" style="edgeStyle=none;html=1;dashed=1;dashPattern=8 8;" parent="1" source="vB-PPDz6NzqkqVzL-LXA-1" target="xKE1cE81m3nqjKy4N8sU-1" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -241,7 +241,7 @@
                 <mxCell id="wJqPjbKtkDIRBSEz-App-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="wJqPjbKtkDIRBSEz-App-1" vertex="1">
                     <mxGeometry y="80" width="210" height="8" as="geometry"/>
                 </mxCell>
-                <mxCell id="wJqPjbKtkDIRBSEz-App-4" value="+ TrackApp()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="wJqPjbKtkDIRBSEz-App-1" vertex="1">
+                <mxCell id="wJqPjbKtkDIRBSEz-App-4" value="+ StartTrackingApp()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="wJqPjbKtkDIRBSEz-App-1" vertex="1">
                     <mxGeometry y="88" width="210" height="42" as="geometry"/>
                 </mxCell>
                 <mxCell id="wJqPjbKtkDIRBSEz-App-9" style="edgeStyle=none;html=1;dashed=1;dashPattern=12 12;" parent="1" source="wJqPjbKtkDIRBSEz-App-5" target="wJqPjbKtkDIRBSEz-App-1" edge="1">
@@ -262,16 +262,16 @@
                 <mxCell id="wJqPjbKtkDIRBSEz-App-11" style="edgeStyle=none;html=1;" parent="1" source="2riPED5oYC9T3TNb9gyd-2" target="c5aE6hKna7cGHucHUaRy-1" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="xpj2CpNyukS95XoH6V6x-5" style="edgeStyle=none;html=1;" edge="1" parent="1" source="xpj2CpNyukS95XoH6V6x-1" target="2riPED5oYC9T3TNb9gyd-1">
+                <mxCell id="xpj2CpNyukS95XoH6V6x-5" style="edgeStyle=none;html=1;" parent="1" source="xpj2CpNyukS95XoH6V6x-1" target="2riPED5oYC9T3TNb9gyd-1" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="xpj2CpNyukS95XoH6V6x-1" value="AppInstanseCreator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                <mxCell id="xpj2CpNyukS95XoH6V6x-1" value="AppInstanseCreator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="570" y="130" width="260" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="xpj2CpNyukS95XoH6V6x-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="xpj2CpNyukS95XoH6V6x-1">
+                <mxCell id="xpj2CpNyukS95XoH6V6x-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="xpj2CpNyukS95XoH6V6x-1" vertex="1">
                     <mxGeometry y="26" width="260" height="8" as="geometry"/>
                 </mxCell>
-                <mxCell id="xpj2CpNyukS95XoH6V6x-4" value="+ CreateAppInstanceToTrack() : AppInstance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="xpj2CpNyukS95XoH6V6x-1">
+                <mxCell id="xpj2CpNyukS95XoH6V6x-4" value="+ CreateAppInstanceToTrack() : AppInstance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="xpj2CpNyukS95XoH6V6x-1" vertex="1">
                     <mxGeometry y="34" width="260" height="26" as="geometry"/>
                 </mxCell>
             </root>
@@ -282,22 +282,22 @@
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="kXVfCSl4jr0CTvzGOh9C-1" value="«interface»&lt;br&gt;&lt;b&gt;IDataIssuer&lt;/b&gt;&lt;br&gt;(видає аппВМ як інфу для зовнішніх юзерів)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-1" value="«interface»&lt;br&gt;&lt;b&gt;IDataIssuer&lt;/b&gt;&lt;br&gt;(видає аппВМ як інфу для зовнішніх юзерів)" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="340" y="440" width="150" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="kXVfCSl4jr0CTvzGOh9C-2" value="«interface»&lt;br&gt;&lt;b&gt;IReadData&lt;/b&gt;&lt;br&gt;(зчитує інфу з файлу з аппками)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-2" value="«interface»&lt;br&gt;&lt;b&gt;IReadData&lt;/b&gt;&lt;br&gt;(зчитує інфу з файлу з аппками)" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="40" y="80" width="140" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="kXVfCSl4jr0CTvzGOh9C-3" value="«interface»&lt;br&gt;&lt;b&gt;IWriteData&lt;/b&gt;&lt;br&gt;(записує інфу в файл з аппками)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-3" value="«interface»&lt;br&gt;&lt;b&gt;IWriteData&lt;/b&gt;&lt;br&gt;(записує інфу в файл з аппками)" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="230" y="80" width="140" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="kXVfCSl4jr0CTvzGOh9C-4" value="«interface»&lt;br&gt;&lt;b&gt;IAppHandler&lt;/b&gt;&lt;br&gt;(проводить дії над аппкою)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-4" value="«interface»&lt;br&gt;&lt;b&gt;IAppHandler&lt;/b&gt;&lt;br&gt;(проводить дії над аппкою)" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="140" y="240" width="150" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="kXVfCSl4jr0CTvzGOh9C-5" value="«interface»&lt;br&gt;&lt;b&gt;IAppInstanceCreate&lt;/b&gt;&lt;br&gt;(створює нову аппку ту трек)" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-5" value="«interface»&lt;br&gt;&lt;b&gt;IAppInstanceCreate&lt;/b&gt;&lt;br&gt;(створює нову аппку ту трек)" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
                     <mxGeometry x="50" y="440" width="160" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="kXVfCSl4jr0CTvzGOh9C-6" value="«interface»&lt;br&gt;&lt;b&gt;IProcessesGet&lt;/b&gt;&lt;br&gt;(формує список унік процесів зараз)" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="kXVfCSl4jr0CTvzGOh9C-6" value="«interface»&lt;br&gt;&lt;b&gt;IProcessesGet&lt;/b&gt;&lt;br&gt;(формує список унік процесів зараз)" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="510" y="180" width="140" height="70" as="geometry"/>
                 </mxCell>
             </root>
