@@ -19,7 +19,6 @@ public class ReadDataFromJsonFile : IReadData
     /// <returns>Returns read data as string.</returns>
     public List<AppInstance> RetrieveData()
     {
-        Log.Information("\n");
         Log.Information("{@Method} - Read from {@File}", nameof(RetrieveData), ConstantValues.MAIN_FILE_NAME);
 
         // Logic - 

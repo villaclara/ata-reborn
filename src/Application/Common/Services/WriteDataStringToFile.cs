@@ -30,7 +30,6 @@ public class WriteDataStringToFile : IWriteData
         bool bSuccess = false;
         try
         {
-            Log.Information("\n");
             Log.Information("{@Method} - Start executing", nameof(WriteData));
             using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
             sw.Write(strToWrite);

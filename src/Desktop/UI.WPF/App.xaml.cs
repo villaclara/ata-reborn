@@ -2,6 +2,7 @@
 using Application.Common.Services;
 using Application.Director.Creation;
 using Application.Director.Instance;
+using Application.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -32,7 +33,7 @@ public partial class App : System.Windows.Application
 		// Clear the log file. 
 		// 
 		// Maybe it is worth to move it somewhere else, idk
-		File.WriteAllText("log.txt", "");
+		File.WriteAllText(ConstantValues.LOG_FILE_NAME, "");
 
 		_notifyIcon = new Forms.NotifyIcon();
 
@@ -41,7 +42,7 @@ public partial class App : System.Windows.Application
 			{
 
 				Log.Logger = new LoggerConfiguration()
-					.WriteTo.File("log.txt", fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true, retainedFileCountLimit: 3, shared: true,
+					.WriteTo.File(path: ConstantValues.LOG_FILE_NAME, fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true, retainedFileCountLimit: 3, shared: true,
 									restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
 					.CreateLogger();
 				Log.Logger.Information("{@Method} - start serilog in WPF.", nameof(App));

@@ -50,7 +50,7 @@ public class MainDirector : IDirector
 
 	public void AddAppToTrackedList(string processName, string? appName = null)
 	{
-		Log.Information("{@Method} - started with parameters - processName - {@processName}, appName - {@appName}", nameof(AddAppToTrackedList), processName, appName);
+		Log.Information("{@Method} - started with parameters - processName ({@processName}), appName ({@appName})", nameof(AddAppToTrackedList), processName, appName);
 
 		var app = AppInstanceCreator.CreateAppInstanceToTrack(appName, processName);
 		Log.Information("{@Method} - AppInstance was created with processname - {@app}", nameof(AddAppToTrackedList), app);

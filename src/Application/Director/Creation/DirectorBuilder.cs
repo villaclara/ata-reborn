@@ -1,6 +1,7 @@
 ﻿using Application.Common.Abstracts;
 using Application.Director.Instance;
 using Application.Utilities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,20 @@ public class DirectorBuilder : IDirectorBuilder
 	
 	public DirectorBuilder()
 	{
+		Log.Information("{@Method} - Calling DirectorBuilder Constructor.", nameof(DirectorBuilder));
 		_director = new MainDirector();
 	}
 	public IDirectorBuilder AddReadService(IReadData readData)
 	{
 		_director.ReadDataService = readData;
+		Log.Information("{@Method} - added service ({@service}).", nameof(AddReadService), typeof(IReadData).FullName);
 		return this;
 	}
 
 	public IDirectorBuilder AddWriteService(IWriteData writeData)
 	{
 		_director.WriteDataService = writeData;
+		Log.Information("{@Method} - added service ({@service}).", nameof(AddWriteService), typeof(IWriteData).FullName);
 		return this;
 	}
 
@@ -34,11 +38,13 @@ public class DirectorBuilder : IDirectorBuilder
 	{
 		_director.ReadDataService = readService;
 		_director.WriteDataService = writeService;
+		Log.Information("{@Method} - added services.", nameof(AddIOServices));
 		return this;
 	}
 
 	public IDirector Build()
 	{
+		Log.Information("{@Method} - build done, returning instance of ({@dir}).", nameof(Build), typeof(IDirector));
 		return _director;
 	}
 
@@ -46,6 +52,7 @@ public class DirectorBuilder : IDirectorBuilder
 	{
 		ConstantValues.TIMER_INTERVAL_MS = timeoutMiliseconds;
 		ConstantValues.TIMER_INTERVAL_M = timeoutMiliseconds / 60_000;
+		Log.Information("{@Method} - added time values. MS - ({@service}), M - ({@Min}).", nameof(SetTimerCheckValue), ConstantValues.TIMER_INTERVAL_MS, ConstantValues.TIMER_INTERVAL_M);
 		return this;
 	}
 
@@ -65,7 +72,7 @@ public class DirectorBuilder : IDirectorBuilder
 		if (split[^1] == "json")
 		{
 			var index = where.LastIndexOf(".json");
-			name = where.Substring(0, index);
+			name = where[..index]; // same as .Substring(0, index)
 		}
 
 
@@ -73,6 +80,8 @@ public class DirectorBuilder : IDirectorBuilder
 		ConstantValues.MAIN_FILE_NAME = name + ext;
 		ConstantValues.BACKUP_MAIN_FILE_NAME = name + "_backup" + ext;
 
+
+		Log.Information("{@Method} - added writable file ({@service}), backup ({@backup}).", nameof(SetWritableFile), ConstantValues.MAIN_FILE_NAME, ConstantValues.BACKUP_MAIN_FILE_NAME);
 		return this;
 
 	}
