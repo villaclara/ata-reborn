@@ -166,7 +166,7 @@
                 <Button Margin="10 0 5 0" 
                         Style="{DynamicResource ButtonTemplateToolbar}" 
                         MinWidth="50"
-                        Command="{Binding}">
+                        Command="{Binding ShowSettingsScreenCommand}">
 
                     <Button.Content>
                         <Image Height="30">

@@ -7,17 +7,24 @@
         xmlns:components="clr-namespace:UI.WPF.Components"
         xmlns:viewmodels="clr-namespace:UI.WPF.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="530" Width="870"
         d:DataContext="{Binding MainWindowViewModel}"
+        Title="MainWindow" 
+        Height="{Binding ThisHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        Width="{Binding ThisWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
         WindowState="Normal" 
-        ShowInTaskbar="True">
-
+        ShowInTaskbar="True"
+        >
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="SizeChanged">
+        </EventTrigger>
+    </Window.Triggers>
+    
     <!-- To be able to resize window without small borders on sides. -->
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
-                      ResizeBorderThickness="5" />
+                      ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
 
     <Border BorderBrush="{DynamicResource SecondaryBackground}" BorderThickness="1">
