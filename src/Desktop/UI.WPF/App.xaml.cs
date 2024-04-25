@@ -71,7 +71,7 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
 				services.AddSingleton<TopRowViewModel>();
-				services.AddTransient<SettingsViewModel>();
+				services.AddSingleton<SettingsViewModel>();
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();

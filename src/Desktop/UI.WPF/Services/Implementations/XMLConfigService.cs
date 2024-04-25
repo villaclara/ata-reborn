@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,9 +16,42 @@ public class XMLConfigService : IConfigService
 {
 	private readonly Configuration _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-	public string? GetValueFromSection(string sectionName)
+	public bool GetBooleanValue(string sectionName)
 	{
-		return ConfigurationManager.AppSettings["WindowHeight"];
+		var value = GetStringValue(sectionName);
+		if(value == null )
+		{
+			return false;
+		}
+
+		return value.ToLower().Trim() switch
+		{
+			"true" => true,
+			_ => false
+		};
+	}
+
+	public int GetIntValue(string sectionName)
+	{
+		var value = GetStringValue(sectionName);
+		if( value == null )
+		{
+			return 0;
+		}
+		try
+		{
+			return Convert.ToInt32(value);
+		}
+		catch (Exception ex)
+		{
+			Log.Error("{@Method} - error ({@err}).", nameof(GetIntValue), ex.Message);
+			return 0;
+		}
+	}
+
+	public string? GetStringValue(string sectionName)
+	{
+		return ConfigurationManager.AppSettings[sectionName];
 	}
 
 	public bool WriteSectionWithValues(string sectionName, string value)
@@ -31,39 +65,35 @@ public class XMLConfigService : IConfigService
 			return false; 
 		}
 
-
-		if (_config.AppSettings.Settings[sectionName] is null)
+		try
 		{
-			_config.AppSettings.Settings.Add(sectionName, value);
-		}
-		else
-		{
-			_config.AppSettings.Settings[sectionName].Value = value;
-		}
 
-		Save();
-		return true;
+			if (_config.AppSettings.Settings[sectionName] is null)
+			{
+				_config.AppSettings.Settings.Add(sectionName, value);
+			}
+			else
+			{
+				_config.AppSettings.Settings[sectionName].Value = value;
+			}
+
+			_config.Save(ConfigurationSaveMode.Modified);
+
+			ConfigurationManager.RefreshSection(_config.AppSettings.SectionInformation.Name);
+			return true;
+		}
+		catch(Exception ex)
+		{
+			Log.Error("{@Method} - ({@ex}).", nameof(WriteSectionWithValues), ex.Message);
+			return false;
+		}
 	}
 
 
 	private void Save()
 	{
-		_config.Save(ConfigurationSaveMode.Modified);
-
-		ConfigurationManager.RefreshSection(_config.AppSettings.SectionInformation.Name);
 	}
 
 
-	public T GetValue<T>(string sectionName)
-	{
-		var value = ConfigurationManager.AppSettings["WindowHeight"];
-		//return typeof(T) switch
-		//{
-		//	int v => Convert.ToInt32(value),
-		//	string => value,
-		//	bool => value.ToLower() == "true"
-		//};
-
-
-	}
+	
 }

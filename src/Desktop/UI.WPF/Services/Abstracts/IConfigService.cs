@@ -9,7 +9,8 @@ namespace UI.WPF.Services.Abstracts;
 
 public interface IConfigService
 {
-
-	string? GetValueFromSection(string sectionName);
+	string? GetStringValue(string sectionName);
+	bool GetBooleanValue(string sectionName);
+	int GetIntValue(string sectionName);
 	bool WriteSectionWithValues(string sectionName, string value);
 }
