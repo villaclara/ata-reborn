@@ -17,10 +17,29 @@ namespace UI.WPF.ViewModels;
 public partial class SettingsViewModel : BaseViewModel
 {
 	private readonly IConfigService _configService;
-	
 
-	public int WindowHeight { get; set; } = 0;
-	public int WindowWidth { get; set; } = 0;
+
+	private int _windowHeight;
+	public int WindowHeight 
+	{
+		get => _windowHeight;
+		set
+		{
+			_windowHeight = value;
+			_configService.WriteSectionWithValues("WindowHeight", WindowHeight.ToString());
+		}
+	}
+
+	private int _windowWidth;
+	public int WindowWidth 
+	{ 
+		get => _windowWidth;
+		set
+		{
+			_windowWidth = value;
+			_configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
+		}
+	}
 
 	private readonly int _heightAtStart = 0;
 	private readonly int _widthAtStart = 0;
@@ -63,17 +82,7 @@ public partial class SettingsViewModel : BaseViewModel
 		// When there was at least one error in changes we set the result to false and skip all following changes.
 		bool result = true;
 
-		// Check if the values were changed from when starting app.
-		if (_heightAtStart != WindowHeight && result)
-		{
-			result = _configService.WriteSectionWithValues("WindowHeight", WindowHeight.ToString());
-		}
-
-		if(_widthAtStart != WindowWidth && result)
-		{
-			result = _configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
-		}
-
+		// Check if the value differs from the current. If it is the same we do not need to perform any Save action.
 		if(_launchAtStart != IsLaunchOnStartup && result)
 		{
 			result = _configService.WriteSectionWithValues("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
@@ -107,4 +116,5 @@ public partial class SettingsViewModel : BaseViewModel
 			_configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
 		}
 	}
+
 }
