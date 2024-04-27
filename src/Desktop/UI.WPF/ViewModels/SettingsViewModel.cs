@@ -27,6 +27,7 @@ public partial class SettingsViewModel : BaseViewModel
 		{
 			_windowHeight = value;
 			_configService.WriteSectionWithValues("WindowHeight", WindowHeight.ToString());
+			Log.Information("{@Method} - Set Window Height ({@h}).", nameof(WindowHeight), value);
 		}
 	}
 
@@ -38,6 +39,7 @@ public partial class SettingsViewModel : BaseViewModel
 		{
 			_windowWidth = value;
 			_configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
+			Log.Information("{@Method} - Set Window Width ({@h}).", nameof(WindowWidth), value);
 		}
 	}
 
@@ -115,6 +117,9 @@ public partial class SettingsViewModel : BaseViewModel
 		{
 			_configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
 		}
+
+		Log.Information("{@Method} - Set default values for Height ({@h}), Width ({@w}).", nameof(SettingsViewModel), WindowHeight, WindowWidth);
+
 	}
 
 }
