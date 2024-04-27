@@ -39,7 +39,7 @@
                             <!-- NAME of App-->
                             <Viewbox Height="40" Grid.Column="0">
                             <TextBlock Text="{Binding AppName}" 
-                                       FontFamily="Verdana"
+                                       FontFamily="Cascadia Mono"
                                        Foreground="{DynamicResource CardMainForeground}"/>
                             </Viewbox>
                         </Border>
