@@ -21,4 +21,5 @@ public partial class MainWindow : Window
 			this.DragMove();
 		}
 	}
+
 }

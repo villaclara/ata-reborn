@@ -1,8 +1,10 @@
 ﻿using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Serilog;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media.Animation;
 using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
@@ -10,7 +12,7 @@ namespace UI.WPF.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
 	public MainWindowViewModel(INavigationService navigation, IDirector director,
-		ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, TopRowViewModel topRowViewModel)
+		ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, TopRowViewModel topRowViewModel, SettingsViewModel settingsViewModel)
 	{
 		_navigation = navigation;
 		_director = director;
@@ -21,6 +23,10 @@ public partial class MainWindowViewModel : ObservableObject
 		ToolbarViewModel = toolbarViewModel;
 		TrackedAppsViewModel = trackedAppsViewModel;
 		TopRowViewModel = topRowViewModel;
+		SettingsViewModel = settingsViewModel;
+
+		ThisHeight = SettingsViewModel.WindowHeight;
+		ThisWidth = SettingsViewModel.WindowWidth;
 	}
 
 	// Update the Value displaying Last Checked date.
@@ -31,11 +37,17 @@ public partial class MainWindowViewModel : ObservableObject
 		return Task.CompletedTask;
 	}
 
+	[ObservableProperty]
+	private int _thisHeight;
+
+	[ObservableProperty]
+	private int _thisWidth;
 
 	// For Binding purposes.
 	public ToolbarViewModel ToolbarViewModel { get; }
 	public TrackedAppsViewModel TrackedAppsViewModel { get; }
 	public TopRowViewModel TopRowViewModel { get; }
+	public SettingsViewModel SettingsViewModel { get; set; }
 
 
 	// Is taking part in Binging Current View.
@@ -47,5 +59,17 @@ public partial class MainWindowViewModel : ObservableObject
 	private DateTime _lastDirectorWorkDone;
 
 	public string AppVersion { get; set; } = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
+
+
+	partial void OnThisHeightChanged(int value)
+	{
+		SettingsViewModel.WindowHeight = value;
+	}
+
+	partial void OnThisWidthChanged(int value)
+	{
+		SettingsViewModel.WindowWidth = value;
+	}
+
 
 }

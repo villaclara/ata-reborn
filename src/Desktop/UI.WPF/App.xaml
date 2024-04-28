@@ -25,7 +25,12 @@
                 <components:ProcessListView/>
             </DataTemplate>
             
-            
+            <!-- Template for SettingsView -->
+            <DataTemplate DataType="{x:Type TypeName=viewmodels:SettingsViewModel}">
+                <components:SettingsView/>
+            </DataTemplate>
+
+
             <!-- Template for Processes List Screen Header of Table -->
             <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
                 <Setter Property="Template">

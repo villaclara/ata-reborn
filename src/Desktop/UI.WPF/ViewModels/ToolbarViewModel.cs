@@ -66,7 +66,8 @@ public partial class ToolbarViewModel : BaseViewModel
 	[RelayCommand]
 	private void ShowSettingsScreen()
 	{
-
+		Log.Information("{@Method} - Navigating to {@view}", nameof(ShowProcessListScreen), typeof(SettingsViewModel));
+		_navigation.NavigateTo<SettingsViewModel>();
 	}
 
 	[RelayCommand]

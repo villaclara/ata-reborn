@@ -5,7 +5,9 @@ using Application.Director.Instance;
 using Application.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Win32;
 using Serilog;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -59,6 +61,7 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<IGetProcs, GetProcsService>();
 				services.AddSingleton<IThemeChangeService, ThemeChangeService>();
 				services.AddSingleton<IRetrieveChartService, RetrieveChartService>();
+				services.AddSingleton<IConfigService, XMLConfigService>();
 
 				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
@@ -68,6 +71,7 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
 				services.AddSingleton<TopRowViewModel>();
+				services.AddSingleton<SettingsViewModel>();
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();
@@ -105,6 +109,17 @@ public partial class App : System.Windows.Application
 		_notifyIcon.Icon = new Icon(System.Windows.Application.GetResourceStream(new Uri("/Resources/Images/atav2.ico", UriKind.Relative)).Stream);
 		_notifyIcon.Visible = true;
 		_notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+		_notifyIcon.Click += NotifyIcon_DoubleClick;
+		_notifyIcon.Text = "ATA Reborn. Double click to open.";
+
+#if DEBUG
+
+#else
+
+		RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
+		reg.SetValue("ATAREBORN", Process.GetCurrentProcess().MainModule!.FileName.ToString());
+
+#endif
 
 		base.OnStartup(e);
 	}
