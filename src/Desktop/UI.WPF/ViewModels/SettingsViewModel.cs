@@ -11,6 +11,8 @@ using UI.WPF.Utilities;
 using UI.WPF.Services.Abstracts;
 using System.Windows.Automation;
 using System.Windows;
+using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace UI.WPF.ViewModels;
 
@@ -73,9 +75,27 @@ public partial class SettingsViewModel : BaseViewModel
 
 		Log.Information("{@Method} - Set Height ({@h}), Width ({@w}).", nameof(SettingsViewModel), WindowHeight, WindowWidth);
 
-		IsLaunchOnStartup = _configService.GetBooleanValue("LaunchOnStartup");
-		Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
-		_launchAtStart = IsLaunchOnStartup;
+		// Get the launch on startup option 
+		// Get string from config file
+		// If the string is missing - we assume that it is first launch of the App and
+		// We set LaunchOnStartup to true and edit Registry
+		if(_configService.GetStringValue("LaunchOnStartup") is null)
+		{
+			IsLaunchOnStartup = true;
+			Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
+			_launchAtStart = IsLaunchOnStartup;
+
+			// write info into Registry
+			_configService.WriteSectionWithValues("LaunchOnStartup", "True");
+			RegistryEditor.SetAppToLaunchOnStartup();
+		}
+		else		// It is at least second launch
+		{
+			IsLaunchOnStartup = _configService.GetBooleanValue("LaunchOnStartup");
+			Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
+			_launchAtStart = IsLaunchOnStartup;
+		}
+
 	}
 
 	[RelayCommand]
@@ -88,6 +108,10 @@ public partial class SettingsViewModel : BaseViewModel
 		if(_launchAtStart != IsLaunchOnStartup && result)
 		{
 			result = _configService.WriteSectionWithValues("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
+			var resStartup = IsLaunchOnStartup ?
+				RegistryEditor.SetAppToLaunchOnStartup() :
+				RegistryEditor.RemoveAppFromLaunchOnStartup();
+			Log.Information("{@Method} - Changed and saved new launchonstartup option - {@opt}.", nameof(SaveChanges), IsLaunchOnStartup ? "True" : "False");
 		}
 
 		SaveResultText = result ? "Changes Saved." : "Error when saving changes. Please try again.";

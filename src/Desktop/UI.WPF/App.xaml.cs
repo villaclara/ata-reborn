@@ -112,15 +112,6 @@ public partial class App : System.Windows.Application
 		_notifyIcon.Click += NotifyIcon_DoubleClick;
 		_notifyIcon.Text = "ATA Reborn. Double click to open.";
 
-#if DEBUG
-
-#else
-
-		RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!;
-		reg.SetValue("ATAREBORN", Process.GetCurrentProcess().MainModule!.FileName.ToString());
-
-#endif
-
 		base.OnStartup(e);
 	}
 
