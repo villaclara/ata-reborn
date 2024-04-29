@@ -61,7 +61,8 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<IGetProcs, GetProcsService>();
 				services.AddSingleton<IThemeChangeService, ThemeChangeService>();
 				services.AddSingleton<IRetrieveChartService, RetrieveChartService>();
-				services.AddSingleton<IConfigService, XMLConfigService>();
+				//services.AddSingleton<IConfigService, XMLConfigService>();
+				services.AddSingleton<IConfigService, JSONConfigService>();
 
 				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
