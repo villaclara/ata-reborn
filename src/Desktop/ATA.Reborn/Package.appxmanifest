@@ -3,6 +3,8 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
@@ -43,6 +45,12 @@
         </uap:DefaultTile >
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
+
+      <Extensions>
+        <desktop:Extension Category="windows.startupTask" EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="ATARebornTask" Enabled="true" DisplayName="ATA Reborn" />     
+          </desktop:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
