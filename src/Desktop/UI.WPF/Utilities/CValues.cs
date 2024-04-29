@@ -27,6 +27,6 @@ public static class CValues
 			Directory.CreateDirectory(dirPath);
 		}
 
-		_settingsFile = Path.Combine(dirPath, "UIsettings.json");
+		_settingsFile = Path.Combine(dirPath, "UIConfig.json");
 	}
 }
