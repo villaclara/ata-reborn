@@ -28,7 +28,7 @@ public partial class SettingsViewModel : BaseViewModel
 		set
 		{
 			_windowHeight = value;
-			_configService.WriteSectionWithValues("WindowHeight", WindowHeight.ToString());
+			_configService.WriteSectionWithValue("WindowHeight", WindowHeight.ToString());
 			Log.Information("{@Method} - Set Window Height ({@h}).", nameof(WindowHeight), value);
 		}
 	}
@@ -40,7 +40,7 @@ public partial class SettingsViewModel : BaseViewModel
 		set
 		{
 			_windowWidth = value;
-			_configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
+			_configService.WriteSectionWithValue("WindowWidth", WindowWidth.ToString());
 			Log.Information("{@Method} - Set Window Width ({@h}).", nameof(WindowWidth), value);
 		}
 	}
@@ -65,12 +65,16 @@ public partial class SettingsViewModel : BaseViewModel
 
 		var h = _configService.GetIntValue("WindowHeight");
 		Log.Information("{@Method} - Height value from config ({@h}).", nameof(SettingsViewModel), h);	
-		WindowHeight = h != 0 ? h : CValues.DEFAULT_WINDOW_HEIGHT;
+		WindowHeight = h != 0 
+			? h 
+			: CValues.DEFAULT_WINDOW_HEIGHT;
 		_heightAtStart = WindowHeight;
 
 		var w = _configService.GetIntValue("WindowWidth");
 		Log.Information("{@Method} - Width value from config ({@h}).", nameof(SettingsViewModel), w);
-		WindowWidth = w != 0 ? w : CValues.DEFAULT_WINDOW_WIDTH;
+		WindowWidth = w != 0 
+			? w 
+			: CValues.DEFAULT_WINDOW_WIDTH;
 		_widthAtStart = WindowWidth;
 
 		Log.Information("{@Method} - Set Height ({@h}), Width ({@w}).", nameof(SettingsViewModel), WindowHeight, WindowWidth);
@@ -86,7 +90,7 @@ public partial class SettingsViewModel : BaseViewModel
 			_launchAtStart = IsLaunchOnStartup;
 
 			// write info into Registry
-			_configService.WriteSectionWithValues("LaunchOnStartup", "True");
+			_configService.WriteSectionWithValue("LaunchOnStartup", "True");
 			RegistryEditor.SetAppToLaunchOnStartup();
 		}
 		else		// It is at least second launch
@@ -107,7 +111,7 @@ public partial class SettingsViewModel : BaseViewModel
 		// Check if the value differs from the current. If it is the same we do not need to perform any Save action.
 		if(_launchAtStart != IsLaunchOnStartup && result)
 		{
-			result = _configService.WriteSectionWithValues("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
+			result = _configService.WriteSectionWithValue("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
 			var resStartup = IsLaunchOnStartup ?
 				RegistryEditor.SetAppToLaunchOnStartup() :
 				RegistryEditor.RemoveAppFromLaunchOnStartup();
@@ -134,12 +138,12 @@ public partial class SettingsViewModel : BaseViewModel
 		// Check if the values were changed from when starting app.
 		if (_heightAtStart != WindowHeight)
 		{
-			_configService.WriteSectionWithValues("WindowHeight", WindowHeight.ToString());
+			_configService.WriteSectionWithValue("WindowHeight", WindowHeight.ToString());
 		}
 
 		if (_widthAtStart != WindowWidth)
 		{
-			_configService.WriteSectionWithValues("WindowWidth", WindowWidth.ToString());
+			_configService.WriteSectionWithValue("WindowWidth", WindowWidth.ToString());
 		}
 
 		Log.Information("{@Method} - Set default values for Height ({@h}), Width ({@w}).", nameof(SettingsViewModel), WindowHeight, WindowWidth);
