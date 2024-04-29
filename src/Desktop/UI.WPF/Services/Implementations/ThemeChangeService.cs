@@ -13,11 +13,13 @@ namespace UI.WPF.Services.Implementations;
 
 public class ThemeChangeService : IThemeChangeService
 {
-
-    public ThemeChangeService()
+    private readonly IConfigService _config;
+    public ThemeChangeService(IConfigService configService)
     {
+        _config = configService;
+
         // Set the theme on Initialization.
-        var theme = ConfigurationManager.AppSettings["Theme"];
+        var theme = _config.GetStringValue("Theme");
         CurrentTheme = theme switch
         {
             "Dark" or "dark" => UIThemes.Dark,
@@ -39,17 +41,7 @@ public class ThemeChangeService : IThemeChangeService
             _ => "Light"
         };
 
-        var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        if (config.AppSettings.Settings["Theme"] is null)
-        {
-            config.AppSettings.Settings.Add("Theme", stringTheme);
-        }
-        else
-        {
-            config.AppSettings.Settings["Theme"].Value = stringTheme;
-        }
-        config.Save(ConfigurationSaveMode.Modified);
-
+        _config.WriteSectionWithValue("Theme", stringTheme);
         SetThemeInUI(theme);
     }
 

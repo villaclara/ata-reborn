@@ -54,7 +54,7 @@ public class XMLConfigService : IConfigService
 		return ConfigurationManager.AppSettings[sectionName];
 	}
 
-	public bool WriteSectionWithValues(string sectionName, string value)
+	public bool WriteSectionWithValue(string sectionName, string value)
 	{
 		if(string.IsNullOrEmpty(sectionName)) 
 		{
@@ -84,7 +84,7 @@ public class XMLConfigService : IConfigService
 		}
 		catch(Exception ex)
 		{
-			Log.Error("{@Method} - ({@ex}).", nameof(WriteSectionWithValues), ex.Message);
+			Log.Error("{@Method} - ({@ex}).", nameof(WriteSectionWithValue), ex.Message);
 			return false;
 		}
 	}
