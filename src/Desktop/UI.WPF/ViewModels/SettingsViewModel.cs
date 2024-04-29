@@ -50,7 +50,7 @@ public partial class SettingsViewModel : BaseViewModel
 
 	[ObservableProperty]
 	private bool _isLaunchOnStartup = false;
-	private readonly bool _launchAtStart = false;
+	private bool _launchAtStart = false;
 
 
 	[ObservableProperty]
@@ -82,7 +82,6 @@ public partial class SettingsViewModel : BaseViewModel
 		// Get the launch on startup option 
 		// Get string from config file
 		// If the string is missing - we assume that it is first launch of the App and
-		// We set LaunchOnStartup to true and edit Registry
 		if(_configService.GetStringValue("LaunchOnStartup") is null)
 		{
 			IsLaunchOnStartup = true;
@@ -91,7 +90,6 @@ public partial class SettingsViewModel : BaseViewModel
 
 			// write info into Registry
 			_configService.WriteSectionWithValue("LaunchOnStartup", "True");
-			RegistryEditor.SetAppToLaunchOnStartup();
 		}
 		else		// It is at least second launch
 		{
@@ -111,17 +109,40 @@ public partial class SettingsViewModel : BaseViewModel
 		// Check if the value differs from the current. If it is the same we do not need to perform any Save action.
 		if(_launchAtStart != IsLaunchOnStartup && result)
 		{
+			//result = _configService.WriteSectionWithValue("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
+			//var resStartup = IsLaunchOnStartup ?
+			//	RegistryEditor.SetAppToLaunchOnStartup() :
+			//	RegistryEditor.RemoveAppFromLaunchOnStartup();
+			//Log.Information("{@Method} - Changed and saved new launchonstartup option - {@opt}.", nameof(SaveChanges), IsLaunchOnStartup ? "True" : "False");
+
+
+			var startupTask = await Windows.ApplicationModel.StartupTask.GetAsync("ATARebornTask");
+			
+			// disabled before, user checked checkbox
+			if(IsLaunchOnStartup && startupTask.State == Windows.ApplicationModel.StartupTaskState.Disabled)
+			{
+				await startupTask.RequestEnableAsync();
+				Log.Information("{@MEthod} - Request to enable autorun.", nameof(SaveChanges));
+			}
+
+			// enabled before, user unchecked checkbox
+			if(!IsLaunchOnStartup && startupTask.State == Windows.ApplicationModel.StartupTaskState.Enabled)
+			{
+				startupTask.Disable();
+				Log.Information("{@Method} - Disable autorun.", nameof(SaveChanges));
+			}
+
 			result = _configService.WriteSectionWithValue("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
-			var resStartup = IsLaunchOnStartup ?
-				RegistryEditor.SetAppToLaunchOnStartup() :
-				RegistryEditor.RemoveAppFromLaunchOnStartup();
 			Log.Information("{@Method} - Changed and saved new launchonstartup option - {@opt}.", nameof(SaveChanges), IsLaunchOnStartup ? "True" : "False");
+
+			_launchAtStart = IsLaunchOnStartup;
 		}
 
 		SaveResultText = result ? "Changes Saved." : "Error when saving changes. Please try again.";
 		VisibilityResultText = "Visible";
 		await Task.Delay(2000);
 		VisibilityResultText = "Hidden";
+
 	}
 
 	[RelayCommand]
