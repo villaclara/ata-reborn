@@ -21,6 +21,6 @@ Basically, I was planning to release major update of original ATA, but later dec
 
 
 
-Please navigate to [Releases](https://github.com/villaclara/ATA/releases) to download latest version.
+Please navigate to [Releases](https://github.com/villaclara/ata-reborn/releases) to download latest version.
 
 See you at the next update! :smile:
