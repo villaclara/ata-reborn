@@ -38,6 +38,7 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	private readonly IDataIssuer _dataIssuer;
 	private readonly ICustomDialogService _customDialog;
 	private readonly IRetrieveChartService _retrieveChartService;
+	private readonly INavigationService _navigation;
 
 
 	// Reassign tracked App to new values.
@@ -62,7 +63,7 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 
 	public TrackedAppItemViewModel(AppInstanceVM app,
-		IDataIssuer dataIssuer, ICustomDialogService customDialog, IRetrieveChartService retrieveChartService)
+		IDataIssuer dataIssuer, ICustomDialogService customDialog, IRetrieveChartService retrieveChartService, INavigationService navigation)
 	{
 		_app = app;
 
@@ -73,7 +74,7 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		_seriesCollection = _retrieveChartService.GetSeriesForApp(_app);
 		_labels = _retrieveChartService.GetLabels();
 		_formatter = value => value.ToString("N");
-
+		_navigation = navigation;
 	}
 
 
@@ -95,5 +96,12 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		{
 			Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
 		}
+	}
+
+	[RelayCommand]
+	private void ShowFullHistoryView()
+	{
+		Log.Information("{@Method} - Show full history for ({@app}).", nameof(ShowFullHistoryView), App.Name);
+		_navigation.NavigateTo<FullHistoryTrackedAppViewModel>();
 	}
 }

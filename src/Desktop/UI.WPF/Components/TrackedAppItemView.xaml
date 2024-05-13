@@ -172,6 +172,11 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center">
                         <Span Foreground="{DynamicResource CardMainForeground}" FontWeight="Light">Time Last Week</Span>
+                        <Span>
+                            <Button Command="{Binding ShowFullHistoryViewCommand}">
+                                <Span>FULL</Span>
+                            </Button>
+                        </Span>
                     </TextBlock>
 
                     <!-- CHART -->
