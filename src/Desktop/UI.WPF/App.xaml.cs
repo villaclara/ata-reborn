@@ -67,7 +67,6 @@ public partial class App : System.Windows.Application
 				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
 
-
 				// Add ViewModels 
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
@@ -77,6 +76,8 @@ public partial class App : System.Windows.Application
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();
+				// Transient FullHistory View Model to create new View model for each app
+				services.AddTransient<FullHistoryTrackedAppViewModel>();
 
 				services.AddSingleton<MainWindowViewModel>();
 
