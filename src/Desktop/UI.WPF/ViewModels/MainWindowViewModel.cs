@@ -51,6 +51,7 @@ public partial class MainWindowViewModel : ObservableObject
 
 
 	// Is taking part in Binging Current View.
+	// In MainWindow.xaml the property of Navigation.CurrentView is binded to current View.
 	public INavigationService Navigation => _navigation;
 	private readonly INavigationService _navigation;
 	private readonly IDirector _director;

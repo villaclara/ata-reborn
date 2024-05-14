@@ -1,13 +1,15 @@
 ﻿using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using UI.WPF.Enums;
+using UI.WPF.Services;
 using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
-public partial class ToolbarViewModel : BaseViewModel
+public partial class ToolbarViewModel : BaseViewModel, IRecipient<FullHistoryForAppTriggeedMessage>
 {
 	[ObservableProperty]
 	private bool _isLightTheme = true;
@@ -39,6 +41,8 @@ public partial class ToolbarViewModel : BaseViewModel
 		ToggleMarginDefaultPos = _isLightTheme ? "4 0 25 0" : "25 0 4 0";
 		ThemeButtonIsChecked = _isLightTheme ? "False" : "True";
 
+		// Register receiving messages
+		StrongReferenceMessenger.Default.Register<FullHistoryForAppTriggeedMessage>(this);
 	}
 
 
@@ -87,6 +91,12 @@ public partial class ToolbarViewModel : BaseViewModel
 	}
 
 
-
-
+	/// <summary>
+	/// Occurs when user clicks on 'Show full history'. Is sent from TrackedAppItemViewModel
+	/// </summary>
+	public void Receive(FullHistoryForAppTriggeedMessage message)
+	{
+		Log.Information("{@Method} - Navigating to {@view}", nameof(ShowProcessListScreen), typeof(FullHistoryTrackedAppViewModel));;
+		_navigation.NavigateTo<FullHistoryTrackedAppViewModel>();
+	}
 }
