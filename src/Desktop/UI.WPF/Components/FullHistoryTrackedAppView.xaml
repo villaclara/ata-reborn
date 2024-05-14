@@ -9,5 +9,20 @@
     <Grid>
         <Border Background="Green"/>
 
+
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="UserControl.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="(UserControl.Width)"
+                            From="0" To="800" Duration="0:0:1"/>
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="(UserControl.Height)"
+                            From="0" To="500" Duration="0:0:1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
     </Grid>
 </UserControl>
