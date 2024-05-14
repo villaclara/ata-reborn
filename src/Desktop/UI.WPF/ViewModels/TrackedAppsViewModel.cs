@@ -24,14 +24,13 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 	private readonly IDataIssuer _dataIssuer;
 	private readonly ICustomDialogService _customDialog;
 	private readonly IRetrieveChartService _retrieveChart;
-	private readonly INavigationService _navigation;
 
 	// Property for displaying 'Empty Trakced Apps Text'. Visible if AppItems.Count == 0.
 	[ObservableProperty]
 	private string _defaultTextVisibility = "Visible";
 
 
-	public TrackedAppsViewModel(IDirector director, ICustomDialogService customDialog, IRetrieveChartService retrieveChart, INavigationService navigation)
+	public TrackedAppsViewModel(IDirector director, ICustomDialogService customDialog, IRetrieveChartService retrieveChart)
 	{
 		Log.Information("{@Method} - Start constructor.", nameof(TrackedAppItemViewModel));
 
@@ -51,7 +50,6 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 		_customDialog = customDialog;
 		_retrieveChart = retrieveChart;
 		_dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
-		_navigation = navigation;
 		Log.Information("{@Method} - Data issuer created - {@dataissuer}", nameof(TrackedAppItemViewModel), _dataIssuer);
 
 		CreateVMsForTrackedApplications();
@@ -71,7 +69,7 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 
 			if (appVM != null)
 			{
-				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(app: appVM, dataIssuer: _dataIssuer, customDialog: _customDialog, retrieveChartService: _retrieveChart, navigation: _navigation);
+				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(app: appVM, dataIssuer: _dataIssuer, customDialog: _customDialog, retrieveChartService: _retrieveChart);
 				AppItems.Add(vm);
 
 				// Event to update values in the UI
@@ -93,7 +91,7 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 			_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
 
 			var added = MyMapService.Map<AppInstance, AppInstanceVM>(_director.Apps.Last());
-			TrackedAppItemViewModel vm = new(added!, _dataIssuer, _customDialog, _retrieveChart, _navigation);
+			TrackedAppItemViewModel vm = new(added!, _dataIssuer, _customDialog, _retrieveChart);
 			AppItems.Add(vm);
 
 			_director.WorkDone -= vm.TrackedAppItemVM_Director_WorkDone;

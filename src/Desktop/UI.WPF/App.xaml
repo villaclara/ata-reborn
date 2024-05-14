@@ -31,9 +31,15 @@
                 <components:SettingsView/>
             </DataTemplate>
 
+
             <!-- Template for ChangeLogView -->
             <DataTemplate DataType="{x:Type TypeName=viewmodels:ChangelogPageViewModel}">
                 <components:ChangelogPageView/>
+            </DataTemplate>
+
+            <!-- Template for FullHistoryTrackedAppView -->
+            <DataTemplate DataType="{x:Type TypeName=viewmodels:FullHistoryTrackedAppViewModel}">
+                <components:FullHistoryTrackedAppView/>
             </DataTemplate>
 
             <!-- Template for Processes List Screen Header of Table -->
