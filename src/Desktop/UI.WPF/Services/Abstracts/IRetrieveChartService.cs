@@ -19,11 +19,11 @@ public interface IRetrieveChartService
 	/// </summary>
 	/// <param name="app"><see cref="AppInstanceVM"/> object to get values.</param>
 	/// <returns><see cref="SeriesCollection"/> object.</returns>
-	SeriesCollection GetSeriesForApp(AppInstanceVM app);
+	SeriesCollection GetSeriesForAppLastWeek(AppInstanceVM app);
 	
 	/// <summary>
-	/// Retrieve labels for the chart. Should be used with <see cref="GetSeriesForApp(AppInstanceVM)"/>.
+	/// Retrieve labels for the chart. Should be used with <see cref="GetSeriesForAppLastWeek(AppInstanceVM)"/>.
 	/// </summary>
 	/// <returns>Array of <see cref="string"/> representing values of Axis X.</returns>
-	string[] GetLabels();
+	string[] GetLabelsLastWeek();
 }

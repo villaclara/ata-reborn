@@ -23,4 +23,7 @@ public record class TrackedAppDeletedMessage(string AppName);
 /// Message sent when user clicks on 'Show full history' button. Received in Toolbar to navigate to the corresponding View.
 /// </summary>
 /// <param name="appVM">App instance with full parameters.</param>
-public record class FullHistoryForAppTriggeedMessage(AppInstanceVM appVM);
+public record class FullHistoryForAppTriggeredMessage(AppInstanceVM appVM);
+
+
+public record class MessageApp(AppInstanceVM appVM);

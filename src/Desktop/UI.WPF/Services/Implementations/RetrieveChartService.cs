@@ -1,4 +1,5 @@
 ﻿using LiveCharts;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using Serilog;
 using Shared.ViewModels;
@@ -13,9 +14,9 @@ namespace UI.WPF.Services.Implementations;
 
 public class RetrieveChartService : IRetrieveChartService
 {
-	public string[] GetLabels()
+	public string[] GetLabelsLastWeek()
 	{
-		Log.Information("{@Method} - Get labels.", nameof(GetLabels));
+		Log.Information("{@Method} - Get labels.", nameof(GetLabelsLastWeek));
 		return [ 
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6)):dd/MM}",
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5)):dd/MM}",
@@ -27,23 +28,43 @@ public class RetrieveChartService : IRetrieveChartService
 		];
 	}
 
-	public SeriesCollection GetSeriesForApp(AppInstanceVM app)
+	public SeriesCollection GetSeriesForAppLastWeek(AppInstanceVM app)
 	{
-		Log.Information("{@Method} - Get series for App({@app}).", nameof(GetSeriesForApp), app.Name);
+		if(app is null)
+		{
+			return [];
+		}
+
+		Log.Information("{@Method} - Get series for App({@app}).", nameof(GetSeriesForAppLastWeek), app.Name);
 		var series = new SeriesCollection
 		{
 			new ColumnSeries
 			{
 				Title = "Time",
-				Values = new ChartValues<double> {
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-					app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
-				}
+				Values = new ChartValues<ObservableValue> {
+					new ObservableValue() { Value = 
+				 		app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
+					}
+				},
+				
 			}
 		};
 
