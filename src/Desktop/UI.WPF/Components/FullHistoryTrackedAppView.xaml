@@ -3,11 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:UI.WPF.Components"
+             xmlns:local="clr-namespace:UI.WPF.Components" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border Background="Green"/>
+        <Border Background="Green">
+
+            <StackPanel Orientation="Vertical">
+
+                <TextBlock Text="{Binding AppName}"
+                           HorizontalAlignment="Center"/>
+
+                <!-- CHART -->
+                <lvc:CartesianChart Series="{Binding SeriesCollection}"
+                     LegendLocation="None" 
+                     MinHeight="130"
+                     Foreground="Black">
+                    <lvc:CartesianChart.SeriesColors>
+                        <lvc:ColorsCollection>
+                            <Color>#b2b3b2</Color>
+                        </lvc:ColorsCollection>
+                    </lvc:CartesianChart.SeriesColors>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Labels="{Binding Labels}" Foreground="{DynamicResource CardSecondaryForeground}">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator IsEnabled="True" Step="2"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="{DynamicResource CardSecondaryForeground}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+
+                </lvc:CartesianChart>
+            </StackPanel>
+            
+            
+        </Border>
 
 
         <Grid.Triggers>
@@ -16,10 +50,10 @@
                     <Storyboard>
                         <DoubleAnimation
                             Storyboard.TargetProperty="(UserControl.Width)"
-                            From="0" To="800" Duration="0:0:1"/>
+                            From="0" To="800" Duration="0:0:0.5"/>
                         <DoubleAnimation
                             Storyboard.TargetProperty="(UserControl.Height)"
-                            From="0" To="500" Duration="0:0:1"/>
+                            From="0" To="500" Duration="0:0:0.5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
