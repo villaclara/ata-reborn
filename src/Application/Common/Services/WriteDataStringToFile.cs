@@ -23,15 +23,18 @@ public class WriteDataStringToFile : IWriteData
         bool bSuccess = false;
         try
         {
-            Log.Information("{@Method} - Start executing", nameof(WriteData));
-            using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
-            sw.Write(strToWrite);
-            _writeCount++;
-			Log.Information("{@Method} - write count ({@count}) after writing to ({@file}).", nameof(WriteData), _writeCount, ConstantValues.MAIN_FILE_NAME);
+			// Write to Main file 1st-4th time
+            // Each 5th time we write to Backup file
+            if(_writeCount != 5)
+            {
+				Log.Information("{@Method} - Start executing", nameof(WriteData));
+				using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
+				sw.Write(strToWrite);
+				_writeCount++;
+				Log.Information("{@Method} - write count ({@count}) after writing to ({@file}).", nameof(WriteData), _writeCount, ConstantValues.MAIN_FILE_NAME);
+			}
 
-
-			// Write to backup only each fifth write time
-			if (_writeCount == 5)
+			else
             {
                 Log.Information("{@Method} - Write to backup.", nameof(WriteData));
 			    using var sw1 = new StreamWriter(ConstantValues.BACKUP_MAIN_FILE_NAME, append: false);
@@ -51,11 +54,11 @@ public class WriteDataStringToFile : IWriteData
 
             // log exception
             Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteData), ex);
-
             return bSuccess;
         }
         finally
         {
+            _writeCount = 0;
             Log.Information("{@Method} - End executing with result - {@Result}", nameof(WriteData), bSuccess);
         }
 
