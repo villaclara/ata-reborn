@@ -12,17 +12,10 @@ namespace Application.Common.Services;
 
 public class WriteDataStringToFile : IWriteData
 {
+    // Every time we write to MAIN_FILE_NAME we increase the counter.
+    private static uint _writeCount = 0;
 
-    // to do
-    // exception handling
-    // logging
-    // write to backup file as well the same data
-
-    /// <summary>
-    /// Inherited method. Writes the string to the <see cref="ConstantValues.MAIN_FILE_NAME"/> file.
-    /// </summary>
-    /// <param name="apps">List of <see cref="AppInstance"/> to be written.</param>
-    /// <returns>Returns whether the writing was successfull.</returns>
+    
     public bool WriteData(List<AppInstance> apps)
     {
         var strToWrite = AppsJsonStringConverter.ConvertAppsToJson(apps);
@@ -30,15 +23,28 @@ public class WriteDataStringToFile : IWriteData
         bool bSuccess = false;
         try
         {
-            Log.Information("{@Method} - Start executing", nameof(WriteData));
-            using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
-            sw.Write(strToWrite);
+			// Write to Main file 1st-4th time
+            // Each 5th time we write to Backup file
+            if(_writeCount != 5)
+            {
+				Log.Information("{@Method} - Start executing", nameof(WriteData));
+				using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
+				sw.Write(strToWrite);
+				_writeCount++;
+				Log.Information("{@Method} - write count ({@count}) after writing to ({@file}).", nameof(WriteData), _writeCount, ConstantValues.MAIN_FILE_NAME);
+			}
 
+			else
+            {
+                Log.Information("{@Method} - Write to backup.", nameof(WriteData));
+			    using var sw1 = new StreamWriter(ConstantValues.BACKUP_MAIN_FILE_NAME, append: false);
+                sw1.Write(strToWrite);
+                _writeCount = 0;
+				Log.Information("{@Method} - write count ({@count}) after writing to ({@file}).", nameof(WriteData), _writeCount, ConstantValues.BACKUP_MAIN_FILE_NAME);
 
-            using var sw1 = new StreamWriter(ConstantValues.BACKUP_MAIN_FILE_NAME, append: false);
-            sw1.Write(strToWrite);
+			}
 
-            bSuccess = true;
+			bSuccess = true;
             return bSuccess;
 
         }
@@ -48,13 +54,14 @@ public class WriteDataStringToFile : IWriteData
 
             // log exception
             Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteData), ex);
-
             return bSuccess;
         }
         finally
         {
+            _writeCount = 0;
             Log.Information("{@Method} - End executing with result - {@Result}", nameof(WriteData), bSuccess);
         }
 
     }
+
 }

@@ -58,7 +58,14 @@ public partial class MainWindowViewModel : ObservableObject
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 
-	public string AppVersion { get; set; } = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
+	public string AppVersion { get; set; } = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0";
+
+	[RelayCommand]
+	private void OpenChangelogView()
+	{
+		Log.Information("{@MEthod} - navigating to ChangelogView.", nameof(OpenChangelogView));
+		_navigation.NavigateTo<ChangelogPageViewModel>();
+	}
 
 
 	partial void OnThisHeightChanged(int value)
