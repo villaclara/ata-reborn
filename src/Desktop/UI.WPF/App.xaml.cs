@@ -73,6 +73,7 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<ToolbarViewModel>();
 				services.AddSingleton<TopRowViewModel>();
 				services.AddSingleton<SettingsViewModel>();
+				services.AddSingleton<ChangelogPageViewModel>();
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();

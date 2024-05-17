@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="UI.WPF.Components.ChangelogPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI.WPF.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{DynamicResource SecondaryBackground}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Grid.Row="1" Grid.Column="1" 
+                BorderBrush="{DynamicResource MainBackground}"
+                BorderThickness="1"
+                CornerRadius="2">
+            <StackPanel Margin="10 10 10 10">
+                <TextBlock Text="Changelog"
+                           Foreground="{DynamicResource CardMainForeground}"
+                           FontSize="24"
+                           FontWeight="Normal"
+                           Margin="10 0 0 10"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding ChangelogNotes}">
+
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding VersionName}"
+                                               Foreground="{DynamicResource CardMainForeground}"
+                                               FontWeight="DemiBold"
+                                               FontSize="20"/>
+                                    <ItemsControl ItemsSource="{Binding Notes}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding}"
+                                                           Foreground="{DynamicResource CardSecondaryForeground}"
+                                                           FontSize="16"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+
+
+                <TextBlock Text="After"/>
+            </StackPanel>
+            
+            
+        </Border>
+    </Grid>
+</UserControl>

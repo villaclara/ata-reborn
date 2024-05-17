@@ -46,7 +46,8 @@ public partial class ToolbarViewModel : BaseViewModel
 	private void ShowProcessListScreen()
 	{
 		Log.Information("{@Method} - Navigating to {@view}", nameof(ShowProcessListScreen), typeof(ProcessListViewModel));
-		_navigation.NavigateTo<ProcessListViewModel>();
+		//_navigation.NavigateTo<ProcessListViewModel>();
+		_navigation.NavigateTo<ChangelogPageViewModel>();
 	}
 
 
