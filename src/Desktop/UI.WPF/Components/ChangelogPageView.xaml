@@ -24,41 +24,42 @@
                 BorderBrush="{DynamicResource MainBackground}"
                 BorderThickness="1"
                 CornerRadius="2">
-            <StackPanel Margin="10 10 10 10">
+            <StackPanel>
                 <TextBlock Text="Changelog"
                            Foreground="{DynamicResource CardMainForeground}"
-                           FontSize="24"
-                           FontWeight="Normal"
-                           Margin="10 0 0 10"/>
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Margin="40 10 10 10"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding ChangelogNotes}">
+                    <ItemsControl ItemsSource="{Binding ChangelogNotes}"
+                                  Margin="10 0 0 0">
 
                         
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
+                                <WrapPanel Orientation="Vertical">
                                     <TextBlock Text="{Binding VersionName}"
                                                Foreground="{DynamicResource CardMainForeground}"
                                                FontWeight="DemiBold"
-                                               FontSize="20"/>
+                                               FontSize="16"
+                                               Margin="8 10 0 0"/>
                                     <ItemsControl ItemsSource="{Binding Notes}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding}"
                                                            Foreground="{DynamicResource CardSecondaryForeground}"
-                                                           FontSize="16"/>
+                                                           FontSize="14"
+                                                           TextWrapping="WrapWithOverflow"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                </StackPanel>
+                                </WrapPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
 
 
-
-                <TextBlock Text="After"/>
             </StackPanel>
             
             

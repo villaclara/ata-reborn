@@ -95,10 +95,22 @@
                     <Border Grid.Column="1">
                         <StackPanel Orientation="Horizontal" 
                                     HorizontalAlignment="Right"
-                                    Margin="0 0 25 0">
-                            <TextBlock Text="{Binding AppVersion}" 
-                                       FontFamily="Cascadia Mono"
-                                       FontWeight="Light"/>
+                                    Margin="0 0 25 0"
+                                    Cursor="Hand">
+                            <Button Command="{Binding OpenChangelogViewCommand}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="border" Background="{DynamicResource MainBackground}" CornerRadius="5">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                                
+                                <TextBlock Text="{Binding AppVersion}" 
+                                           FontFamily="Cascadia Mono"
+                                           FontWeight="Light"
+                                           ToolTip="View Changelog"/>
+                            </Button>
                         </StackPanel>
                     </Border>
                 </Grid>

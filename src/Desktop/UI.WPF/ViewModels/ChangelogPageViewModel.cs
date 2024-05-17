@@ -12,30 +12,24 @@ namespace UI.WPF.ViewModels;
 public class ChangelogPageViewModel : BaseViewModel
 {
 
-	public ObservableCollection<SingleVersionChangelogNote> ChangelogNotes { get; set; }
+	public IList<SingleVersionChangelogNote> ChangelogNotes { get; } = [];
 
 	public ChangelogPageViewModel()
 	{
-		ChangelogNotes =
-		[
-			new()
-			{
-				VersionName = "1.0",
-				Notes = new List<string>()
-				{
-					"changelog1",
-					"change2"
-				}
-			}
-		];
-
-		ChangelogNotes.Add(new()
+		// Insert New Update Notes here		
+		ChangelogNotes.Insert(0, new()
 		{
-			VersionName = "1.1",
-			Notes = new List<string>()
-			{
-				"1.1_change1"
-			}
+			VersionName = "v1.0",
+			Notes = [ "- Initial release." ]
+		});
+
+		ChangelogNotes.Insert(0, new()
+		{
+			VersionName = "v1.1",
+			Notes = [
+				"- Added ChangeLog Notes.",
+				"- Fixed issue with Tracked Apps disappear at random PC crashes."
+				]
 		});
 		
 	}

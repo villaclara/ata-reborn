@@ -111,7 +111,6 @@ public partial class App : System.Windows.Application
 		_notifyIcon.Icon = new Icon(System.Windows.Application.GetResourceStream(new Uri("/Resources/Images/atav2.ico", UriKind.Relative)).Stream);
 		_notifyIcon.Visible = true;
 		_notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
-		_notifyIcon.Click += NotifyIcon_DoubleClick;
 		_notifyIcon.Text = "ATA Reborn. Double click to open.";
 
 		base.OnStartup(e);
