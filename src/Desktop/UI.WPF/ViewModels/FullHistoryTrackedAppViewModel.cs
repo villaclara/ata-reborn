@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	public FullHistoryTrackedAppViewModel(IRetrieveChartService retrieveChart)
 	{
 		_retrieveChart = retrieveChart;
-
+		SeriesCollection = [];
 		
 
 		StrongReferenceMessenger.Default.Register<MessageApp>(this);
@@ -41,8 +43,39 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	public void Receive(MessageApp message)
 	{
 		AppName = message.appVM.Name;
+		var app = message.appVM;
+		//SeriesCollection = _retrieveChart.GetSeriesForAppLastWeek(_app);
 
-		SeriesCollection = _retrieveChart.GetSeriesForAppLastWeek(_app);
+		SeriesCollection.Clear();
+		SeriesCollection.Add(new ColumnSeries
+		{
+			Title = "Time",
+			Values = new ChartValues<ObservableValue> {
+					new ObservableValue() { Value =
+						 app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-7))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0
+					}
+			}
+		}
+
+		);
 		Labels = _retrieveChart.GetLabelsLastWeek();
 		Formatter = value => value.ToString("N");
 	}

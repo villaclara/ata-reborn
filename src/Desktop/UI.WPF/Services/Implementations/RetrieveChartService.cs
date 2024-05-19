@@ -14,6 +14,22 @@ namespace UI.WPF.Services.Implementations;
 
 public class RetrieveChartService : IRetrieveChartService
 {
+	public ColumnSeries GetColumnSeriesForAllTime(AppInstanceVM app)
+	{
+		throw new NotImplementedException();
+	}
+
+	public string[] GetLabelsForAllTime(AppInstanceVM app)
+	{
+		Log.Information("{@Method} - Get Labels for all time for ({@app}).", nameof(GetLabelsForAllTime), app.Name);
+		DateTime firstSessionDate = app.CreatedAt.Date;
+		List<string> allDatesFromFirst = new List<string>();
+
+
+		throw new NotImplementedException();
+
+	}
+
 	public string[] GetLabelsLastWeek()
 	{
 		Log.Information("{@Method} - Get labels.", nameof(GetLabelsLastWeek));
