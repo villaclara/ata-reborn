@@ -52,49 +52,6 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		Log.Information("{@Method} - Get data for ({@app}).", nameof(TrackedAppItemVM_Director_WorkDone), App.Name);
 		App = _dataIssuer.GetAppDataByName(App.Name) ?? App;
 
-
-		SeriesCollection.Last().Values.Clear();
-		SeriesCollection.Last().Values.AddRange(new ChartValues<ObservableValue> {
-					new ObservableValue() { Value =
-						 App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
-					}
-				});
-
-		//var i = 0;
-		//foreach(var s in SeriesCollection.Last().Values)
-		//{
-		//	if(i < SeriesCollection.Last().Values.Count - 1)
-		//	{
-		//		i++;
-		//		continue;
-		//	}
-
-		//	s = new ObservableValue()
-		//	{
-		//		Value =
-		//				App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
-		//	};
-
-		//}
-
 		Log.Information("{@Method} - ({@App}) values updated.", nameof(TrackedAppItemVM_Director_WorkDone), App.Name);
 		return Task.CompletedTask;
 
@@ -119,38 +76,7 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		_customDialog = customDialog;
 		_retrieveChartService = retrieveChartService;
 
-		//_seriesCollection = _retrieveChartService.GetSeriesForAppLastWeek(_app);
-		_seriesCollection = new SeriesCollection
-		{
-			new ColumnSeries
-			{
-				Title = "Time",
-				Values = new ChartValues<ObservableValue> {
-					new ObservableValue() { Value =
-						 app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
-					}
-				},
-
-			}
-		};
+		_seriesCollection = _retrieveChartService.GetSeriesForAppLastWeek(_app);
 		_labels = _retrieveChartService.GetLabelsLastWeek();
 		_formatter = value => value.ToString("N");
 	}

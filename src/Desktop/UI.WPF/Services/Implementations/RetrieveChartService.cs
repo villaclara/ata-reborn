@@ -18,13 +18,13 @@ public class RetrieveChartService : IRetrieveChartService
 	{
 		Log.Information("{@Method} - Get labels.", nameof(GetLabelsLastWeek));
 		return [ 
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-7)):dd/MM}",
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6)):dd/MM}",
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5)):dd/MM}",
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4)):dd/MM}",
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3)):dd/MM}",
 			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1)):dd/MM}",
-			$"{DateOnly.FromDateTime(DateTime.Now):dd/MM}"
+			$"{DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1)):dd/MM}"
 		];
 	}
 
@@ -43,7 +43,10 @@ public class RetrieveChartService : IRetrieveChartService
 				Title = "Time",
 				Values = new ChartValues<ObservableValue> {
 					new ObservableValue() { Value = 
-				 		app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
+				 		app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-7))).FirstOrDefault()?.Minutes ?? 0,
+					},
+					new ObservableValue() { Value =
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
 					},
 					new ObservableValue() { Value =
 						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
@@ -58,10 +61,7 @@ public class RetrieveChartService : IRetrieveChartService
 						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
 					},
 					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
+						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0
 					}
 				},
 				
