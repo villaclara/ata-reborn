@@ -16,7 +16,7 @@
 
         <Grid Margin="5 5 5 5" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="1.5*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -38,9 +38,23 @@
                             
                             <!-- NAME of App-->
                             <Viewbox Height="40" Grid.Column="0">
-                            <TextBlock Text="{Binding AppName}" 
+                                <TextBlock Text="{Binding AppName}" 
                                        FontFamily="Cascadia Mono"
-                                       Foreground="{DynamicResource CardMainForeground}"/>
+                                       
+                                    >
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <!-- default color is red as the app is not running by default -->
+                                            <Setter Property="Foreground" Value="{DynamicResource CardSecondaryForeground}"/>
+                                            <Style.Triggers>
+                                                <!-- If the app is running - we set the font color to Green -->
+                                                <DataTrigger Binding="{Binding AppIsRunning}" Value="running">
+                                                    <Setter Property="Foreground" Value="#339966"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Viewbox>
                         </Border>
 
@@ -72,23 +86,23 @@
                     </Grid>
 
                     <!-- App Status -->
-                    <TextBlock Text="{Binding AppIsRunning}" 
+                    <!--<TextBlock Text="{Binding AppIsRunning}" 
                                FontSize="16" 
                                HorizontalAlignment="Center"
                                FontFamily="Verdana" FontWeight="Bold">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
-                                <!-- default color is red as the app is not running by default -->
+                                --><!-- default color is red as the app is not running by default --><!--
                                 <Setter Property="Foreground" Value="Red"/>
                                 <Style.Triggers>
-                                    <!-- If the app is running - we set the font color to Green -->
+                                    --><!-- If the app is running - we set the font color to Green --><!--
                                     <DataTrigger Binding="{Binding AppIsRunning}" Value="running">
                                         <Setter Property="Foreground" Value="Green"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
-                    </TextBlock>
+                    </TextBlock>-->
 
                 </StackPanel>
 
@@ -99,7 +113,8 @@
                     BorderThickness="0 0 0 2" 
                     BorderBrush="{DynamicResource CardBorderForeground}">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060">
+                    <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060"
+                               HorizontalAlignment="Center">
                         <Run FontSize="32" Text="{Binding AppCurrentSessionHours, Mode=OneWay}" 
                              Foreground="{DynamicResource CardMainForeground}"></Run>
                         
@@ -108,6 +123,20 @@
                         <Run FontSize="32" Text="{Binding AppCurrentSessionMinutes, Mode=OneWay}" 
                              Foreground="{DynamicResource CardMainForeground}"></Run>
                         
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}">min</Span>
+                    </TextBlock>
+
+                    <!-- Today Total Time Section --> 
+                    <TextBlock HorizontalAlignment="Center" FontSize="16">
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Today: </Span>
+                            <Run Text="{Binding AppTodayTimeHours, Mode=OneWay}" FontFamily="Bahnschrift"
+                                 Foreground="{DynamicResource CardMainForeground}"/>
+    
+                                <Span Foreground="{DynamicResource CardSecondaryForeground}">h</Span>
+    
+                            <Run Text="{Binding AppTodayTimeMinutes, Mode=OneWay}" FontFamily="Bahnschrift" 
+                                 Foreground="{DynamicResource CardMainForeground}"/>
+    
                         <Span Foreground="{DynamicResource CardSecondaryForeground}">min</Span>
                     </TextBlock>
                 </StackPanel>
@@ -152,7 +181,7 @@
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Total Time: </Span>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Total: </Span>
                         <Run Text="{Binding AppTotalHours, Mode=OneWay}" FontFamily="Bahnschrift"
                              Foreground="{DynamicResource CardMainForeground}"/>
                         

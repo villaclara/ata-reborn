@@ -20,6 +20,8 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	[NotifyPropertyChangedFor(nameof(AppIsRunning))]
 	[NotifyPropertyChangedFor(nameof(AppCurrentSessionHours))]
 	[NotifyPropertyChangedFor(nameof(AppCurrentSessionMinutes))]
+	[NotifyPropertyChangedFor(nameof(AppTodayTimeHours))]
+	[NotifyPropertyChangedFor(nameof(AppTodayTimeMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppTotalHours))]
 	[NotifyPropertyChangedFor(nameof(AppTotalMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppFirstSessionDate))]
@@ -31,6 +33,8 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	public string AppIsRunning => App.IsRunning ? "running" : "stopped";
 	public uint AppCurrentSessionHours => (uint)App.CurrentSessionTime / 60;
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
+	public uint AppTodayTimeHours => (uint)App.UpTimeList.Find(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes  / 60;
+	public uint AppTodayTimeMinutes => (uint)App.UpTimeList.Find(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes  % 60;
 	public uint AppTotalHours => (uint)App.UpTimeList.Sum(u => u.Minutes) / 60;
 	public uint AppTotalMinutes => (uint)App.UpTimeList.Sum(u => u.Minutes) % 60;
 	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
@@ -74,22 +78,22 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 					}
 				});
 
-		var i = 0;
-		foreach(var s in SeriesCollection.Last().Values)
-		{
-			if(i < SeriesCollection.Last().Values.Count - 1)
-			{
-				i++;
-				continue;
-			}
+		//var i = 0;
+		//foreach(var s in SeriesCollection.Last().Values)
+		//{
+		//	if(i < SeriesCollection.Last().Values.Count - 1)
+		//	{
+		//		i++;
+		//		continue;
+		//	}
 
-			s = new ObservableValue()
-			{
-				Value =
-						App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
-			};
+		//	s = new ObservableValue()
+		//	{
+		//		Value =
+		//				App.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault()?.Minutes ?? 0
+		//	};
 
-		}
+		//}
 
 		Log.Information("{@Method} - ({@App}) values updated.", nameof(TrackedAppItemVM_Director_WorkDone), App.Name);
 		return Task.CompletedTask;

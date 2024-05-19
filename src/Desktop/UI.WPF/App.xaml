@@ -41,11 +41,6 @@
                 <components:ChangelogPageView/>
             </DataTemplate>
 
-            <!-- Template for FullHistoryTrackedAppView -->
-            <DataTemplate DataType="{x:Type TypeName=viewmodels:FullHistoryTrackedAppViewModel}">
-                <components:FullHistoryTrackedAppView/>
-            </DataTemplate>
-
             <!-- Template for Processes List Screen Header of Table -->
             <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
                 <Setter Property="Template">
