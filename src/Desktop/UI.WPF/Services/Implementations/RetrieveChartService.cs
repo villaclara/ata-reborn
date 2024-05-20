@@ -15,34 +15,26 @@ namespace UI.WPF.Services.Implementations;
 
 public class RetrieveChartService : IRetrieveChartService
 {
-	public ColumnSeries GetColumnSeriesForAllTime(AppInstanceVM app)
+	public ChartValues<double> GetChartValuesForAllTime(AppInstanceVM app)
 	{
 		if(app is null)
 		{
-			return new ColumnSeries()
-			{
-				Title = "Times",
-				Values = new ChartValues<double>()
-			};
+			return [];
 		}
 
-		Log.Information("{@Method} - Get ColumnSeries for all time for ({@app}).", nameof(GetColumnSeriesForAllTime), app.Name);
+		Log.Information("{@Method} - Get ChartValues for all time for ({@app}).", nameof(GetChartValuesForAllTime), app.Name);
 		DateTime firstSessionDate = app.CreatedAt;
 		IEnumerable<DateOnly> dates = firstSessionDate.GetDatesOnlyRangeFromDateToToday();
-		Log.Information("{@Method} - Dates from CreatedAt count ({@count}).", nameof(GetColumnSeriesForAllTime), dates.Count());
+		Log.Information("{@Method} - Dates from CreatedAt count ({@count}).", nameof(GetChartValuesForAllTime), dates.Count());
 		
 		ChartValues<double> chartValues = [];
 		foreach (var date in dates)
 		{
 			chartValues.Add(app.UpTimeList.Where(u => u.Date == date).FirstOrDefault()?.Minutes ?? 0);
 		}
-		Log.Information("{@Method} - ColumnSeries after adding count ({@count}).", nameof(GetColumnSeriesForAllTime), chartValues.Count);
-		
-		return new ColumnSeries()
-		{
-			Title = "Time",
-			Values = chartValues
-		};
+		Log.Information("{@Method} - ChartValues after adding count ({@count}).", nameof(GetChartValuesForAllTime), chartValues.Count);
+
+		return chartValues;
 	}
 
 	public string[] GetLabelsForAllTime(AppInstanceVM app)

@@ -43,11 +43,15 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	{
 		AppName = message.appVM.Name;
 		var app = message.appVM;
-		
+
 		SeriesCollection.Clear();
-		SeriesCollection.Add(_retrieveChart.GetColumnSeriesForAllTime(app));
+		SeriesCollection.Add(new LineSeries()
+		{
+			Title = "Times",
+			Values = _retrieveChart.GetChartValuesForAllTime(app)
+		});
 		Labels = _retrieveChart.GetLabelsForAllTime(app);
 
-
+		
 	}
 }

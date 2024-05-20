@@ -32,7 +32,7 @@ public interface IRetrieveChartService
 	/// </summary>
 	/// <param name="app"><see cref="AppInstanceVM"/> object to get values.</param>
 	/// <returns><see cref="ColumnSeries"/> collection.</returns>
-	ColumnSeries GetColumnSeriesForAllTime(AppInstanceVM app);
+	ChartValues<double> GetChartValuesForAllTime(AppInstanceVM app);
 
 	/// <summary>
 	/// Get the labels for the chart for full app time.
