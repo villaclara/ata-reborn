@@ -33,12 +33,18 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	public string AppIsRunning => App.IsRunning ? "running" : "stopped";
 	public uint AppCurrentSessionHours => (uint)App.CurrentSessionTime / 60;
 	public uint AppCurrentSessionMinutes => (uint)App.CurrentSessionTime % 60;
-	public uint AppTodayTimeHours => (uint)App.UpTimeList.Find(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes  / 60;
-	public uint AppTodayTimeMinutes => (uint)App.UpTimeList.Find(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes  % 60;
 	public uint AppTotalHours => (uint)App.UpTimeList.Sum(u => u.Minutes) / 60;
 	public uint AppTotalMinutes => (uint)App.UpTimeList.Sum(u => u.Minutes) % 60;
 	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
 	public string AppFirstSessionDate => App.CreatedAt.ToString("dd/MM/yy");
+
+	// Here we should perform check for nullability. Because if the App were not running Today the null will be returned from LINQ. And then we need to set the value to 0.
+	public uint AppTodayTimeHours => App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now)) != null
+		? (uint)App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes / 60
+		: 0;
+	public uint AppTodayTimeMinutes => App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now)) != null
+		? (uint)App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes % 60
+		: 0;
 
 
 	private readonly IDataIssuer _dataIssuer;
@@ -75,6 +81,11 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		_dataIssuer = dataIssuer;
 		_customDialog = customDialog;
 		_retrieveChartService = retrieveChartService;
+
+
+		//AppTodayTimeHours = (uint)App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now))?.Minutes / 60;
+
+
 
 		_seriesCollection = _retrieveChartService.GetSeriesForAppLastWeek(_app);
 		_labels = _retrieveChartService.GetLabelsLastWeek();

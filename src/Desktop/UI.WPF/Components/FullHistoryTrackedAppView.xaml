@@ -17,10 +17,13 @@
 
                 <!-- CHART -->
                 <lvc:CartesianChart Series="{Binding SeriesCollection}"
-                     LegendLocation="None" 
-                     MinHeight="400"
+                                    LegendLocation="Bottom"
+                                    DisableAnimations="True"
+                                    MinHeight="300"
                                     Width="700"
-                     Foreground="Black">
+                                    Foreground="Black">
+                    
+                    
                     <lvc:CartesianChart.SeriesColors>
                         <lvc:ColorsCollection>
                             <Color>#fefefe</Color>
@@ -40,6 +43,48 @@
                     </lvc:CartesianChart.AxisY>
 
                 </lvc:CartesianChart>
+
+                <!-- Small Chart below For Scrolling -->
+                <lvc:CartesianChart Series="{Binding SeriesCollection}"
+                    DisableAnimations="True"
+                    MinHeight="100"
+                    Width="700"
+                    Foreground="Black"
+                    ScrollMode="X"
+                    ScrollHorizontalFrom="{Binding From, Mode=TwoWay}"
+                    ScrollHorizontalTo="{Binding To, Mode=TwoWay}"
+                    ScrollBarFill="#25303030">
+
+                    <lvc:CartesianChart.Resources>
+                        <Style TargetType="lvc:Separator">
+                            <Setter Property="IsEnabled" Value="False"></Setter>
+                        </Style>
+                    </lvc:CartesianChart.Resources>
+
+
+
+                    <lvc:CartesianChart.SeriesColors>
+                        <lvc:ColorsCollection>
+                            <Color>#fefefe</Color>
+                        </lvc:ColorsCollection>
+                    </lvc:CartesianChart.SeriesColors>
+
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Labels="{Binding Labels}" 
+                                  Foreground="Black"
+                                  IsMerged="True">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator IsEnabled="True" Step="2"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis ShowLabels="False"/>
+                    </lvc:CartesianChart.AxisY>
+
+                </lvc:CartesianChart>
+
             </StackPanel>
             
             
