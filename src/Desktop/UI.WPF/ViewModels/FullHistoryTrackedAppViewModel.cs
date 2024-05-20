@@ -16,10 +16,9 @@ namespace UI.WPF.ViewModels;
 
 public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<MessageApp>
 {
-	private AppInstanceVM _app;
 	private readonly IRetrieveChartService _retrieveChart;
 	[ObservableProperty]
-	private SeriesCollection? _seriesCollection;
+	private SeriesCollection _seriesCollection;
 
 	[ObservableProperty]
 	private string[]? _labels;
@@ -44,39 +43,11 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	{
 		AppName = message.appVM.Name;
 		var app = message.appVM;
-		//SeriesCollection = _retrieveChart.GetSeriesForAppLastWeek(_app);
-
+		
 		SeriesCollection.Clear();
-		SeriesCollection.Add(new ColumnSeries
-		{
-			Title = "Time",
-			Values = new ChartValues<ObservableValue> {
-					new ObservableValue() { Value =
-						 app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-7))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-6))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-5))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-4))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-3))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-2))).FirstOrDefault()?.Minutes ?? 0,
-					},
-					new ObservableValue() { Value =
-						app.UpTimeList.Where(u => u.Date == DateOnly.FromDateTime(DateTime.Now.Date.AddDays(-1))).FirstOrDefault()?.Minutes ?? 0
-					}
-			}
-		}
+		SeriesCollection.Add(_retrieveChart.GetColumnSeriesForAllTime(app));
+		Labels = _retrieveChart.GetLabelsForAllTime(app);
 
-		);
-		Labels = _retrieveChart.GetLabelsLastWeek();
-		Formatter = value => value.ToString("N");
+
 	}
 }
