@@ -13,7 +13,7 @@ namespace Application.Common.Services;
 public class WriteDataStringToFile : IWriteData
 {
     // Every time we write to MAIN_FILE_NAME we increase the counter.
-    private static uint _writeCount = 0;
+    private static uint _writeCount;
 
     
     public bool WriteData(List<AppInstance> apps)
@@ -24,8 +24,8 @@ public class WriteDataStringToFile : IWriteData
         try
         {
 			// Write to Main file 1st-4th time
-            // Each 5th time we write to Backup file
-            if(_writeCount != 5)
+            // Each 4th time we write to Backup file
+            if(_writeCount != 4)
             {
 				Log.Information("{@Method} - Start executing", nameof(WriteData));
 				using var sw = new StreamWriter(ConstantValues.MAIN_FILE_NAME, append: false);
@@ -51,14 +51,13 @@ public class WriteDataStringToFile : IWriteData
         catch (Exception ex)
         {
             bSuccess = false;
-
-            // log exception
-            Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteData), ex);
+            _writeCount = 0;
+			// log exception
+			Log.Error("Exeption when executing {@Method} - {@Ex}", nameof(WriteData), ex);
             return bSuccess;
         }
         finally
         {
-            _writeCount = 0;
             Log.Information("{@Method} - End executing with result - {@Result}", nameof(WriteData), bSuccess);
         }
 
