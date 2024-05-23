@@ -31,7 +31,15 @@ public class ChangelogPageViewModel : BaseViewModel
 				"- Fixed issue with Tracked Apps disappear at random PC crashes."
 				]
 		});
-		
+
+		ChangelogNotes.Insert(0, new()
+		{
+			VersionName = "v1.2",
+			Notes = [
+				"- Bug fixes."
+				]
+		});
+
 	}
 
 	public string TextName { get; set; } = "BRUH";
