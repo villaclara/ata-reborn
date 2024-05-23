@@ -9,8 +9,8 @@
     <AssemblyName>ATA Reborn</AssemblyName>
     <ApplicationIcon>Resources\Images\atav2.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.*</AssemblyVersion>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
