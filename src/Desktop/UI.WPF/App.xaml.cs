@@ -73,11 +73,11 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<TopRowViewModel>();
 				services.AddSingleton<SettingsViewModel>();
 				services.AddSingleton<ChangelogPageViewModel>();
+				// Singleton FullHistory View Model as we get the App trakced in Receive method and just redraw the Chart
+				services.AddSingleton<FullHistoryTrackedAppViewModel>();
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();
-				// Transient FullHistory View Model to create new View model for each app
-				services.AddTransient<FullHistoryTrackedAppViewModel>();
 
 				services.AddSingleton<MainWindowViewModel>();
 

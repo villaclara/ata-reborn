@@ -8,24 +8,39 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border Background="Gray" Margin="0,0,0,-232">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1" Grid.Column="1"
+                Background="Gray" 
+                BorderBrush="Black"
+                BorderThickness="5">
 
             <StackPanel Orientation="Vertical">
 
                 <TextBlock Text="{Binding AppName}"
                            HorizontalAlignment="Center"/>
-                <TextBlock Text="{Binding AppName}"
-             HorizontalAlignment="Center"/>
+
                 <!-- CHART -->
                 <lvc:CartesianChart LegendLocation="Bottom"
                                     DisableAnimations="True"
-                                    MinHeight="300"
+                                    Height="300"
                                     Width="700"
                                     Foreground="Black"
                                     x:Name="MainChart">
-
+                    
+                    
                     <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Values="{Binding SeriesCollection}"/>
+                        <lvc:ColumnSeries Values="{Binding ChartValues}"/>
                     </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.SeriesColors>
@@ -49,15 +64,15 @@
                 </lvc:CartesianChart>
 
                 <!-- CHART -->
-                <lvc:CartesianChart
-                    MinHeight="300"
+                <!--<lvc:CartesianChart
+                    Height="300"
                     Width="700"
                     Foreground="Black"
                     x:Name="ScrollChart">
 
 
                     <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Values="{Binding SeriesCollection}"/>
+                        <lvc:ColumnSeries Values="{Binding ChartValues}"/>
                     </lvc:CartesianChart.Series>
 
 
@@ -69,7 +84,7 @@
 
                     
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}" Foreground="Black">
+                        <lvc:Axis Labels="{Binding Labels1}" Foreground="Black">
                             <lvc:Axis.Separator>
                                 <lvc:Separator IsEnabled="True" Step="2"/>
                             </lvc:Axis.Separator>
@@ -77,21 +92,20 @@
                     </lvc:CartesianChart.AxisX>
 
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="Black"></lvc:Axis>
+                        <lvc:Axis Title="Minutes" Labels="{Binding Formatter1}" Foreground="Black"></lvc:Axis>
                     </lvc:CartesianChart.AxisY>
 
-                </lvc:CartesianChart>
+                </lvc:CartesianChart>-->
                 
                 <!-- Small Chart below For Scrolling -->
-                <!--<lvc:CartesianChart Series="{Binding SeriesCollection}"
-                                    DisableAnimations="True"
-                                    MinHeight="100"
+                <lvc:CartesianChart DisableAnimations="True"
+                                    MinHeight="50"
                                     Width="700"
                                     Foreground="Black"
                                     ScrollMode="X"
                                     ScrollHorizontalFrom="{Binding From, Mode=TwoWay}"
                                     ScrollHorizontalTo="{Binding To, Mode=TwoWay}"
-                                    ScrollBarFill="#25303030"
+                                    ScrollBarFill="Yellow"
                                     >
 
                     <lvc:CartesianChart.Resources>
@@ -100,7 +114,9 @@
                         </Style>
                     </lvc:CartesianChart.Resources>
 
-
+                    <lvc:CartesianChart.Series>
+                        <lvc:ColumnSeries Values="{Binding ChartValues}"/>
+                    </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.SeriesColors>
                         <lvc:ColorsCollection>
@@ -119,12 +135,12 @@
                     </lvc:CartesianChart.AxisX>
 
                     <lvc:CartesianChart.AxisY>
-                        --><!--<lvc:Axis ShowLabels="False"/>--><!--
+                        <lvc:Axis ShowLabels="False"/>
                         <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="Black"></lvc:Axis>
 
                     </lvc:CartesianChart.AxisY>
 
-                </lvc:CartesianChart>-->
+                </lvc:CartesianChart>
 
             </StackPanel>
             
@@ -132,7 +148,7 @@
         </Border>
 
 
-        <Grid.Triggers>
+        <!--<Grid.Triggers>
             <EventTrigger RoutedEvent="UserControl.Loaded">
                 <BeginStoryboard>
                     <Storyboard>
@@ -141,10 +157,10 @@
                             From="0" To="800" Duration="0:0:0.5"/>
                         <DoubleAnimation
                             Storyboard.TargetProperty="(UserControl.Height)"
-                            From="0" To="500" Duration="0:0:0.5"/>
+                            From="0" To="700" Duration="0:0:0.5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-        </Grid.Triggers>
+        </Grid.Triggers>-->
     </Grid>
 </UserControl>

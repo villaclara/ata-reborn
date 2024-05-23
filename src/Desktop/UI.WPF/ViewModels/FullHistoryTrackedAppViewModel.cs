@@ -2,11 +2,13 @@
 using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Definitions.Charts;
 using LiveCharts.Wpf;
 using Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using UI.WPF.Services;
@@ -27,8 +29,6 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	[ObservableProperty]
 	private Func<double, string>? _formatter;
 
-	[ObservableProperty]
-	private SeriesCollection _seriesCollection1;
 
 	[ObservableProperty]
 	private string[]? _labels1;
@@ -38,6 +38,9 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 
 
 	[ObservableProperty]
+	private IChartValues _chartValues;
+
+	[ObservableProperty]
 	private string _appName = "bruh";
 
 	public FullHistoryTrackedAppViewModel(IRetrieveChartService retrieveChart)
@@ -45,7 +48,8 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		_retrieveChart = retrieveChart;
 		SeriesCollection = [];
 
-		SeriesCollection1 = [];
+
+		ChartValues = new ChartValues<double>();
 
 		StrongReferenceMessenger.Default.Register<MessageApp>(this);
 
@@ -64,15 +68,7 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		});
 		Labels = _retrieveChart.GetLabelsForAllTime(app);
 
-		//SeriesCollection1.Clear();
-		SeriesCollection1.Add(new ColumnSeries()
-		{
-			Title = "Times",
-			Values = _retrieveChart.GetChartValuesForAllTime(app)
-		});
-		Labels1 = _retrieveChart.GetLabelsForAllTime(app);
 
-
-		StrongReferenceMessenger.Default.Unregister<MessageApp>(this);
+		ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
 	}
 }
