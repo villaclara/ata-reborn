@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.WPF.Components" 
+             xmlns:conv="clr-namespace:UI.WPF.Converters"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:DateTimeConverter x:Key="DateTimeConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -36,11 +41,12 @@
                                     Height="300"
                                     Width="700"
                                     Foreground="Black"
-                                    x:Name="MainChart">
+                                    x:Name="MainChart"
+                                    Zoom="X">
                     
                     
                     <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries Values="{Binding ChartValues}"/>
+                        <lvc:ColumnSeries Values="{Binding ChartValues}" Title="Time"/>
                     </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.SeriesColors>
@@ -49,16 +55,28 @@
                         </lvc:ColorsCollection>
                     </lvc:CartesianChart.SeriesColors>
                     
+                    <!-- AXIS X -->
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}" Foreground="Black">
+                        <lvc:Axis Name="X"
+                                  LabelsRotation="-50"
+                                  Foreground="Black"
+                                  Labels="{Binding DateOnlyLabels}"
+                                  LabelFormatter="{Binding FormatterDateOnly}"
+                                  >
+                                  <!--MinValue="{Binding MinValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
+                                  MaxValue="{Binding MaxValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"-->
+                                  <!--RangeChanged="Axis_RangeChanged"-->
                             <lvc:Axis.Separator>
                                 <lvc:Separator IsEnabled="True" Step="2"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
 
+                    <!-- AXIS Y -->
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="Black"></lvc:Axis>
+                        <lvc:Axis Title="Minutes" 
+                                  Foreground="Black">
+                        </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
 
                 </lvc:CartesianChart>
@@ -103,8 +121,8 @@
                                     Width="700"
                                     Foreground="Black"
                                     ScrollMode="X"
-                                    ScrollHorizontalFrom="{Binding From, Mode=TwoWay}"
-                                    ScrollHorizontalTo="{Binding To, Mode=TwoWay}"
+                                    ScrollHorizontalFrom="{Binding MinValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
+                                    ScrollHorizontalTo="{Binding MaxValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
                                     ScrollBarFill="Yellow"
                                     >
 
@@ -125,7 +143,8 @@
                     </lvc:CartesianChart.SeriesColors>
 
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}" 
+                        <lvc:Axis Labels="{Binding DateOnlyLabels}" 
+                                  LabelFormatter="{Binding Formatter}"
                                   Foreground="Black"
                                   IsMerged="True">
                             <lvc:Axis.Separator>
@@ -136,7 +155,7 @@
 
                     <lvc:CartesianChart.AxisY>
                         <lvc:Axis ShowLabels="False"/>
-                        <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="Black"></lvc:Axis>
+                        <lvc:Axis Title="Minutes" Foreground="Black"></lvc:Axis>
 
                     </lvc:CartesianChart.AxisY>
 

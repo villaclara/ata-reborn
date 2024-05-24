@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.WPF.ViewModels;
 
 namespace UI.WPF.Components
 {
@@ -23,6 +24,35 @@ namespace UI.WPF.Components
 		public FullHistoryTrackedAppView()
 		{
 			InitializeComponent();
+		}
+
+		private void Axis_RangeChanged(LiveCharts.Events.RangeChangedEventArgs eventArgs)
+		{
+			var vm = (FullHistoryTrackedAppViewModel)DataContext;
+
+			var currentRange = eventArgs.Range;
+
+			if (currentRange < TimeSpan.TicksPerDay * 2)
+			{
+				vm.Formatter = x => new DateTime((long)x).ToString("t");
+				return;
+			}
+
+			if (currentRange < TimeSpan.TicksPerDay * 60)
+			{
+				vm.Formatter = x => new DateTime((long)x).ToString("dd MMM yy");
+				return;
+			}
+
+			if (currentRange < TimeSpan.TicksPerDay * 540)
+			{
+				vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
+				return;
+			}
+
+			vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
+
+
 		}
 	}
 }
