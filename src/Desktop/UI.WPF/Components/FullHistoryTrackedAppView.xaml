@@ -42,7 +42,8 @@
                                     Width="700"
                                     Foreground="Black"
                                     x:Name="MainChart"
-                                    Zoom="X">
+                                    Zoom="X"
+                                    >
                     
                     
                     <lvc:CartesianChart.Series>
@@ -56,25 +57,54 @@
                     </lvc:CartesianChart.SeriesColors>
                     
                     <!-- AXIS X -->
-                    <lvc:CartesianChart.AxisX>
+                    <!--<lvc:CartesianChart.AxisX>
                         <lvc:Axis Name="X"
                                   LabelsRotation="-50"
                                   Foreground="Black"
-                                  Labels="{Binding DateOnlyLabels}"
-                                  LabelFormatter="{Binding FormatterDateOnly}"
+                                  Labels="{Binding Labels}"
+                                  LabelFormatter="{Binding Formatter}"
+                                  MinValue="{Binding MinValue, Mode=TwoWay}"
+                                  MaxValue="{Binding MaxValue, Mode=TwoWay}"
+                                  RangeChanged="Axis_RangeChanged"
+                                  
+                                  MaxRange="20" 
+                                  MinRange="20"
                                   >
+                            
+                            --><!-- MinRange MaxRange used to limit user Zooming options. -->
+                            
+                            
+                            
+                            
                                   <!--MinValue="{Binding MinValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
                                   MaxValue="{Binding MaxValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"-->
-                                  <!--RangeChanged="Axis_RangeChanged"-->
+                                  <!--RangeChanged="Axis_RangeChanged"--><!--
                             <lvc:Axis.Separator>
                                 <lvc:Separator IsEnabled="True" Step="2"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>-->
+                    
+                    
+                    <!-- AXIS X DATE -->
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:DateAxis MinValue="0"
+                                      MaxValue="60"
+                                      Period="{Binding Period, Mode=TwoWay}"
+                                      ShowLabels="True"
+                                      SelectedWindow="{Binding SelectedWindow, Mode=TwoWay}"
+                                      InitialDateTime="{Binding InitialDateTime}"
+                            >
+                            <lvc:DateAxis.Separator>
+                                <lvc:Separator StrokeThickness="10" Stroke="Black"/>
+                            </lvc:DateAxis.Separator>
+                            
+                        </lvc:DateAxis>
                     </lvc:CartesianChart.AxisX>
 
                     <!-- AXIS Y -->
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Minutes" 
+                        <lvc:Axis Title="Minutes" MinValue="0"
                                   Foreground="Black">
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
@@ -121,8 +151,8 @@
                                     Width="700"
                                     Foreground="Black"
                                     ScrollMode="X"
-                                    ScrollHorizontalFrom="{Binding MinValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
-                                    ScrollHorizontalTo="{Binding MaxValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
+                                    ScrollHorizontalFrom="{Binding MinValue, Mode=TwoWay}"
+                                    ScrollHorizontalTo="{Binding MaxValue, Mode=TwoWay}"
                                     ScrollBarFill="Yellow"
                                     >
 
@@ -143,13 +173,7 @@
                     </lvc:CartesianChart.SeriesColors>
 
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding DateOnlyLabels}" 
-                                  LabelFormatter="{Binding Formatter}"
-                                  Foreground="Black"
-                                  IsMerged="True">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator IsEnabled="True" Step="2"/>
-                            </lvc:Axis.Separator>
+                        <lvc:Axis IsMerged="True" ShowLabels="False">
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
 

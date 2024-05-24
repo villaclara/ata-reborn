@@ -31,17 +31,14 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	private string[]? _labels;
 
 	[ObservableProperty]
-	private Func<double, string>? _formatter = value => value + "sssss";
+	private Func<double, string>? _formatter;
 
 
 	[ObservableProperty]
-	private Func<DateOnly, string>? _formatterDateOnly = value => value.ToString("dd/MM");
+	private double _minValue;
 
 	[ObservableProperty]
-	private DateTime _minValue;
-
-	[ObservableProperty]
-	private DateTime _maxValue;
+	private double _maxValue;
 
 
 	[ObservableProperty]
@@ -78,15 +75,17 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		//	Title = "Times",
 		//	Values = _retrieveChart.GetChartValuesForAllTime(app)
 		//});
-		//Labels = _retrieveChart.GetLabelsForAllTime(app);
 
+		Labels = _retrieveChart.GetLabelsForAllTime(app);
 		ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
 
+		List<double> dbls = [];
+
+		MinValue = 0;
+		MaxValue = Labels.Length - 1;
 
 
-
-
-		MinValue = new DateTime(message.appVM.UpTimeList.First().Date, TimeOnly.MinValue);
-		MaxValue = new DateTime(message.appVM.UpTimeList.Last().Date, TimeOnly.MinValue);
+		//MinValue = new DateTime(message.appVM.UpTimeList.First().Date, TimeOnly.MinValue);
+		//MaxValue = new DateTime(message.appVM.UpTimeList.Last().Date, TimeOnly.MinValue);
 	}
 }
