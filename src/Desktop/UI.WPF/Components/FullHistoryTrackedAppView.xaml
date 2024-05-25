@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <conv:DateTimeConverter x:Key="DateTimeConverter"/>
     </UserControl.Resources>
-    
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -44,8 +44,8 @@
                                     x:Name="MainChart"
                                     Zoom="X"
                                     >
-                    
-                    
+
+
                     <lvc:CartesianChart.Series>
                         <lvc:ColumnSeries Values="{Binding ChartValues}" Title="Time"/>
                     </lvc:CartesianChart.Series>
@@ -55,21 +55,26 @@
                             <Color>#fefefe</Color>
                         </lvc:ColorsCollection>
                     </lvc:CartesianChart.SeriesColors>
-                    
+
                     <!-- AXIS X -->
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Name="X"
                                   LabelsRotation="-90"
                                   Foreground="Black"
-                                  LabelFormatter="{Binding XFormatter}"
-                                 
+                                  
+                                  Labels="{Binding Labels}"
+                                  MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
+                                  MaxValue="{Binding AxisXMaxValue, Mode=TwoWay}"
+                                  
                                   RangeChanged="Axis_RangeChanged"
+                                  PreviewRangeChanged="X_PreviewRangeChanged"
+                                  
                                   
                                   MinRange="10"
                                   MaxRange="30"
                                   
                                   >
-<!-- 
+                            <!-- 
                             MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
  MaxValue="{Binding AxisXMaxValue, Mode=TwoWay}"
                                   Labels="{Binding Labels}"
@@ -88,13 +93,16 @@
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
-                    
-                    
-                   
+
+
+
                     <!-- AXIS Y -->
                     <lvc:CartesianChart.AxisY>
                         <lvc:Axis Title="Minutes" MinValue="0"
                                   Foreground="Black">
+                            <!--<lvc:Axis.Separator>
+                                <lvc:Separator IsEnabled="True" Step="1"/>
+                            </lvc:Axis.Separator>-->
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
 
@@ -133,7 +141,7 @@
                     </lvc:CartesianChart.AxisY>
 
                 </lvc:CartesianChart>-->
-                
+
                 <!-- Small Chart below For Scrolling -->
                 <lvc:CartesianChart DisableAnimations="True"
                                     MinHeight="50"
@@ -175,8 +183,8 @@
                 </lvc:CartesianChart>
 
             </StackPanel>
-            
-            
+
+
         </Border>
 
 

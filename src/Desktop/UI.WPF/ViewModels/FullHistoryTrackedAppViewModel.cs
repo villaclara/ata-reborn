@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
 using LiveCharts.Configurations;
@@ -76,30 +77,39 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		//	Values = _retrieveChart.GetChartValuesForAllTime(app)
 		//});
 
-		Labels = _retrieveChart.GetLabelsForAllTime(app);
-		//ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
-
-
-		//AxisXMinValue = 0;
-		//AxisXMaxValue = Labels.Length - 1 < 10 ? Labels.Length - 1 : 10;
-
-
-		//MinValue = new DateTime(message.appVM.UpTimeList.First().Date, TimeOnly.MinValue);
-		//MaxValue = new DateTime(message.appVM.UpTimeList.Last().Date, TimeOnly.MinValue);
-
-
-		List<DateTimePoint> points = new List<DateTimePoint>();
 		
-		foreach(var d in app.CreatedAt.GetDatesOnlyRangeFromDateToToday())
-		{
-			points.Add(new DateTimePoint(
-				new DateTime(d, TimeOnly.MinValue), app.UpTimeList.FirstOrDefault(x => x.Date == d)?.Minutes ?? 0)
-				);
-		}
+		
+		//
+		//
+		//////////////////////////////////////// USING default ChartVAlues and Labels
+		Labels = _retrieveChart.GetLabelsForAllTime(app);
+		ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
 
-		ChartValues = points.AsChartValues();
 
-		AxisXMinValue = app.CreatedAt.Ticks;
-		AxisXMaxValue = DateTime.Today.Ticks;
+		AxisXMinValue = 0;
+		AxisXMaxValue = Labels.Length - 1 < 10 ? Labels.Length - 1 : 10;		// Set the MaxValue to 10 -- Show only 10 chart values at start by default
+
+
+
+
+		//
+		////////////////////////////////////// USING DateTimePoint
+		//
+		//
+		//List<DateTimePoint> points = new List<DateTimePoint>();
+
+		//foreach(var d in app.CreatedAt.GetDatesOnlyRangeFromDateToToday())
+		//{
+		//	points.Add(new DateTimePoint(
+		//		new DateTime(d, TimeOnly.MinValue), app.UpTimeList.FirstOrDefault(x => x.Date == d)?.Minutes ?? 0)
+		//		);
+		//}
+
+		//ChartValues = points.AsChartValues();
+
+		//AxisXMinValue = app.CreatedAt.Ticks;
+		//AxisXMaxValue = DateTime.Today.Ticks;
 	}
+
+
 }
