@@ -31,14 +31,14 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	private string[]? _labels;
 
 	[ObservableProperty]
-	private Func<double, string>? _formatter;
+	private Func<double, string>? _xFormatter;
 
 
 	[ObservableProperty]
-	private double _minValue;
+	private double _axisXMinValue;
 
 	[ObservableProperty]
-	private double _maxValue;
+	private double _axisXMaxValue;
 
 
 	[ObservableProperty]
@@ -62,7 +62,7 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		StrongReferenceMessenger.Default.Register<MessageApp>(this);
 
 
-		Formatter = value => value.ToString("dd/MM");
+		XFormatter = value => new DateTime((long)value).ToString("dd/MM");
 	}
 
 	public void Receive(MessageApp message)
@@ -77,15 +77,29 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		//});
 
 		Labels = _retrieveChart.GetLabelsForAllTime(app);
-		ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
+		//ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
 
-		List<double> dbls = [];
 
-		MinValue = 0;
-		MaxValue = Labels.Length - 1;
+		//AxisXMinValue = 0;
+		//AxisXMaxValue = Labels.Length - 1 < 10 ? Labels.Length - 1 : 10;
 
 
 		//MinValue = new DateTime(message.appVM.UpTimeList.First().Date, TimeOnly.MinValue);
 		//MaxValue = new DateTime(message.appVM.UpTimeList.Last().Date, TimeOnly.MinValue);
+
+
+		List<DateTimePoint> points = new List<DateTimePoint>();
+		
+		foreach(var d in app.CreatedAt.GetDatesOnlyRangeFromDateToToday())
+		{
+			points.Add(new DateTimePoint(
+				new DateTime(d, TimeOnly.MinValue), app.UpTimeList.FirstOrDefault(x => x.Date == d)?.Minutes ?? 0)
+				);
+		}
+
+		ChartValues = points.AsChartValues();
+
+		AxisXMinValue = app.CreatedAt.Ticks;
+		AxisXMaxValue = DateTime.Today.Ticks;
 	}
 }

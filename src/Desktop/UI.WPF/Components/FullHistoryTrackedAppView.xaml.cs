@@ -28,29 +28,29 @@ namespace UI.WPF.Components
 
 		private void Axis_RangeChanged(LiveCharts.Events.RangeChangedEventArgs eventArgs)
 		{
-			var vm = (FullHistoryTrackedAppViewModel)DataContext;
+			//var vm = (FullHistoryTrackedAppViewModel)DataContext;
 
-			var currentRange = eventArgs.Range;
+			//var currentRange = eventArgs.Range;
 
-			if (currentRange < TimeSpan.TicksPerDay * 2)
-			{
-				vm.Formatter = x => new DateTime((long)x).ToString("t");
-				return;
-			}
+			//if (currentRange < TimeSpan.TicksPerDay * 2)
+			//{
+			//	vm.Formatter = x => new DateTime((long)x).ToString("t");
+			//	return;
+			//}
 
-			if (currentRange < TimeSpan.TicksPerDay * 60)
-			{
-				vm.Formatter = x => new DateTime((long)x).ToString("dd MMM yy");
-				return;
-			}
+			//if (currentRange < TimeSpan.TicksPerDay * 60)
+			//{
+			//	vm.Formatter = x => new DateTime((long)x).ToString("dd MMM yy");
+			//	return;
+			//}
 
-			if (currentRange < TimeSpan.TicksPerDay * 540)
-			{
-				vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
-				return;
-			}
+			//if (currentRange < TimeSpan.TicksPerDay * 540)
+			//{
+			//	vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
+			//	return;
+			//}
 
-			vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
+			//vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
 
 
 		}
