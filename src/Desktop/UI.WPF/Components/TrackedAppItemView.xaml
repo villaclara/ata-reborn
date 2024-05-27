@@ -212,7 +212,8 @@
                     <lvc:CartesianChart Series="{Binding SeriesCollection}"
                                         LegendLocation="None" 
                                         MinHeight="130"
-                                        Foreground="Black">
+                                        Foreground="Black"
+                                        Margin="0 0 1 0">
                         <lvc:CartesianChart.SeriesColors>
                             <lvc:ColorsCollection>
                                 <Color>#b2b3b2</Color>
@@ -227,7 +228,7 @@
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="{DynamicResource CardSecondaryForeground}"></lvc:Axis>
+                            <lvc:Axis Title="Minutes" LabelFormatter="{Binding Formatter}" Foreground="{DynamicResource CardSecondaryForeground}"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
 
                     </lvc:CartesianChart>

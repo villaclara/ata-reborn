@@ -34,6 +34,9 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	[ObservableProperty]
 	private Func<double, string>? _xFormatter;
 
+	[ObservableProperty]
+	private Func<double, string>? _yFormatter;
+
 
 	[ObservableProperty]
 	private double _axisXMinValue;
@@ -64,6 +67,7 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 
 
 		XFormatter = value => new DateTime((long)value).ToString("dd/MM");
+		YFormatter = value => value.ToString("N2");	// value to be displayed as ("1.00")
 	}
 
 	public void Receive(MessageApp message)

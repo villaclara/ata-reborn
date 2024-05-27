@@ -73,7 +73,6 @@
                                   
                                   MinRange="10"
                                   MaxRange="30"
-                                  
                                   >
                             <!-- 
                             MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
@@ -100,7 +99,7 @@
                     <!-- AXIS Y -->
                     <lvc:CartesianChart.AxisY>
                         <lvc:Axis Title="Minutes" MinValue="0"
-                                  Foreground="Black">
+                                  Foreground="Black" LabelFormatter="{Binding YFormatter}">
                             <!--<lvc:Axis.Separator>
                                 <lvc:Separator IsEnabled="True" Step="10"/>
                             </lvc:Axis.Separator>-->
@@ -151,11 +150,12 @@
                                     ScrollMode="X"
                                     ScrollHorizontalFrom="{Binding AxisXMinValue, Mode=TwoWay}"
                                     ScrollHorizontalTo="{Binding AxisXMaxValue, Mode=TwoWay}"
-                                    ScrollBarFill="{DynamicResource CardBackground}"
+                                    ScrollBarFill="#3FC3FF00"
                                     
-                                    Hoverable="False"
+                                    DataTooltip="{x:Null}"
                                     >
 
+                    
                     <lvc:CartesianChart.Resources>
                         <Style TargetType="lvc:Separator">
                             <Setter Property="IsEnabled" Value="False"></Setter>
@@ -163,7 +163,7 @@
                     </lvc:CartesianChart.Resources>
 
                     <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Values="{Binding ChartValues}"/>
+                        <lvc:LineSeries Values="{Binding ChartValues}" PointGeometry="{x:Null}"/>
                     </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.SeriesColors>
@@ -173,17 +173,25 @@
                     </lvc:CartesianChart.SeriesColors>
 
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis IsMerged="True" DisableAnimations="True" ShowLabels="False">
+                        <lvc:Axis IsMerged="True" 
+                                  DisableAnimations="True" 
+                                  ShowLabels="True"
+                                  Labels="{Binding Labels}"
+                                  Foreground="Black"
+                                  FontWeight="Bold">
                             <lvc:Axis.Separator>
-                                <lvc:Separator Step="10"/>
+                                <lvc:Separator Step="30"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
 
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False"/>
-                        <lvc:Axis Title="Minutes" Foreground="Black"></lvc:Axis>
-
+                        <lvc:Axis IsMerged="True" 
+                                  ShowLabels="False" 
+                                  Title="Mins" 
+                                  DisableAnimations="True"
+                                  />
+                    
                     </lvc:CartesianChart.AxisY>
 
                 </lvc:CartesianChart>
