@@ -39,7 +39,6 @@
                 <lvc:CartesianChart LegendLocation="Bottom"
                                     DisableAnimations="True"
                                     Height="300"
-                                    Width="700"
                                     Foreground="Black"
                                     x:Name="MainChart"
                                     Zoom="X"
@@ -47,8 +46,10 @@
 
 
                     <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries Values="{Binding ChartValues}" Title="Time"/>
+                        <!--<lvc:LineSeries Values="{Binding ChartValues}" Title="TimeLine" Fill="Blue"/>-->
+                        <lvc:ColumnSeries Values="{Binding ChartValues}" Title="Time" Fill="Yellow"/>
                     </lvc:CartesianChart.Series>
+
 
                     <lvc:CartesianChart.SeriesColors>
                         <lvc:ColorsCollection>
@@ -101,7 +102,7 @@
                         <lvc:Axis Title="Minutes" MinValue="0"
                                   Foreground="Black">
                             <!--<lvc:Axis.Separator>
-                                <lvc:Separator IsEnabled="True" Step="1"/>
+                                <lvc:Separator IsEnabled="True" Step="10"/>
                             </lvc:Axis.Separator>-->
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
@@ -150,7 +151,9 @@
                                     ScrollMode="X"
                                     ScrollHorizontalFrom="{Binding AxisXMinValue, Mode=TwoWay}"
                                     ScrollHorizontalTo="{Binding AxisXMaxValue, Mode=TwoWay}"
-                                    ScrollBarFill="Yellow"
+                                    ScrollBarFill="{DynamicResource CardBackground}"
+                                    
+                                    Hoverable="False"
                                     >
 
                     <lvc:CartesianChart.Resources>
@@ -160,17 +163,20 @@
                     </lvc:CartesianChart.Resources>
 
                     <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries Values="{Binding ChartValues}"/>
+                        <lvc:LineSeries Values="{Binding ChartValues}"/>
                     </lvc:CartesianChart.Series>
 
                     <lvc:CartesianChart.SeriesColors>
                         <lvc:ColorsCollection>
-                            <Color>#fefefe</Color>
+                            <Color>#ee66ee</Color>
                         </lvc:ColorsCollection>
                     </lvc:CartesianChart.SeriesColors>
 
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis IsMerged="True" ShowLabels="False">
+                        <lvc:Axis IsMerged="True" DisableAnimations="True" ShowLabels="False">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Step="10"/>
+                            </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
 
