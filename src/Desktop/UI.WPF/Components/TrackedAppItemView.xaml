@@ -39,17 +39,15 @@
                             <!-- NAME of App-->
                             <Viewbox Height="40" Grid.Column="0">
                                 <TextBlock Text="{Binding AppName}" 
-                                       FontFamily="Cascadia Mono"
-                                       
-                                    >
+                                           FontFamily="Cascadia Mono">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <!-- default color is red as the app is not running by default -->
-                                            <Setter Property="Foreground" Value="{DynamicResource CardSecondaryForeground}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource GreyColor_Calm}"/>
                                             <Style.Triggers>
                                                 <!-- If the app is running - we set the font color to Green -->
                                                 <DataTrigger Binding="{Binding AppIsRunning}" Value="running">
-                                                    <Setter Property="Foreground" Value="#339966"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource GreenColor_Calm}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>

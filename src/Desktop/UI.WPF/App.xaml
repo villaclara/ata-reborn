@@ -63,6 +63,24 @@
             
             <Image x:Key="iconImage" Source="/Resources/Images/atav2.ico"/>
 
+            <!-- -->
+            <!-- STATIC RESOURCES COLORS -->
+            <!-- -->
+            <SolidColorBrush x:Key="DarkPurpleColor_Calm" Color="#33334d"/>
+            <SolidColorBrush x:Key="WhiteColor_Calm" Color="#fff4f0"/>
+
+            <SolidColorBrush x:Key="LightPurpleColor_Calm" Color="#F5EEFF"/>
+            <SolidColorBrush x:Key="LightBlueColor_Calm" Color="#E0E1E9"/>
+            <SolidColorBrush x:Key="LightGreyColor_Calm" Color="#BBD4CE"/>
+            <SolidColorBrush x:Key="BlueColor_Normal" Color="#264E70"/>
+
+            <SolidColorBrush x:Key="GreenColor_Calm" Color="#339966"/>
+            <SolidColorBrush x:Key="GreyColor_Calm" Color="#979197"/>
+            <SolidColorBrush x:Key="GreenColor_VeryCalm" Color="#679186"/>
+            <!-- -->
+            <!-- -->
+            <!-- -->
+            
         </ResourceDictionary>
 
     </Application.Resources>

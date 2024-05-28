@@ -56,21 +56,21 @@ namespace UI.WPF.Components
 
 			//vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
 
-			Axis ax = (Axis)eventArgs.Axis;
-			var vm = (FullHistoryTrackedAppViewModel)DataContext;
+			//Axis ax = (Axis)eventArgs.Axis;
+			//var vm = (FullHistoryTrackedAppViewModel)DataContext;
 
-			if(limitMax)
-			{
-				ax.MaxValue = vm.AxisXMaxValue;
-			}
+			//if(limitMax)
+			//{
+			//	ax.MaxValue = vm.AxisXMaxValue;
+			//}
 
-			if(limitMin)
-			{
-				ax.MinValue = vm.AxisXMinValue;
-			}
+			//if(limitMin)
+			//{
+			//	ax.MinValue = vm.AxisXMinValue;
+			//}
 
-			Log.Warning("VM MinValue ({@min}), MaxValue ({@max}).", vm.AxisXMinValue, vm.AxisXMaxValue);
-			Log.Warning("Axis MinValue ({@min}), MaxValue ({@max}).", ax.MinValue, ax.MaxValue);
+			//Log.Warning("VM MinValue ({@min}), MaxValue ({@max}).", vm.AxisXMinValue, vm.AxisXMaxValue);
+			//Log.Warning("Axis MinValue ({@min}), MaxValue ({@max}).", ax.MinValue, ax.MaxValue);
 		}
 
 		private void X_PreviewRangeChanged(LiveCharts.Events.PreviewRangeChangedEventArgs eventArgs)

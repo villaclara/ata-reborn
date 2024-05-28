@@ -26,42 +26,52 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1"
-                Background="Gray" 
-                BorderBrush="Black"
-                BorderThickness="5">
+                Background="{StaticResource LightGreyColor_Calm}" 
+                BorderBrush="{DynamicResource MainBackground}"
+                BorderThickness="1"
+                CornerRadius="2">
 
             <StackPanel Orientation="Vertical">
 
-                <TextBlock Text="{Binding AppName}"
-                           HorizontalAlignment="Center"/>
-
-                <!-- CHART -->
-                <lvc:CartesianChart LegendLocation="Bottom"
+                <TextBlock Margin="0 5 0 0" 
+                           Text="{Binding AppName}"
+                           HorizontalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="Normal"
+                           Foreground="Black"/>
+                
+                <TextBlock HorizontalAlignment="Center" 
+                           FontWeight="Normal"
+                           Foreground="{StaticResource BlueColor_Normal}"
+                           FontSize="11"
+                           Text="Drag Mouse to move Chart. Scroll Wheel to Zoom in/out. Move Scrollbar in small chart to move big chart." 
+                           />
+                
+                <!-- Main Chart -->
+                <lvc:CartesianChart LegendLocation="None"
                                     DisableAnimations="True"
-                                    Height="300"
-                                    Foreground="Black"
+                                    MinHeight="260"
+                                    Margin="5 0 5 0"
+                                    Foreground="{StaticResource BlueColor_Normal}"
                                     x:Name="MainChart"
-                                    Zoom="X"
-                                    >
-
+                                    Zoom="X" >
 
                     <lvc:CartesianChart.Series>
-                        <!--<lvc:LineSeries Values="{Binding ChartValues}" Title="TimeLine" Fill="Blue"/>-->
-                        <lvc:ColumnSeries Values="{Binding ChartValues}" Title="Time" Fill="Yellow"/>
+                        <lvc:ColumnSeries Values="{Binding ChartValues}" 
+                                          Title="Time" 
+                                          Fill="{StaticResource BlueColor_Normal}"
+                                          Foreground="{StaticResource DarkPurpleColor_Calm}"
+                                          ColumnPadding="1"
+                                          MaxColumnWidth="30"/>
                     </lvc:CartesianChart.Series>
 
 
-                    <lvc:CartesianChart.SeriesColors>
-                        <lvc:ColorsCollection>
-                            <Color>#fefefe</Color>
-                        </lvc:ColorsCollection>
-                    </lvc:CartesianChart.SeriesColors>
-
-                    <!-- AXIS X -->
+                    <!-- Axis X -->
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Name="X"
                                   LabelsRotation="-90"
-                                  Foreground="Black"
+                                  Foreground="{StaticResource DarkPurpleColor_Calm}"
+                                  FontSize="12"
                                   
                                   Labels="{Binding Labels}"
                                   MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
@@ -70,132 +80,94 @@
                                   RangeChanged="Axis_RangeChanged"
                                   PreviewRangeChanged="X_PreviewRangeChanged"
                                   
-                                  
                                   MinRange="10"
-                                  MaxRange="30"
-                                  >
-                            <!-- 
-                            MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
- MaxValue="{Binding AxisXMaxValue, Mode=TwoWay}"
-                                  Labels="{Binding Labels}"
+                                  MaxRange="40">
 
-                            -->
-                            <!--MinRange MaxRange used to limit user Zooming options. 
-                            
-                            
-                            
-                            
-                                  MinValue="{Binding MinValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
-                                  MaxValue="{Binding MaxValue, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
-                                  RangeChanged="Axis_RangeChanged"-->
                             <lvc:Axis.Separator>
-                                <lvc:Separator IsEnabled="True" Step="1"/>
+                                <lvc:Separator IsEnabled="True" 
+                                               Step="1" 
+                                               Stroke="{StaticResource LightGreyColor_Calm}"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
 
-
-
-                    <!-- AXIS Y -->
+                    
+                    <!-- Axis Y -->
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Minutes" MinValue="0"
-                                  Foreground="Black" LabelFormatter="{Binding YFormatter}">
-                            <!--<lvc:Axis.Separator>
-                                <lvc:Separator IsEnabled="True" Step="10"/>
-                            </lvc:Axis.Separator>-->
+                        <lvc:Axis Title="Minutes" 
+                                  MinValue="0"
+                                  Foreground="{StaticResource DarkPurpleColor_Calm}" 
+                                  FontSize="12"
+                                  LabelFormatter="{Binding YFormatter}">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Stroke="{StaticResource WhiteColor_Calm}" />
+                            </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
 
                 </lvc:CartesianChart>
 
-                <!-- CHART -->
-                <!--<lvc:CartesianChart
-                    Height="300"
-                    Width="700"
-                    Foreground="Black"
-                    x:Name="ScrollChart">
-
-
-                    <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries Values="{Binding ChartValues}"/>
-                    </lvc:CartesianChart.Series>
-
-
-                    <lvc:CartesianChart.SeriesColors>
-                        <lvc:ColorsCollection>
-                            <Color>#fefefe</Color>
-                        </lvc:ColorsCollection>
-                    </lvc:CartesianChart.SeriesColors>
-
-                    
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels1}" Foreground="Black">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator IsEnabled="True" Step="2"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Minutes" Labels="{Binding Formatter1}" Foreground="Black"></lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-
-                </lvc:CartesianChart>-->
-
+                
                 <!-- Small Chart below For Scrolling -->
                 <lvc:CartesianChart DisableAnimations="True"
                                     MinHeight="50"
-                                    Width="700"
+                                    Width="600"
                                     Foreground="Black"
+                                    DataTooltip="{x:Null}"
+                                    Hoverable="False"
+                                    
                                     ScrollMode="X"
                                     ScrollHorizontalFrom="{Binding AxisXMinValue, Mode=TwoWay}"
                                     ScrollHorizontalTo="{Binding AxisXMaxValue, Mode=TwoWay}"
-                                    ScrollBarFill="#3FC3FF00"
-                                    
-                                    DataTooltip="{x:Null}"
+                                    ScrollBarFill="#3F679186"                           
                                     >
+                    <!-- Brush builds as (2 symbols Opacity in HEX (alpha 0 - 255),
+                                         (6 symbols color in HEX)
+                    -->
 
-                    
-                    <lvc:CartesianChart.Resources>
-                        <Style TargetType="lvc:Separator">
-                            <Setter Property="IsEnabled" Value="False"></Setter>
-                        </Style>
-                    </lvc:CartesianChart.Resources>
 
+                    <!-- Series -->
                     <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Values="{Binding ChartValues}" PointGeometry="{x:Null}"/>
+                        <lvc:LineSeries Values="{Binding ChartValues}" 
+                                        PointGeometry="{x:Null}"
+                                        Stroke="{StaticResource GreenColor_VeryCalm}" />
                     </lvc:CartesianChart.Series>
 
-                    <lvc:CartesianChart.SeriesColors>
-                        <lvc:ColorsCollection>
-                            <Color>#ee66ee</Color>
-                        </lvc:ColorsCollection>
-                    </lvc:CartesianChart.SeriesColors>
-
+                    <!-- Axis X -->
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis IsMerged="True" 
+                        <lvc:Axis IsMerged="True"
                                   DisableAnimations="True" 
                                   ShowLabels="True"
                                   Labels="{Binding Labels}"
-                                  Foreground="Black"
-                                  FontWeight="Bold">
+                                  Foreground="{StaticResource BlueColor_Normal}"
+                                  FontWeight="Bold"
+                                  FontSize="13">
                             <lvc:Axis.Separator>
-                                <lvc:Separator Step="30"/>
+                                <lvc:Separator Step="30"
+                                               IsEnabled="False"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
 
+                    <!-- Axis Y -->
                     <lvc:CartesianChart.AxisY>
                         <lvc:Axis IsMerged="True" 
                                   ShowLabels="False" 
-                                  Title="Mins" 
+                                  Title="Date" 
                                   DisableAnimations="True"
-                                  />
-                    
+                                  Foreground="{StaticResource BlueColor_Normal}">
+
+                            <lvc:Axis.Separator>
+                                <lvc:Separator IsEnabled="False"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
 
                 </lvc:CartesianChart>
 
+
+
+                
             </StackPanel>
 
 

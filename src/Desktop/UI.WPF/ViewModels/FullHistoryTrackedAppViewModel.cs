@@ -21,6 +21,12 @@ using UI.WPF.Utilities;
 
 namespace UI.WPF.ViewModels;
 
+
+// TO DO
+//
+// If the app was just added then exception is thrown when trying to get the Chart for it
+// ex - One axis has an invalid range, it is or it is tends to zero, please ensure your axis has a valid range'
+
 public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<MessageApp>
 {
 	private readonly IRetrieveChartService _retrieveChart;
