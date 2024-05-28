@@ -4,18 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.WPF.Components" 
-             xmlns:conv="clr-namespace:UI.WPF.Converters"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <conv:DateTimeConverter x:Key="DateTimeConverter"/>
-    </UserControl.Resources>
+ 
 
     <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
@@ -25,13 +23,14 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1" Grid.Column="1"
+        <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                 Background="{StaticResource LightGreyColor_Calm}" 
                 BorderBrush="{DynamicResource MainBackground}"
                 BorderThickness="1"
                 CornerRadius="2">
 
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Left">
 
                 <TextBlock Margin="0 5 0 0" 
                            Text="{Binding AppName}"
@@ -46,6 +45,7 @@
                            FontSize="11"
                            Text="Drag Mouse to move Chart. Scroll Wheel to Zoom in/out. Move Scrollbar in small chart to move big chart." 
                            />
+
                 
                 <!-- Main Chart -->
                 <lvc:CartesianChart LegendLocation="None"
@@ -111,7 +111,7 @@
                 <!-- Small Chart below For Scrolling -->
                 <lvc:CartesianChart DisableAnimations="True"
                                     MinHeight="50"
-                                    Width="600"
+                                    MinWidth="700"
                                     Foreground="Black"
                                     DataTooltip="{x:Null}"
                                     Hoverable="False"
@@ -167,12 +167,23 @@
 
 
 
-                
+
             </StackPanel>
 
 
         </Border>
 
+
+        <Border Grid.Row="1" Grid.Column="2"
+                BorderBrush="Black"
+                BorderThickness="1">
+
+            <StackPanel Orientation="Vertical">
+
+                <TextBlock Text="Total Time: "/>
+                <TextBlock Text="Max Time: "/>
+            </StackPanel>
+        </Border>
 
         <!--<Grid.Triggers>
             <EventTrigger RoutedEvent="UserControl.Loaded">
