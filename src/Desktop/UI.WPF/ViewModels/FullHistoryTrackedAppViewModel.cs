@@ -11,6 +11,7 @@ using Shared.Models;
 using Shared.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Text;
@@ -61,6 +62,21 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	[ObservableProperty]
 	private string _appName = "bruh";
 
+	[ObservableProperty]
+	private double _totalTimeMins = 0;
+
+	[ObservableProperty]
+	private double _totalTimeHours = 0;
+
+	[ObservableProperty]
+	private double _maxTimeTime = 0;
+
+	[ObservableProperty]
+	private string _maxTimeDate;
+
+	[ObservableProperty]
+	private string _firstSessionDate;
+
 	public FullHistoryTrackedAppViewModel(IRetrieveChartService retrieveChart)
 	{
 		_retrieveChart = retrieveChart;
@@ -81,14 +97,20 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		AppName = message.appVM.Name;
 		var app = message.appVM;
 
+		TotalTimeMins = app.UpTimeList.Sum(u => u.Minutes);
+		TotalTimeHours = Math.Round(TotalTimeMins / 60, 2);
+		MaxTimeDate = app.UpTimeList.MaxBy(u => u.Minutes)!.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+		MaxTimeTime = app.UpTimeList.MaxBy(u => u.Minutes)!.Minutes;
+		FirstSessionDate = app.UpTimeList.First().Date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+
 		//SeriesCollection.Add(new LineSeries()
 		//{
 		//	Title = "Times",
 		//	Values = _retrieveChart.GetChartValuesForAllTime(app)
 		//});
 
-		
-		
+
+
 		//
 		//
 		//////////////////////////////////////// USING default ChartVAlues and Labels

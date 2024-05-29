@@ -7,7 +7,22 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
- 
+    
+    <UserControl.Resources>
+        <Style x:Key="TextBlock_SectionNames" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource BlueColor_Normal}"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="TextBlock_Values" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Cascadia Mono"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0 5 0 5"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+    </UserControl.Resources>
+    
 
     <Grid>
 
@@ -176,13 +191,38 @@
 
         <Border Grid.Row="1" Grid.Column="2"
                 BorderBrush="Black"
-                BorderThickness="1">
+                BorderThickness="1 0 0 0"
+                Margin="0 10 0 10"
+                Padding="10 10 10 10">
 
-            <StackPanel Orientation="Vertical">
+            <WrapPanel Orientation="Vertical">
 
-                <TextBlock Text="Total Time: "/>
-                <TextBlock Text="Max Time: "/>
-            </StackPanel>
+                <TextBlock Text="Total Time: "
+                           Style="{StaticResource TextBlock_SectionNames}"/>
+                <TextBlock Style="{StaticResource TextBlock_Values}" >
+                    <Run Text="{Binding TotalTimeMins}"/>
+                    <Run Text="mins -" FontSize="11" FontWeight="Light"/>
+                    <Run Text="{Binding TotalTimeHours}"/>
+                    <Run Text="hours" FontSize="11" FontWeight="Light"/>
+                </TextBlock>
+                
+                <TextBlock Text="Max Time: "
+                           Style="{StaticResource TextBlock_SectionNames}"/>
+                <TextBlock Style="{StaticResource TextBlock_Values}">
+                    <Run Text="{Binding MaxTimeTime}"/>
+                    <Run Text="mins -" FontSize="11" FontWeight="Light"/>
+                    <Run Text="{Binding MaxTimeDate}"/>
+                </TextBlock>
+
+                <TextBlock Text="First Session: "
+                           Style="{StaticResource TextBlock_SectionNames}"/>
+                <TextBlock Style="{StaticResource TextBlock_Values}">
+                    <Run Text="{Binding FirstSessionDate}"/>
+                </TextBlock>
+
+               
+
+            </WrapPanel>
         </Border>
 
         <!--<Grid.Triggers>
