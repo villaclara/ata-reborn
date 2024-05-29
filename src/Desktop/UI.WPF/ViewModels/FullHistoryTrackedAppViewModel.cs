@@ -32,18 +32,15 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 {
 	private readonly IRetrieveChartService _retrieveChart;
 	
+
 	[ObservableProperty]
-	private SeriesCollection _seriesCollection;
+	private IChartValues _chartValues;
 
 	[ObservableProperty]
 	private string[]? _labels;
 
 	[ObservableProperty]
-	private Func<double, string>? _xFormatter;
-
-	[ObservableProperty]
 	private Func<double, string>? _yFormatter;
-
 
 	[ObservableProperty]
 	private double _axisXMinValue;
@@ -51,13 +48,6 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	[ObservableProperty]
 	private double _axisXMaxValue;
 
-
-	[ObservableProperty]
-	private DateOnly[] _dateOnlyLabels;
-
-
-	[ObservableProperty]
-	private IChartValues _chartValues;
 
 	[ObservableProperty]
 	private string _appName = "bruh";
@@ -72,76 +62,40 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	private double _maxTimeTime = 0;
 
 	[ObservableProperty]
-	private string _maxTimeDate;
+	private string _maxTimeDate = "";
 
 	[ObservableProperty]
-	private string _firstSessionDate;
+	private string _firstSessionDate = "";
 
 	public FullHistoryTrackedAppViewModel(IRetrieveChartService retrieveChart)
 	{
 		_retrieveChart = retrieveChart;
-		SeriesCollection = [];
-
-
 		ChartValues = new ChartValues<double>();
+		YFormatter = value => value.ToString("N2");	// value to be displayed as ("1.00") in Axis Y
 
 		StrongReferenceMessenger.Default.Register<MessageApp>(this);
-
-
-		XFormatter = value => new DateTime((long)value).ToString("dd/MM");
-		YFormatter = value => value.ToString("N2");	// value to be displayed as ("1.00")
 	}
 
 	public void Receive(MessageApp message)
 	{
-		AppName = message.appVM.Name;
 		var app = message.appVM;
 
+		// Assign App Details
+		AppName = app.Name;
 		TotalTimeMins = app.UpTimeList.Sum(u => u.Minutes);
 		TotalTimeHours = Math.Round(TotalTimeMins / 60, 2);
 		MaxTimeDate = app.UpTimeList.MaxBy(u => u.Minutes)!.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 		MaxTimeTime = app.UpTimeList.MaxBy(u => u.Minutes)!.Minutes;
 		FirstSessionDate = app.UpTimeList.First().Date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-
-		//SeriesCollection.Add(new LineSeries()
-		//{
-		//	Title = "Times",
-		//	Values = _retrieveChart.GetChartValuesForAllTime(app)
-		//});
-
-
-
-		//
-		//
-		//////////////////////////////////////// USING default ChartVAlues and Labels
+	
+		// Get Labels and ChartValues
 		Labels = _retrieveChart.GetLabelsForAllTime(app);
 		ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
 
-
+		// Set Values for first display of Chart
 		AxisXMinValue = 0;
 		AxisXMaxValue = Labels.Length - 1 < 10 ? Labels.Length - 1 : 10;		// Set the MaxValue to 10 -- Show only 10 chart values at start by default
 
-
-
-
-		//
-		////////////////////////////////////// USING DateTimePoint
-		//
-		//
-		//List<DateTimePoint> points = new List<DateTimePoint>();
-
-		//foreach(var d in app.CreatedAt.GetDatesOnlyRangeFromDateToToday())
-		//{
-		//	points.Add(new DateTimePoint(
-		//		new DateTime(d, TimeOnly.MinValue), app.UpTimeList.FirstOrDefault(x => x.Date == d)?.Minutes ?? 0)
-		//		);
-		//}
-
-		//ChartValues = points.AsChartValues();
-
-		//AxisXMinValue = app.CreatedAt.Ticks;
-		//AxisXMaxValue = DateTime.Today.Ticks;
 	}
-
 
 }
