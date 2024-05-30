@@ -1,0 +1,247 @@
+﻿<UserControl x:Class="UI.WPF.Components.FullHistoryTrackedAppView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI.WPF.Components" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="TextBlock_SectionNames" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource CardSecondaryForeground}"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="TextBlock_Values" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Cascadia Mono"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0 5 0 5"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+            <Setter Property="Foreground" Value="{DynamicResource CardMainForeground}"/>
+        </Style>
+
+        <Style x:Key="TextBlock_SmallTextInValues" TargetType="Run">
+            <Setter Property="FontFamily" Value="Cascadia Mono"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Foreground" Value="{DynamicResource CardSecondaryForeground}"/>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid Background="{DynamicResource SecondaryBackground}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1" Grid.Column="1"
+                Background="{StaticResource LightGreyColor_Calm}" 
+                BorderBrush="{DynamicResource MainBackground}"
+                BorderThickness="1"
+                CornerRadius="2">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name and ToolTip Section-->
+                <StackPanel Grid.Row="0" 
+                            Orientation="Vertical" 
+                            HorizontalAlignment="Center">
+
+                    <TextBlock Margin="0 5 0 0" 
+                               Text="{Binding AppName}"
+                               HorizontalAlignment="Center"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="Black"/>
+
+                    <TextBlock HorizontalAlignment="Center" 
+                               FontWeight="Normal"
+                               Foreground="{StaticResource BlueColor_Normal}"
+                               FontSize="11"
+                               Text="Drag Mouse to move Chart. Scroll Wheel to Zoom in/out. Move Scrollbar in small chart to move big chart." />
+                </StackPanel>
+
+
+                <!-- Main Chart Section -->
+                <Border Grid.Row="1">
+
+                    <!-- Main Chart -->
+                    <lvc:CartesianChart LegendLocation="None"
+                                        DisableAnimations="True"
+                                        MinHeight="260"
+                                        Margin="5 0 5 0"
+                                        Foreground="{StaticResource BlueColor_Normal}"
+                                        x:Name="MainChart"
+                                        Zoom="X" >
+
+                        <lvc:CartesianChart.Series>
+                            <lvc:ColumnSeries Values="{Binding ChartValues}" 
+                                              Title="Time" 
+                                              Fill="{StaticResource BlueColor_Normal}"
+                                              Foreground="{StaticResource DarkPurpleColor_Calm}"
+                                              ColumnPadding="1"
+                                              MaxColumnWidth="30"/>
+                        </lvc:CartesianChart.Series>
+
+                        <!-- Axis X -->
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Name="X"
+                                      LabelsRotation="-90"
+                                      Foreground="{StaticResource DarkPurpleColor_Calm}"
+                                      FontSize="12"
+                                      Labels="{Binding Labels}"
+                                      MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
+                                      MaxValue="{Binding AxisXMaxValue, Mode=TwoWay}"
+                                      PreviewRangeChanged="X_PreviewRangeChanged"
+                                      MinRange="10"
+                                      MaxRange="40">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator IsEnabled="True" 
+                                                   Step="1" 
+                                                   Stroke="{StaticResource LightGreyColor_Calm}"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <!-- Axis Y -->
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Minutes" 
+                                      MinValue="0"
+                                      Foreground="{StaticResource DarkPurpleColor_Calm}" 
+                                      FontSize="12"
+                                      LabelFormatter="{Binding YFormatter}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Stroke="{StaticResource WhiteColor_Calm}" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                    </lvc:CartesianChart>
+                </Border>
+
+                <!-- Small Chart Section -->
+                <Border Grid.Row="2"
+                        Padding="100 0 100 0">
+
+                    <!-- Small Chart below For Scrolling -->
+                    <lvc:CartesianChart DisableAnimations="True"
+                                        MinHeight="50"
+                                        MinWidth="400"
+                                        Foreground="Black"
+                                        DataTooltip="{x:Null}"
+                                        Hoverable="False"    
+                                        ScrollMode="X"
+                                        ScrollHorizontalFrom="{Binding AxisXMinValue, Mode=TwoWay}"
+                                        ScrollHorizontalTo="{Binding AxisXMaxValue, Mode=TwoWay}"
+                                        ScrollBarFill="#3F679186">
+                        <!-- Brush builds as (2 symbols Opacity in HEX (alpha 0 - 255),
+                                         (6 symbols color in HEX) -->
+
+                        <!-- Series -->
+                        <lvc:CartesianChart.Series>
+                            <lvc:LineSeries Values="{Binding ChartValues}" 
+                                            PointGeometry="{x:Null}"
+                                            Stroke="{StaticResource GreenColor_VeryCalm}" />
+                        </lvc:CartesianChart.Series>
+
+                        <!-- Axis X -->
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis IsMerged="True"
+                                      DisableAnimations="True" 
+                                      ShowLabels="True"
+                                      Labels="{Binding Labels}"
+                                      Foreground="{StaticResource BlueColor_Normal}"
+                                      FontWeight="Bold"
+                                      FontSize="13">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="30"
+                                                   IsEnabled="False"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <!-- Axis Y -->
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis IsMerged="True"
+                                      ShowLabels="False" 
+                                      Title="Date" 
+                                      DisableAnimations="True"
+                                      Foreground="{StaticResource BlueColor_Normal}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator IsEnabled="False"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                    </lvc:CartesianChart>
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <!-- Details Values Section ROW 2 -->
+        <Border Grid.Row="1" Grid.Column="2"
+                Margin="0 0 0 10"
+                Padding="10 0 10 10">
+
+            <WrapPanel Orientation="Vertical">
+                
+                <TextBlock Text="Total Time: "
+                           Style="{StaticResource TextBlock_SectionNames}"/>
+                <TextBlock Style="{StaticResource TextBlock_Values}" >
+                    <Run Text="{Binding TotalTimeMins}"/>
+                    <Run Text="mins -" Style="{StaticResource TextBlock_SmallTextInValues}"/>
+                    <Run Text="{Binding TotalTimeHours}"/>
+                    <Run Text="hours" Style="{StaticResource TextBlock_SmallTextInValues}"/>
+                </TextBlock>
+
+                <TextBlock Text="Max Time: "
+                           Style="{StaticResource TextBlock_SectionNames}"/>
+                <TextBlock Style="{StaticResource TextBlock_Values}">
+                    <Run Text="{Binding MaxTimeTime}"/>
+                    <Run Text="mins -" Style="{StaticResource TextBlock_SmallTextInValues}"/>
+                    <Run Text="{Binding MaxTimeDate}"/>
+                </TextBlock>
+
+                <TextBlock Text="First Session: "
+                           Style="{StaticResource TextBlock_SectionNames}"/>
+                <TextBlock Style="{StaticResource TextBlock_Values}">
+                    <Run Text="{Binding FirstSessionDate}"/>
+                </TextBlock>
+
+            </WrapPanel>
+        </Border>
+
+        <!--<Grid.Triggers>
+            <EventTrigger RoutedEvent="UserControl.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="(UserControl.Width)"
+                            From="0" To="800" Duration="0:0:0.5"/>
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="(UserControl.Height)"
+                            From="0" To="700" Duration="0:0:0.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>-->
+    </Grid>
+</UserControl>

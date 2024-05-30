@@ -5,9 +5,7 @@ using Application.Director.Instance;
 using Application.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Win32;
 using Serilog;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -67,13 +65,14 @@ public partial class App : System.Windows.Application
 				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
 
-
 				// Add ViewModels 
 				services.AddSingleton<TrackedAppsViewModel>();
 				services.AddSingleton<ToolbarViewModel>();
 				services.AddSingleton<TopRowViewModel>();
 				services.AddSingleton<SettingsViewModel>();
 				services.AddSingleton<ChangelogPageViewModel>();
+				// Singleton FullHistory View Model as we get the App trakced in Receive method and just redraw the Chart
+				services.AddSingleton<FullHistoryTrackedAppViewModel>();
 
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();

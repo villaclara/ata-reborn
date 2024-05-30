@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using Serilog;
 using Shared.ViewModels;
 using UI.WPF.Enums;
@@ -18,6 +20,8 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	[NotifyPropertyChangedFor(nameof(AppIsRunning))]
 	[NotifyPropertyChangedFor(nameof(AppCurrentSessionHours))]
 	[NotifyPropertyChangedFor(nameof(AppCurrentSessionMinutes))]
+	[NotifyPropertyChangedFor(nameof(AppTodayTimeHours))]
+	[NotifyPropertyChangedFor(nameof(AppTodayTimeMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppTotalHours))]
 	[NotifyPropertyChangedFor(nameof(AppTotalMinutes))]
 	[NotifyPropertyChangedFor(nameof(AppFirstSessionDate))]
@@ -33,6 +37,14 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 	public uint AppTotalMinutes => (uint)App.UpTimeList.Sum(u => u.Minutes) % 60;
 	public string AppLastSessionDate => App.LastRunningDate.ToString("dd/MM/yy");
 	public string AppFirstSessionDate => App.CreatedAt.ToString("dd/MM/yy");
+
+	// Here we should perform check for nullability. Because if the App were not running Today the null will be returned from LINQ. And then we need to set the value to 0.
+	public uint AppTodayTimeHours => App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now)) != null
+		? (uint)App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes / 60
+		: 0;
+	public uint AppTodayTimeMinutes => App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now)) != null
+		? (uint)App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now))!.Minutes % 60
+		: 0;
 
 
 	private readonly IDataIssuer _dataIssuer;
@@ -70,10 +82,14 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		_customDialog = customDialog;
 		_retrieveChartService = retrieveChartService;
 
-		_seriesCollection = _retrieveChartService.GetSeriesForApp(_app);
-		_labels = _retrieveChartService.GetLabels();
-		_formatter = value => value.ToString("N");
 
+		//AppTodayTimeHours = (uint)App.UpTimeList.FirstOrDefault(u => u.Date == DateOnly.FromDateTime(DateTime.Now))?.Minutes / 60;
+
+
+
+		_seriesCollection = _retrieveChartService.GetSeriesForAppLastWeek(_app);
+		_labels = _retrieveChartService.GetLabelsLastWeek();
+		_formatter = value => value.ToString("N");
 	}
 
 
@@ -95,5 +111,12 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 		{
 			Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
 		}
+	}
+
+	[RelayCommand]
+	private void ShowFullHistoryView()
+	{
+		Log.Information("{@Method} - Show full history for ({@app}) button clicked.", nameof(ShowFullHistoryView), App.Name);
+		StrongReferenceMessenger.Default.Send<FullHistoryForAppTriggeredMessage>(new FullHistoryForAppTriggeredMessage(this.App));
 	}
 }

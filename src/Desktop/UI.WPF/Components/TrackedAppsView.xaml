@@ -24,7 +24,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewmodels:TrackedAppItemViewModel}">
-                            <components:TrackedAppItem Width="200"
+                            <components:TrackedAppItem Width="210"
                                                        Height="360"
                                                        Margin="10 10 0 10"/>
                         </DataTemplate>

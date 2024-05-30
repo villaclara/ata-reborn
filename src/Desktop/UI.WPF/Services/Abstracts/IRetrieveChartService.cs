@@ -19,11 +19,25 @@ public interface IRetrieveChartService
 	/// </summary>
 	/// <param name="app"><see cref="AppInstanceVM"/> object to get values.</param>
 	/// <returns><see cref="SeriesCollection"/> object.</returns>
-	SeriesCollection GetSeriesForApp(AppInstanceVM app);
+	SeriesCollection GetSeriesForAppLastWeek(AppInstanceVM app);
 	
 	/// <summary>
-	/// Retrieve labels for the chart. Should be used with <see cref="GetSeriesForApp(AppInstanceVM)"/>.
+	/// Retrieve labels for the chart. Should be used with <see cref="GetSeriesForAppLastWeek(AppInstanceVM)"/>.
 	/// </summary>
 	/// <returns>Array of <see cref="string"/> representing values of Axis X.</returns>
-	string[] GetLabels();
+	string[] GetLabelsLastWeek();
+
+	/// <summary>
+	/// Get the <see cref="ColumnSeries"/> instance (that is what you should add inside <see cref="SeriesCollection"/>) of the app for full time.
+	/// </summary>
+	/// <param name="app"><see cref="AppInstanceVM"/> object to get values.</param>
+	/// <returns><see cref="ColumnSeries"/> collection.</returns>
+	ChartValues<double> GetChartValuesForAllTime(AppInstanceVM app);
+
+	/// <summary>
+	/// Get the labels for the chart for full app time.
+	/// </summary>
+	/// <param name="app"><see cref="AppInstanceVM"/> object to get values.</param>
+	/// <returns><see cref="string"/> array of <see cref="DateOnly"/> objects starting with App First Session Date.</returns>
+	string[] GetLabelsForAllTime(AppInstanceVM app);
 }

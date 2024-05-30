@@ -9,6 +9,17 @@
              d:DesignHeight="420" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance local:TrackedAppItem}">
 
+    <UserControl.Resources>
+        <Style x:Key="TextBlock_smallTextValues" TargetType="Span">
+            <Setter Property="Foreground" Value="{DynamicResource CardSecondaryForeground}"/>
+        </Style>
+
+        <Style x:Key="TextBlock_TimeValues" TargetType="Run">
+            <Setter Property="FontFamily" Value="Bahnschrift"/>
+            <Setter Property="Foreground" Value="{DynamicResource CardMainForeground}"/>
+        </Style>
+    </UserControl.Resources>
+
     <Border BorderBrush="{DynamicResource CardBorderForeground}"
          BorderThickness="2"
          CornerRadius="5"
@@ -16,7 +27,7 @@
 
         <Grid Margin="5 5 5 5" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="1.5*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -27,7 +38,7 @@
             <Border>
 
                 <StackPanel VerticalAlignment="Center">
-                    
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -35,12 +46,24 @@
                         </Grid.ColumnDefinitions>
 
                         <Border Grid.Column="0">
-                            
+
                             <!-- NAME of App-->
                             <Viewbox Height="40" Grid.Column="0">
-                            <TextBlock Text="{Binding AppName}" 
-                                       FontFamily="Cascadia Mono"
-                                       Foreground="{DynamicResource CardMainForeground}"/>
+                                <TextBlock Text="{Binding AppName}" 
+                                           FontFamily="Cascadia Mono">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <!-- default color is red as the app is not running by default -->
+                                            <Setter Property="Foreground" Value="{StaticResource GreyColor_Calm}"/>
+                                            <Style.Triggers>
+                                                <!-- If the app is running - we set the font color to Green -->
+                                                <DataTrigger Binding="{Binding AppIsRunning}" Value="running">
+                                                    <Setter Property="Foreground" Value="{StaticResource GreenColor_Calm}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Viewbox>
                         </Border>
 
@@ -68,27 +91,31 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        
+
                     </Grid>
 
                     <!-- App Status -->
-                    <TextBlock Text="{Binding AppIsRunning}" 
+                    <!--<TextBlock Text="{Binding AppIsRunning}" 
                                FontSize="16" 
                                HorizontalAlignment="Center"
                                FontFamily="Verdana" FontWeight="Bold">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
-                                <!-- default color is red as the app is not running by default -->
+                                -->
+                    <!-- default color is red as the app is not running by default -->
+                    <!--
                                 <Setter Property="Foreground" Value="Red"/>
                                 <Style.Triggers>
-                                    <!-- If the app is running - we set the font color to Green -->
+                                    -->
+                    <!-- If the app is running - we set the font color to Green -->
+                    <!--
                                     <DataTrigger Binding="{Binding AppIsRunning}" Value="running">
                                         <Setter Property="Foreground" Value="Green"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
-                    </TextBlock>
+                    </TextBlock>-->
 
                 </StackPanel>
 
@@ -99,16 +126,30 @@
                     BorderThickness="0 0 0 2" 
                     BorderBrush="{DynamicResource CardBorderForeground}">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060">
+                    <TextBlock FontFamily="Bahnschrift" Foreground="#FF676060"
+                               HorizontalAlignment="Center">
                         <Run FontSize="32" Text="{Binding AppCurrentSessionHours, Mode=OneWay}" 
                              Foreground="{DynamicResource CardMainForeground}"></Run>
                         
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}">h</Span>
+                        <Span Style="{StaticResource TextBlock_smallTextValues}">h</Span>
                         
                         <Run FontSize="32" Text="{Binding AppCurrentSessionMinutes, Mode=OneWay}" 
                              Foreground="{DynamicResource CardMainForeground}"></Run>
                         
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}">min</Span>
+                        <Span Style="{StaticResource TextBlock_smallTextValues}">min</Span>
+                    </TextBlock>
+
+                    <!-- Today Total Time Section -->
+                    <TextBlock HorizontalAlignment="Center" FontSize="16">
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Today: </Span>
+                            <Run Text="{Binding AppTodayTimeHours, Mode=OneWay}" 
+                                 Style="{StaticResource TextBlock_TimeValues}"/>
+                                <Span Style="{StaticResource TextBlock_smallTextValues}">h</Span>
+    
+                            <Run Text="{Binding AppTodayTimeMinutes, Mode=OneWay}"
+                                 Style="{StaticResource TextBlock_TimeValues}"/>
+    
+                        <Span Style="{StaticResource TextBlock_smallTextValues}">min</Span>
                     </TextBlock>
                 </StackPanel>
             </Border>
@@ -152,16 +193,16 @@
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" FontSize="16">
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Total Time: </Span>
-                        <Run Text="{Binding AppTotalHours, Mode=OneWay}" FontFamily="Bahnschrift"
-                             Foreground="{DynamicResource CardMainForeground}"/>
+                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Total: </Span>
+                        <Run Text="{Binding AppTotalHours, Mode=OneWay}" 
+                             Style="{StaticResource TextBlock_TimeValues}"/>
                         
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}">h</Span>
+                        <Span Style="{StaticResource TextBlock_smallTextValues}">h</Span>
                         
-                        <Run Text="{Binding AppTotalMinutes, Mode=OneWay}" FontFamily="Bahnschrift" 
-                             Foreground="{DynamicResource CardMainForeground}"/>
+                        <Run Text="{Binding AppTotalMinutes, Mode=OneWay}"
+                             Style="{StaticResource TextBlock_TimeValues}"/>
                         
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}">min</Span>
+                        <Span Style="{StaticResource TextBlock_smallTextValues}">min</Span>
                     </TextBlock>
                 </StackPanel>
             </Border>
@@ -170,15 +211,48 @@
             <!-- Chart section -->
             <Border Grid.Row="4" Margin="0 2 0 0">
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center">
+                    
+                <StackPanel Orientation="Horizontal"
+                            Margin="60 0 0 0">
+                    
+                    <TextBlock 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
                         <Span Foreground="{DynamicResource CardMainForeground}" FontWeight="Light">Time Last Week</Span>
                     </TextBlock>
+                    <Button Margin="10 0 0 0"
+                            HorizontalAlignment="Right"
+                            Width="30"
+                            Command="{Binding ShowFullHistoryViewCommand}"
+                            ToolTip="Open full history Chart.">
+                        <Button.Content>
+                            <Image Height="20"
+                                   Source="/Resources/Images/more.png">
+                               <!-- Here might be the Style depending on active Theme -->
+                            </Image>
+                        </Button.Content>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border" Background="{StaticResource LightBlueColor_Calm}" CornerRadius="2">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource MainBackgroundLighter}"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
 
                     <!-- CHART -->
                     <lvc:CartesianChart Series="{Binding SeriesCollection}"
                                         LegendLocation="None" 
                                         MinHeight="130"
-                                        Foreground="Black">
+                                        Foreground="Black"
+                                        Margin="0 0 1 0">
                         <lvc:CartesianChart.SeriesColors>
                             <lvc:ColorsCollection>
                                 <Color>#b2b3b2</Color>
@@ -193,7 +267,10 @@
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Minutes" Labels="{Binding Formatter}" Foreground="{DynamicResource CardSecondaryForeground}"></lvc:Axis>
+                            <lvc:Axis Title="Minutes" 
+                                      LabelFormatter="{Binding Formatter}" 
+                                      Foreground="{DynamicResource CardSecondaryForeground}"
+                                      MinValue="0"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
 
                     </lvc:CartesianChart>

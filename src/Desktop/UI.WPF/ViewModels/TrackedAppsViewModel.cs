@@ -69,7 +69,7 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 
 			if (appVM != null)
 			{
-				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(appVM, _dataIssuer, _customDialog, _retrieveChart);
+				TrackedAppItemViewModel vm = new TrackedAppItemViewModel(app: appVM, dataIssuer: _dataIssuer, customDialog: _customDialog, retrieveChartService: _retrieveChart);
 				AppItems.Add(vm);
 
 				// Event to update values in the UI
