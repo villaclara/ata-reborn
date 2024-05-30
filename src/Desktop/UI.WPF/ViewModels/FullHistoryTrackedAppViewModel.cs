@@ -7,12 +7,6 @@ using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
-
-// TO DO
-//
-// If the app was just added then exception is thrown when trying to get the Chart for it
-// ex - One axis has an invalid range, it is or it is tends to zero, please ensure your axis has a valid range'
-
 public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<MessageApp>
 {
 	private readonly IRetrieveChartService _retrieveChart;
@@ -67,7 +61,7 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 
 		// Assign App Details
 		AppName = app.Name;
-		TotalTimeMins = app.UpTimeList.Sum(u => u.Minutes);
+		TotalTimeMins = Math.Round(app.UpTimeList.Sum(u => u.Minutes), 2);
 		TotalTimeHours = Math.Round(TotalTimeMins / 60, 2);
 		MaxTimeDate = app.UpTimeList.MaxBy(u => u.Minutes)?.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture) ?? "Not set yet";
 		MaxTimeTime = app.UpTimeList.MaxBy(u => u.Minutes)?.Minutes ?? 0;

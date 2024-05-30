@@ -39,6 +39,7 @@
     <Resource Include="Resources\Images\minimize_black.png" />
     <Resource Include="Resources\Images\moon_black.png" />
     <Resource Include="Resources\Images\moon_white.png" />
+    <Resource Include="Resources\Images\more.png" />
     <Resource Include="Resources\Images\plus_black.png" />
     <Resource Include="Resources\Images\plus_white.png" />
     <Resource Include="Resources\Images\refresh_black.png" />

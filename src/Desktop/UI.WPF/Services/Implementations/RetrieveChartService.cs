@@ -1,15 +1,9 @@
 ﻿using LiveCharts;
-using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using Serilog;
 using Shared.ViewModels;
-using UI.WPF.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UI.WPF.Services.Abstracts;
+using UI.WPF.Utilities;
 
 namespace UI.WPF.Services.Implementations;
 
@@ -17,7 +11,7 @@ public class RetrieveChartService : IRetrieveChartService
 {
 	public ChartValues<double> GetChartValuesForAllTime(AppInstanceVM app)
 	{
-		if(app is null)
+		if (app is null)
 		{
 			return [];
 		}
@@ -26,7 +20,7 @@ public class RetrieveChartService : IRetrieveChartService
 		DateTime firstSessionDate = app.CreatedAt;
 		IEnumerable<DateOnly> dates = firstSessionDate.GetDatesOnlyRangeFromDateToToday();
 		Log.Information("{@Method} - Dates from CreatedAt count ({@count}).", nameof(GetChartValuesForAllTime), dates.Count());
-		
+
 		ChartValues<double> chartValues = [];
 		foreach (var date in dates)
 		{
@@ -39,7 +33,7 @@ public class RetrieveChartService : IRetrieveChartService
 
 	public string[] GetLabelsForAllTime(AppInstanceVM app)
 	{
-		if(app is null)
+		if (app is null)
 		{
 			return [];
 		}
@@ -51,7 +45,7 @@ public class RetrieveChartService : IRetrieveChartService
 		List<DateTime> allDatesFromFirst = [];
 		IEnumerable<DateOnly> dates = firstSessionDate.GetDatesOnlyRangeFromDateToToday();
 		Log.Information("{@Method} - Labels count ({@count) for app ({@app}).", nameof(GetLabelsForAllTime), dates.Count(), app.Name);
-		
+
 		return dates.Select(d => d.ToString("dd/MM")).ToArray();
 	}
 
