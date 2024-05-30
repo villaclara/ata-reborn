@@ -40,6 +40,15 @@ public class ChangelogPageViewModel : BaseViewModel
 				]
 		});
 
+		ChangelogNotes.Insert(0, new()
+		{
+			VersionName = "v1.3",
+			Notes = [
+				"- Meet Full History Chart Page! (displaying your activity day by day)",
+				"Simply click on 'Three Dots' button next to chart name in App Section."
+				]
+		});
+
 	}
 
 	public string TextName { get; set; } = "BRUH";
