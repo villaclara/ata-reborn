@@ -109,7 +109,6 @@
                                       Labels="{Binding Labels}"
                                       MinValue="{Binding AxisXMinValue, Mode=TwoWay}"
                                       MaxValue="{Binding AxisXMaxValue, Mode=TwoWay}"
-                                      RangeChanged="Axis_RangeChanged"
                                       PreviewRangeChanged="X_PreviewRangeChanged"
                                       MinRange="10"
                                       MaxRange="40">

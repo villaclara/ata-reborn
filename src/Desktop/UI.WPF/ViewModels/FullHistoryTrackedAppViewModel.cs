@@ -1,24 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
-using LiveCharts.Configurations;
-using LiveCharts.Defaults;
-using LiveCharts.Definitions.Charts;
-using LiveCharts.Helpers;
-using LiveCharts.Wpf;
-using Shared.Models;
-using Shared.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 using UI.WPF.Services;
 using UI.WPF.Services.Abstracts;
-using UI.WPF.Utilities;
 
 namespace UI.WPF.ViewModels;
 
@@ -31,7 +16,7 @@ namespace UI.WPF.ViewModels;
 public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<MessageApp>
 {
 	private readonly IRetrieveChartService _retrieveChart;
-	
+
 
 	[ObservableProperty]
 	private IChartValues _chartValues;
@@ -71,7 +56,7 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 	{
 		_retrieveChart = retrieveChart;
 		ChartValues = new ChartValues<double>();
-		YFormatter = value => value.ToString("N2");	// value to be displayed as ("1.00") in Axis Y
+		YFormatter = value => value.ToString("N2"); // value to be displayed as ("1.00") in Axis Y
 
 		StrongReferenceMessenger.Default.Register<MessageApp>(this);
 	}
@@ -84,17 +69,17 @@ public partial class FullHistoryTrackedAppViewModel : BaseViewModel, IRecipient<
 		AppName = app.Name;
 		TotalTimeMins = app.UpTimeList.Sum(u => u.Minutes);
 		TotalTimeHours = Math.Round(TotalTimeMins / 60, 2);
-		MaxTimeDate = app.UpTimeList.MaxBy(u => u.Minutes)!.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-		MaxTimeTime = app.UpTimeList.MaxBy(u => u.Minutes)!.Minutes;
-		FirstSessionDate = app.UpTimeList.First().Date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-	
+		MaxTimeDate = app.UpTimeList.MaxBy(u => u.Minutes)?.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture) ?? "Not set yet";
+		MaxTimeTime = app.UpTimeList.MaxBy(u => u.Minutes)?.Minutes ?? 0;
+		FirstSessionDate = app.UpTimeList.FirstOrDefault()?.Date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) ?? "Not set yet";
+
 		// Get Labels and ChartValues
 		Labels = _retrieveChart.GetLabelsForAllTime(app);
 		ChartValues = _retrieveChart.GetChartValuesForAllTime(app);
 
 		// Set Values for first display of Chart
 		AxisXMinValue = 0;
-		AxisXMaxValue = Labels.Length - 1 < 10 ? Labels.Length - 1 : 10;		// Set the MaxValue to 10 -- Show only 10 chart values at start by default
+		AxisXMaxValue = Labels.Length - 1 < 10 ? Labels.Length : 10;        // Set the MaxValue to 10 -- Show only 10 chart values at start by default
 
 	}
 

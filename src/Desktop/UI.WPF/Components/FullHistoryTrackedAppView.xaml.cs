@@ -28,51 +28,8 @@ namespace UI.WPF.Components
 			InitializeComponent();
 		}
 
-		private bool limitMin = false, limitMax = false;	
 
-		private void Axis_RangeChanged(LiveCharts.Events.RangeChangedEventArgs eventArgs)
-		{
-			//var vm = (FullHistoryTrackedAppViewModel)DataContext;
-
-			//var currentRange = eventArgs.Range;
-
-			//if (currentRange < TimeSpan.TicksPerDay * 2)
-			//{
-			//	vm.Formatter = x => new DateTime((long)x).ToString("t");
-			//	return;
-			//}
-
-			//if (currentRange < TimeSpan.TicksPerDay * 60)
-			//{
-			//	vm.Formatter = x => new DateTime((long)x).ToString("dd MMM yy");
-			//	return;
-			//}
-
-			//if (currentRange < TimeSpan.TicksPerDay * 540)
-			//{
-			//	vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
-			//	return;
-			//}
-
-			//vm.Formatter = x => new DateTime((long)x).ToString("MMM yy");
-
-			//Axis ax = (Axis)eventArgs.Axis;
-			//var vm = (FullHistoryTrackedAppViewModel)DataContext;
-
-			//if(limitMax)
-			//{
-			//	ax.MaxValue = vm.AxisXMaxValue;
-			//}
-
-			//if(limitMin)
-			//{
-			//	ax.MinValue = vm.AxisXMinValue;
-			//}
-
-			//Log.Warning("VM MinValue ({@min}), MaxValue ({@max}).", vm.AxisXMinValue, vm.AxisXMaxValue);
-			//Log.Warning("Axis MinValue ({@min}), MaxValue ({@max}).", ax.MinValue, ax.MaxValue);
-		}
-
+		// Event for Preventing the Chart to be scrolled Outside of array on X Axis
 		private void X_PreviewRangeChanged(LiveCharts.Events.PreviewRangeChangedEventArgs eventArgs)
 		{
 			var vm = (FullHistoryTrackedAppViewModel)DataContext;
@@ -82,13 +39,11 @@ namespace UI.WPF.Components
 				eventArgs.Cancel = true;
 			}
 
-			if(eventArgs.PreviewMaxValue > vm.Labels?.Count() + 0.5)
+			if(eventArgs.PreviewMaxValue > vm.Labels?.Length + 0.5)
 			{
 				eventArgs.Cancel = true;
 			}
 
-			limitMax = eventArgs.PreviewMaxValue > vm.Labels?.Count() + 0.5;
-			limitMin = eventArgs.PreviewMinValue < -0.5;
 		}
     }
 }
