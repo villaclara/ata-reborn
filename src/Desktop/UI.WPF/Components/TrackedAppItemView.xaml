@@ -223,7 +223,8 @@
                     <Button Margin="10 0 0 0"
                             HorizontalAlignment="Right"
                             Width="30"
-                            Command="{Binding ShowFullHistoryViewCommand}">
+                            Command="{Binding ShowFullHistoryViewCommand}"
+                            ToolTip="Open full history Chart.">
                         <Button.Content>
                             <Image Height="20"
                                    Source="/Resources/Images/more.png">
