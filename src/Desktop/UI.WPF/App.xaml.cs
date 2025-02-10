@@ -1,4 +1,7 @@
-﻿using Application.Common.Abstracts;
+﻿using System.IO;
+using System.Reflection;
+using System.Windows;
+using Application.Common.Abstracts;
 using Application.Common.Services;
 using Application.Director.Creation;
 using Application.Director.Instance;
@@ -6,9 +9,6 @@ using Application.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System.IO;
-using System.Reflection;
-using System.Windows;
 using UI.WPF.Services.Abstracts;
 using UI.WPF.Services.Implementations;
 using UI.WPF.ViewModels;
@@ -98,6 +98,12 @@ public partial class App : System.Windows.Application
 
 	protected override void OnStartup(StartupEventArgs e)
 	{
+
+#if DEBUG
+		System.Windows.MessageBox.Show("debug");
+#endif
+
+
 		// director first to initialize it. Initialization is performed at RunAsync()
 		var director = AppHost.Services.GetRequiredService<IDirector>();
 		director.RunAsync();
@@ -105,13 +111,26 @@ public partial class App : System.Windows.Application
 		AppHost.Start();
 
 		MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-		MainWindow.Show();
+
+
+		var configService = AppHost.Services.GetRequiredService<IConfigService>();
+		var sMinimized = configService.GetBooleanValue("StartMinimized");
+
+		if (!sMinimized)
+		{
+			MainWindow.Show();
+		}
 
 		_notifyIcon.Icon = new Icon(System.Windows.Application.GetResourceStream(new Uri("/Resources/Images/atav2.ico", UriKind.Relative)).Stream);
 		_notifyIcon.Visible = true;
 		_notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
-		_notifyIcon.Text = "ATA Reborn. Double click to open.";
 
+#if DEBUG
+		_notifyIcon.Text = "(DEBUG) ATA Reborn. Double click to open.";
+
+#else
+		_notifyIcon.Text = "ATA Reborn. Double click to open.";
+#endif
 		base.OnStartup(e);
 	}
 

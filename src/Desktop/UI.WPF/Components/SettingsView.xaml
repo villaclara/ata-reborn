@@ -36,6 +36,11 @@
                           FontSize="14"
                           Foreground="{DynamicResource CardMainForeground}"
                           IsChecked="{Binding IsLaunchOnStartup, Mode=TwoWay}"/>
+                <CheckBox Margin="5 10 0 0" 
+                          Content="Start minimized."
+                          FontSize="14" 
+                          Foreground="{DynamicResource CardMainForeground}" 
+                          IsChecked="{Binding StartMinimized, Mode=TwoWay}"/>
 
             </WrapPanel>
 

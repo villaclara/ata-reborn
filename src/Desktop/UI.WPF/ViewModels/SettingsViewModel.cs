@@ -1,18 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Serilog;
-using CommunityToolkit.Mvvm.ComponentModel;
-using UI.WPF.Utilities;
 using UI.WPF.Services.Abstracts;
-using System.Windows.Automation;
-using System.Windows;
-using Microsoft.Win32;
-using System.Diagnostics;
+using UI.WPF.Utilities;
 
 namespace UI.WPF.ViewModels;
 
@@ -22,7 +12,7 @@ public partial class SettingsViewModel : BaseViewModel
 
 
 	private int _windowHeight;
-	public int WindowHeight 
+	public int WindowHeight
 	{
 		get => _windowHeight;
 		set
@@ -34,8 +24,8 @@ public partial class SettingsViewModel : BaseViewModel
 	}
 
 	private int _windowWidth;
-	public int WindowWidth 
-	{ 
+	public int WindowWidth
+	{
 		get => _windowWidth;
 		set
 		{
@@ -59,21 +49,24 @@ public partial class SettingsViewModel : BaseViewModel
 	[ObservableProperty]
 	public string _visibilityResultText = "Hidden";
 
+	[ObservableProperty]
+	private bool _startMinimized = false;
+
 	public SettingsViewModel(IConfigService writeConfigService)
 	{
 		_configService = writeConfigService;
 
 		var h = _configService.GetIntValue("WindowHeight");
-		Log.Information("{@Method} - Height value from config ({@h}).", nameof(SettingsViewModel), h);	
-		WindowHeight = h != 0 
-			? h 
+		Log.Information("{@Method} - Height value from config ({@h}).", nameof(SettingsViewModel), h);
+		WindowHeight = h != 0
+			? h
 			: CValues.DEFAULT_WINDOW_HEIGHT;
 		_heightAtStart = WindowHeight;
 
 		var w = _configService.GetIntValue("WindowWidth");
 		Log.Information("{@Method} - Width value from config ({@h}).", nameof(SettingsViewModel), w);
-		WindowWidth = w != 0 
-			? w 
+		WindowWidth = w != 0
+			? w
 			: CValues.DEFAULT_WINDOW_WIDTH;
 		_widthAtStart = WindowWidth;
 
@@ -82,7 +75,7 @@ public partial class SettingsViewModel : BaseViewModel
 		// Get the launch on startup option 
 		// Get string from config file
 		// If the string is missing - we assume that it is first launch of the App and
-		if(_configService.GetStringValue("LaunchOnStartup") is null)
+		if (_configService.GetStringValue("LaunchOnStartup") is null)
 		{
 			IsLaunchOnStartup = true;
 			Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
@@ -91,11 +84,28 @@ public partial class SettingsViewModel : BaseViewModel
 			// write info into Registry
 			_configService.WriteSectionWithValue("LaunchOnStartup", "True");
 		}
-		else		// It is at least second launch
+		else        // It is at least second launch
 		{
 			IsLaunchOnStartup = _configService.GetBooleanValue("LaunchOnStartup");
 			Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
 			_launchAtStart = IsLaunchOnStartup;
+		}
+
+		// Get the start minimized option
+		// Get string from config file
+		// If the string is missing - we assume that it is first launch of the App after update/install
+		if (_configService.GetStringValue("StartMinimized") is null)
+		{
+			StartMinimized = false;
+			Log.Information("{@Method} - StartMinimized ({@launch}).", nameof(SettingsViewModel), StartMinimized);
+
+			// write info into Registry
+			_configService.WriteSectionWithValue("StartMinimized", "False");
+		}
+		else        // It is at least second launch
+		{
+			StartMinimized = _configService.GetBooleanValue("StartMinimized");
+			Log.Information("{@Method} - StartMinimized ({@launch}).", nameof(SettingsViewModel), StartMinimized);
 		}
 
 	}
@@ -107,7 +117,7 @@ public partial class SettingsViewModel : BaseViewModel
 		bool result = true;
 
 		// Check if the value differs from the current. If it is the same we do not need to perform any Save action.
-		if(_launchAtStart != IsLaunchOnStartup && result)
+		if (_launchAtStart != IsLaunchOnStartup && result)
 		{
 			//result = _configService.WriteSectionWithValue("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
 			//var resStartup = IsLaunchOnStartup ?
@@ -117,16 +127,16 @@ public partial class SettingsViewModel : BaseViewModel
 
 
 			var startupTask = await Windows.ApplicationModel.StartupTask.GetAsync("ATARebornTask");
-			
+
 			// disabled before, user checked checkbox
-			if(IsLaunchOnStartup && startupTask.State == Windows.ApplicationModel.StartupTaskState.Disabled)
+			if (IsLaunchOnStartup && startupTask.State == Windows.ApplicationModel.StartupTaskState.Disabled)
 			{
 				await startupTask.RequestEnableAsync();
 				Log.Information("{@MEthod} - Request to enable autorun.", nameof(SaveChanges));
 			}
 
 			// enabled before, user unchecked checkbox
-			if(!IsLaunchOnStartup && startupTask.State == Windows.ApplicationModel.StartupTaskState.Enabled)
+			if (!IsLaunchOnStartup && startupTask.State == Windows.ApplicationModel.StartupTaskState.Enabled)
 			{
 				startupTask.Disable();
 				Log.Information("{@Method} - Disable autorun.", nameof(SaveChanges));
@@ -136,7 +146,13 @@ public partial class SettingsViewModel : BaseViewModel
 			Log.Information("{@Method} - Changed and saved new launchonstartup option - {@opt}.", nameof(SaveChanges), IsLaunchOnStartup ? "True" : "False");
 
 			_launchAtStart = IsLaunchOnStartup;
+
+
+
 		}
+
+		result = _configService.WriteSectionWithValue("StartMinimized", StartMinimized ? "True" : "False");
+		Log.Information("{@Method} - Changed and saved new Startminimized option - {@opt}.", nameof(SaveChanges), StartMinimized ? "True" : "False");
 
 		SaveResultText = result ? "Changes Saved." : "Error when saving changes. Please try again.";
 		VisibilityResultText = "Visible";
@@ -155,7 +171,7 @@ public partial class SettingsViewModel : BaseViewModel
 		// Violates the MVVM, but I do not know how to do it in other way. Sorry
 		System.Windows.Application.Current.MainWindow.Height = WindowHeight;
 		System.Windows.Application.Current.MainWindow.Width = WindowWidth;
-		
+
 		// Check if the values were changed from when starting app.
 		if (_heightAtStart != WindowHeight)
 		{
