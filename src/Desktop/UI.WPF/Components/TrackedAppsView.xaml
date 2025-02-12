@@ -16,6 +16,10 @@
                 <ItemsControl ItemsSource="{Binding AppItems}" 
                               dd:DragDrop.IsDragSource="True" 
                               dd:DragDrop.IsDropTarget="True"
+                              dd:DragDrop.DropTargetAdornerBrush="{DynamicResource CardMainForeground}"
+                              dd:DragDrop.UseDefaultDragAdorner="True"
+                              dd:DragDrop.DefaultDragAdornerOpacity="0.8"
+                              dd:DragDrop.DragMouseAnchorPoint="{Binding Point}"
                               dd:DragDrop.DropHandler="{Binding}">
 
                     <ItemsControl.ItemsPanel>

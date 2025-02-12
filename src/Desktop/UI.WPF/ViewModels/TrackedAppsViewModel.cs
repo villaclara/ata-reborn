@@ -27,6 +27,9 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 	private readonly ICustomDialogService _customDialog;
 	private readonly IRetrieveChartService _retrieveChart;
 
+	// Used for DragAdorner to set where the visual of TrackedItemView is displayed related to the mouse.
+	public System.Windows.Point Point { get; set; } = new System.Windows.Point(0, 0);
+
 	// Property for displaying 'Empty Trakced Apps Text'. Visible if AppItems.Count == 0.
 	[ObservableProperty]
 	private string _defaultTextVisibility = "Visible";
@@ -148,10 +151,12 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 
 		if (sourceItem is not null && targetItem is not null)
 		{
-			dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-			dropInfo.Effects = System.Windows.DragDropEffects.Copy;
+			dropInfo.DropTargetAdorner = DropTargetAdorners.Insert; // vertical line in the list
+			dropInfo.Effects = System.Windows.DragDropEffects.Move; // what is displayed under mouse when dragging
 		}
 	}
+
+
 
 	async void GGDragDrop.IDropTarget.Drop(IDropInfo dropInfo)
 	{
@@ -163,8 +168,6 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 
 		if (targetIndex != -1)
 		{
-			//AppItems.RemoveAt(sourceIndex);
-			//AppItems.Insert(targetIndex, sourceItem);
 			var app = _director.Apps[sourceIndex];
 			if (app != null)
 			{
@@ -173,9 +176,6 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 				await _director.RunOnceManuallyAsync();
 				AppItems.Move(sourceIndex, targetIndex);
 			}
-			// TODO
-			// Handle the actual changes to the order of the apps in storage.
 		}
-
 	}
 }
