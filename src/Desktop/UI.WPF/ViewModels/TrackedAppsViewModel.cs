@@ -1,22 +1,24 @@
-﻿using Application.Common.Abstracts;
+﻿using System.Collections.ObjectModel;
+using Application.Common.Abstracts;
 using Application.Common.Services;
 using Application.Director.Instance;
 using Application.Models;
 using Application.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using GongSolutions.Wpf.DragDrop;
 using Serilog;
 using Shared.ViewModels;
-using System.Collections.ObjectModel;
 using UI.WPF.Services;
 using UI.WPF.Services.Abstracts;
+using GGDragDrop = GongSolutions.Wpf.DragDrop;
 
 namespace UI.WPF.ViewModels;
 
 /// <summary>
 /// Container, keeps and handles <see cref="TrackedAppItemViewModel"/> collection.
 /// </summary>
-public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<TrackedAppDeletedMessage>
+public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<TrackedAppDeletedMessage>, GGDragDrop.IDropTarget
 {
 	public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
 
@@ -137,5 +139,43 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 		{
 			Log.Error("{@MEthod} - {@ex}.", nameof(Receive), ex.Message);
 		}
+	}
+
+	void GGDragDrop.IDropTarget.DragOver(IDropInfo dropInfo)
+	{
+		var sourceItem = dropInfo.Data as TrackedAppItemViewModel;
+		var targetItem = dropInfo.TargetItem as TrackedAppItemViewModel;
+
+		if (sourceItem is not null && targetItem is not null)
+		{
+			dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+			dropInfo.Effects = System.Windows.DragDropEffects.Copy;
+		}
+	}
+
+	async void GGDragDrop.IDropTarget.Drop(IDropInfo dropInfo)
+	{
+		TrackedAppItemViewModel sourceItem = (TrackedAppItemViewModel)dropInfo.Data;
+		TrackedAppItemViewModel targetItem = (TrackedAppItemViewModel)dropInfo.TargetItem;
+
+		var targetIndex = AppItems.IndexOf(targetItem); // desired index
+		var sourceIndex = AppItems.IndexOf(sourceItem); // index of item to be moved
+
+		if (targetIndex != -1)
+		{
+			//AppItems.RemoveAt(sourceIndex);
+			//AppItems.Insert(targetIndex, sourceItem);
+			var app = _director.Apps[sourceIndex];
+			if (app != null)
+			{
+				_director.Apps.RemoveAt(sourceIndex);
+				_director.Apps.Insert(targetIndex, app);
+				await _director.RunOnceManuallyAsync();
+				AppItems.Move(sourceIndex, targetIndex);
+			}
+			// TODO
+			// Handle the actual changes to the order of the apps in storage.
+		}
+
 	}
 }

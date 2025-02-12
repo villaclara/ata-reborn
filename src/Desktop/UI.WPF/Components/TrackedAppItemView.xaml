@@ -25,7 +25,7 @@
          CornerRadius="5"
          Background="{DynamicResource CardBackground}">
 
-        <Grid Margin="5 5 5 5" >
+        <Grid Margin="5 5 5 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1.5*" />
@@ -45,7 +45,8 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0">
+                        <Border Grid.Column="0"
+                                Cursor="SizeAll">
 
                             <!-- NAME of App-->
                             <Viewbox Height="40" Grid.Column="0">
@@ -71,7 +72,8 @@
                         <Button Grid.Column="1"
                                 Command="{Binding DeleteTrackedAppCommand}"
                                 Height="25"
-                                Margin="5 0 0 0">
+                                Margin="5 0 0 0"
+                                Cursor="Hand">
 
                             <Button.Content>
                                 <Image Height="20" Source="/Resources/Images/remove_black.png">
