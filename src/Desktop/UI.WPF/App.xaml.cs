@@ -77,6 +77,8 @@ public partial class App : System.Windows.Application
 				// Transient as we want to retrieve new Processes list every time we reach this control. 
 				services.AddTransient<ProcessListViewModel>();
 
+				services.AddSingleton<WhatsNewViewModel>();
+
 				services.AddSingleton<MainWindowViewModel>();
 
 				// Gets the Required ViewModel by Navigation

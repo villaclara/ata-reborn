@@ -1,21 +1,20 @@
-﻿using Application.Director.Instance;
+﻿using System.Reflection;
+using Application.Director.Instance;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Media.Animation;
 using UI.WPF.Services.Abstracts;
 
 namespace UI.WPF.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-	public MainWindowViewModel(INavigationService navigation, IDirector director,
+	public MainWindowViewModel(INavigationService navigation, IDirector director, IConfigService configService,
 		ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, TopRowViewModel topRowViewModel, SettingsViewModel settingsViewModel)
 	{
 		_navigation = navigation;
 		_director = director;
+		_configService = configService;
 		_director.WorkDone -= MainWindoVM_Director_WorkDone;
 		_director.WorkDone += MainWindoVM_Director_WorkDone;
 		LastDirectorWorkDone = DateTime.Now;
@@ -27,6 +26,8 @@ public partial class MainWindowViewModel : ObservableObject
 
 		ThisHeight = SettingsViewModel.WindowHeight;
 		ThisWidth = SettingsViewModel.WindowWidth;
+
+		DisplayWhatsNewIfNeeded();
 	}
 
 	// Update the Value displaying Last Checked date.
@@ -55,7 +56,7 @@ public partial class MainWindowViewModel : ObservableObject
 	public INavigationService Navigation => _navigation;
 	private readonly INavigationService _navigation;
 	private readonly IDirector _director;
-
+	private readonly IConfigService _configService;
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 
@@ -79,5 +80,13 @@ public partial class MainWindowViewModel : ObservableObject
 		SettingsViewModel.WindowWidth = value;
 	}
 
-
+	private void DisplayWhatsNewIfNeeded()
+	{
+		var isDisplayedWhatsNew = _configService.GetStringValue("WhatsNewShownVersion");
+		if (isDisplayedWhatsNew == null || isDisplayedWhatsNew != AppVersion)
+		{
+			_configService.WriteSectionWithValue("WhatsNewShownVersion", AppVersion);
+			OpenChangelogView();
+		}
+	}
 }

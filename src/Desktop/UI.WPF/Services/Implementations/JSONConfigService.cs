@@ -1,7 +1,7 @@
-﻿using Serilog;
-using Shared.Models;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
+using Serilog;
+using Shared.Models;
 using UI.WPF.Services.Abstracts;
 using UI.WPF.Utilities;
 
@@ -11,6 +11,7 @@ public class JSONConfigService : IConfigService
 {
 	private readonly List<SingleSetting> _settings;
 
+	private readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = true };
 	public JSONConfigService()
 	{
 		string read;
@@ -104,7 +105,7 @@ public class JSONConfigService : IConfigService
 			}
 
 			// write to json
-			string json = JsonSerializer.Serialize(_settings);
+			string json = JsonSerializer.Serialize(_settings, _jsonSerializerOptions);
 
 			Log.Information("{@Method} - Start executing", nameof(WriteSectionWithValue));
 			using var sw = new StreamWriter(CValues.SettingsFile, append: false);
