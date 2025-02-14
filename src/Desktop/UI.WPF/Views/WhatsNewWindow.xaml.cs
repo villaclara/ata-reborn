@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using UI.WPF.ViewModels;
 
 namespace UI.WPF.Views
 {
@@ -11,7 +10,11 @@ namespace UI.WPF.Views
 		public WhatsNewWindow()
 		{
 			InitializeComponent();
-			DataContext = new WhatsNewViewModel();
+		}
+
+		private void OKBUTTON_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
 		}
 	}
 }

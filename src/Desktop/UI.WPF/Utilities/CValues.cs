@@ -13,9 +13,16 @@ public static class CValues
 	private static readonly string _appDataRoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
 	private static readonly string _settingsFile;
+	private static readonly string _changelogFile;
+
 	public static string SettingsFile
 	{
 		get => _settingsFile;
+	}
+
+	public static string ChangelogFile
+	{
+		get => _changelogFile;
 	}
 
 	static CValues()
@@ -28,5 +35,6 @@ public static class CValues
 		}
 
 		_settingsFile = Path.Combine(dirPath, "UIConfig.json");
+		_changelogFile = Path.Combine(dirPath, "Changelog.json");
 	}
 }

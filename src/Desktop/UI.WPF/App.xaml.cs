@@ -61,9 +61,11 @@ public partial class App : System.Windows.Application
 				services.AddSingleton<IRetrieveChartService, RetrieveChartService>();
 				//services.AddSingleton<IConfigService, XMLConfigService>();
 				services.AddSingleton<IConfigService, JSONConfigService>();
+				services.AddSingleton<IChangelogService, ChangelogService>();
 
 				services.AddTransient<ICustomDialogService, CustomDialogService>();
 
+				services.AddSingleton<IWindowCreator, WhatsNewWindowCreator>();
 
 				// Add ViewModels 
 				services.AddSingleton<TrackedAppsViewModel>();
@@ -133,6 +135,7 @@ public partial class App : System.Windows.Application
 #else
 		_notifyIcon.Text = "ATA Reborn. Double click to open.";
 #endif
+
 		base.OnStartup(e);
 	}
 
