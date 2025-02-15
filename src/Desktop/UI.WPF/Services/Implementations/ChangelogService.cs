@@ -39,7 +39,7 @@ public class ChangelogService : IChangelogService
 	}
 
 
-	IEnumerable<SingleVersionChangelogNote> IChangelogService.GetAllChangelog()
+	public IEnumerable<SingleVersionChangelogNote> GetAllChangelog()
 	{
 		return _changelog;
 	}

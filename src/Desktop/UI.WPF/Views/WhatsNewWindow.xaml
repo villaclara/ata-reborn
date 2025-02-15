@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.WPF.Views"
         mc:Ignorable="d"
-        Title="WhatsNewWindow" Height="300" Width="500"
+        Title="WhatsNewWindow" Height="470" Width="370"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         WindowStyle="None"

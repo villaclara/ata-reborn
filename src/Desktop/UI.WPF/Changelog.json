@@ -33,6 +33,7 @@
     "VersionName": "v1.4",
     "Notes": [
       "- 'Start Minimized' option in Settings, the Application will start in system tray only.",
+      "- Added possibility to change the order of Apps. Drag&Drop the selected Application to the desired place and you good to go.",
       "- Added Whats New screen so you will be notified each time new update is shipped."
     ]
   }
