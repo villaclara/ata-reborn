@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace UI.WPF.Models;
 
-namespace UI.WPF.Models;
-
-public class SingleVersionChangelogNote
+public record class SingleVersionChangelogNote
 {
 	/// <summary>
 	/// Represents Version Name of the patch.

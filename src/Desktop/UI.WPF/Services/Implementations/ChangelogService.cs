@@ -8,7 +8,7 @@ namespace UI.WPF.Services.Implementations;
 
 public class ChangelogService : IChangelogService
 {
-	private readonly Dictionary<string, IEnumerable<string>> _changelog;
+	private readonly IEnumerable<SingleVersionChangelogNote> _changelog;
 	public ChangelogService()
 	{
 		string read;
@@ -29,7 +29,7 @@ public class ChangelogService : IChangelogService
 			read = sr.ReadToEnd();
 			sr.Close();
 
-			_changelog = JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(read) ?? [];
+			_changelog = JsonSerializer.Deserialize<IEnumerable<SingleVersionChangelogNote>>(read) ?? [];
 		}
 		catch (Exception ex)
 		{
@@ -38,8 +38,9 @@ public class ChangelogService : IChangelogService
 		}
 	}
 
-	public Dictionary<string, List<string>> GetAllChangelog()
+
+	IEnumerable<SingleVersionChangelogNote> IChangelogService.GetAllChangelog()
 	{
-		throw new NotImplementedException();
+		return _changelog;
 	}
 }

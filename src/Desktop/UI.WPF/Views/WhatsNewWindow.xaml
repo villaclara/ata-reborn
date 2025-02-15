@@ -5,16 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.WPF.Views"
         mc:Ignorable="d"
-        Title="WhatsNewWindow" Height="450" Width="800"
-        WindowStartupLocation="CenterOwner">
-    <Grid>
+        Title="WhatsNewWindow" Height="300" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding CurrentVersion}"></TextBlock>
 
-        <Border Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.RowSpan="5" Grid.ColumnSpan="3" 
+                BorderBrush="{DynamicResource CardMainForeground}" 
+                BorderThickness="2"
+                CornerRadius="10"
+                Background="{DynamicResource InvertedSecondaryBackground}">
+
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" 
+                BorderBrush="{DynamicResource CardSecondaryForeground}"
+                BorderThickness="0 0 0 1">
+            <WrapPanel Orientation="Horizontal"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <TextBlock Text="Hello. Meet version - "
+                           FontSize="20"
+                           Foreground="{DynamicResource InvertedSecondaryForeground}"
+                           ></TextBlock>
+                <TextBlock Text="{Binding NewestChangelog.VersionName}"
+                           FontSize="20"
+                           Foreground="{DynamicResource InvertedSecondaryForeground}">
+                    
+                </TextBlock>
+
+                
+            </WrapPanel>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding NewestChangelog.Notes}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"
+                                   Foreground="{DynamicResource InvertedSecondaryForeground}">
+
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+        
+        <Border Grid.Row="3" Grid.Column="1">
             <WrapPanel VerticalAlignment="Center"
                        HorizontalAlignment="Center">
                 
@@ -22,21 +75,23 @@
                     Click="OKBUTTON_Click">
 
                 <Button.Content>
-                    <TextBlock Text="OK, thanks"
+                        <TextBlock x:Name="textblock"
+                               Text="OK, thanks"
                                FontSize="16"/>
-                </Button.Content>
+                    </Button.Content>
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="{DynamicResource MainBackground}"
-                                BorderBrush="{DynamicResource CardMainForeground}"
-                                BorderThickness="2"
-                                CornerRadius="10"
-                                Padding="45 5 45 5">
+                            <Border x:Name="border" 
+                                    Background="{DynamicResource MainBackground}"
+                                    BorderBrush="{DynamicResource CardMainForeground}"
+                                    BorderThickness="2"
+                                    CornerRadius="10"
+                                    Padding="45 5 45 5">
                             <ContentPresenter/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource CardBorderForeground}"/>
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource CardBorderForeground}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -44,5 +99,7 @@
             </Button>
             </WrapPanel>
         </Border>
+
+
     </Grid>
 </Window>

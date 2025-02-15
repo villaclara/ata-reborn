@@ -9,9 +9,16 @@ public partial class WhatsNewViewModel
 
 	private readonly IChangelogService _changelog;
 
+	public SingleVersionChangelogNote? NewestChangelog { get; }
+
 	public WhatsNewViewModel(IChangelogService changelogService)
 	{
 		_changelog = changelogService;
+		var newestChangelog = _changelog.GetAllChangelog().LastOrDefault();
+		if (newestChangelog != null)
+		{
+			NewestChangelog = newestChangelog;
+		}
 	}
 
 }

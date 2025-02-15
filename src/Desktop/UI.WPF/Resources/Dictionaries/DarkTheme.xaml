@@ -8,5 +8,8 @@
     <SolidColorBrush Color="#f5f5f5" x:Key="CardMainForeground"/>
     <SolidColorBrush Color="#99a6b2" x:Key="CardSecondaryForeground"/>
 
+    <SolidColorBrush Color="#dfe6e9" x:Key="InvertedSecondaryBackground"/>
+    <SolidColorBrush Color="#1c1b21" x:Key="InvertedSecondaryForeground"/>
+
     <SolidColorBrush Color="#806e87" x:Key="MainBackgroundLighter"/>
 </ResourceDictionary>
