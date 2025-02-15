@@ -84,15 +84,12 @@ public partial class MainWindowViewModel : ObservableObject
 
 	private async void DisplayWhatsNewIfNeeded()
 	{
-		//var isDisplayedWhatsNew = _configService.GetStringValue("WhatsNewShownVersion");
-		//if (isDisplayedWhatsNew == null || isDisplayedWhatsNew != AppVersion)
-		//{
-		//	_configService.WriteSectionWithValue("WhatsNewShownVersion", AppVersion);
-		//	await Task.Delay(1000);
-		//	_wndCreator.CreateWindow();
-		//}
-
-		await Task.Delay(1000);
-		_wndCreator.CreateWindow();
+		var isDisplayedWhatsNew = _configService.GetStringValue("WhatsNewShownVersion");
+		if (isDisplayedWhatsNew == null || isDisplayedWhatsNew != AppVersion)
+		{
+			_configService.WriteSectionWithValue("WhatsNewShownVersion", AppVersion);
+			await Task.Delay(1000);
+			_wndCreator.CreateWindow();
+		}
 	}
 }

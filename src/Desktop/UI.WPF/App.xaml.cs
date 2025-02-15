@@ -116,7 +116,7 @@ public partial class App : System.Windows.Application
 
 		MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
 
-
+		// check whether we want to display MainWindow or start in system tray.
 		var configService = AppHost.Services.GetRequiredService<IConfigService>();
 		var sMinimized = configService.GetBooleanValue("StartMinimized");
 
