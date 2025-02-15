@@ -1,0 +1,39 @@
+[
+  {
+
+    "VersionName": "v1.0",
+    "Notes": [
+      "- Initial release"
+    ]
+  },
+  {
+
+    "VersionName": "v1.1",
+    "Notes": [
+      "- Added ChangeLog Notes.",
+      "- Fixed issue with Tracked Apps disappear at random PC crashes."
+    ]
+  },
+  {
+
+    "VersionName": "v1.2",
+    "Notes": [
+      "- Bug fixes"
+    ]
+  },
+  {
+
+    "VersionName": "v1.3",
+    "Notes": [
+      "- Meet Full History Chart Page! (displaying your activity day by day).\nSimply click on 'Three Dots' button next to chart name in App Section."
+    ]
+  },
+  {
+
+    "VersionName": "v1.4",
+    "Notes": [
+      "- 'Start Minimized' option in Settings, the Application will start in system tray only.",
+      "- Added Whats New screen so you will be notified each time new update is shipped."
+    ]
+  }
+]
