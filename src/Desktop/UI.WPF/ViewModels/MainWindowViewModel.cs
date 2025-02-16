@@ -88,7 +88,7 @@ public partial class MainWindowViewModel : ObservableObject
 		if (isDisplayedWhatsNew == null || isDisplayedWhatsNew != AppVersion)
 		{
 			_configService.WriteSectionWithValue("WhatsNewShownVersion", AppVersion);
-			await Task.Delay(1000);
+			await Task.Delay(700);
 			_wndCreator.CreateWindow();
 		}
 	}
