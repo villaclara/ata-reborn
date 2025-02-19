@@ -35,6 +35,7 @@ public static class CValues
 		}
 
 		_settingsFile = Path.Combine(dirPath, "UIConfig.json");
-		_changelogFile = Path.Combine(Directory.GetCurrentDirectory(), "Changelog.json");
+		//_changelogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Changelog.json");
+		_changelogFile = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!, "Changelog.json");
 	}
 }

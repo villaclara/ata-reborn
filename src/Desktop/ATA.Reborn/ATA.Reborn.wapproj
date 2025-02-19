@@ -65,7 +65,8 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppInstallerUri>https://github.com/villaclara/ata-reborn/releases/latest/download</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <AppxPackageDir>C:\fls\intallators_for_projects\ata msix\</AppxPackageDir>
+    <AppxPackageDir>C:\FLS\intallators_for_projects\ata msix\1.4\</AppxPackageDir>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <AppxBundle>Never</AppxBundle>
