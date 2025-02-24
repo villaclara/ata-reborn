@@ -1,12 +1,8 @@
-﻿using Application.Common.Abstracts;
-using Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Management;
-using System.Text;
-using System.Threading.Tasks;
+using Application.Common.Abstracts;
+using Shared.Models;
+using UI.WPF.Services.Implementations;
 
 namespace Application.Common.Services;
 
@@ -26,10 +22,10 @@ public class GetProcsService : IGetProcs
 
 		foreach (var proc in procs)
 		{
-			if(useSystemManagement)
+			if (useSystemManagement)
 			{
 				var extraInfo = GetExtraInfo(proc.Id);
-				
+
 				if (!result.ContainsKey(proc.ProcessName))
 				{
 					result.Add(proc.ProcessName, extraInfo.Item2 ?? proc.ProcessName);
@@ -81,7 +77,6 @@ public class GetProcsService : IGetProcs
 				}
 			}
 		}
-
 		return resultList;
 	}
 
@@ -92,7 +87,7 @@ public class GetProcsService : IGetProcs
 
 		// This check is not mandatory
 		// sbut otherwise few warnings will be shown regarding 'This call site is reachable on all platforms' but InvokeMethod f.e. is only Windows 
-		if(OperatingSystem.IsWindows())
+		if (OperatingSystem.IsWindows())
 		{
 			// using System.Management
 			// it is pretty slow so idk
@@ -121,5 +116,62 @@ public class GetProcsService : IGetProcs
 
 		}
 		return strs;
+	}
+
+	public async Task<IEnumerable<UniqueProcess>> GetUniqueProcessesV2Async()
+	{
+		var resultList = new List<UniqueProcess>();
+		var procs = Process.GetProcesses().Distinct(new ProcessEqualityComparer());
+
+		// to be able to use the async
+
+		await Task.Run(() =>
+		{
+			foreach (var proc in procs)
+			{
+
+				string appname;
+				try
+				{
+					var filedesc = proc.MainModule.FileVersionInfo.FileDescription;
+					appname = filedesc.Length != 0 ? filedesc : proc.ProcessName;
+				}
+				catch (Exception)
+				{
+					appname = proc.ProcessName;
+				}
+
+				resultList.Add(new UniqueProcess
+				{
+					ProcessName = proc.ProcessName,
+					AppName = appname
+				});
+
+			}
+		});
+		//await Task.Delay(100);
+
+		//foreach (var proc in procs)
+		//{
+
+		//	string appname;
+		//	try
+		//	{
+		//		appname = proc.MainModule!.FileVersionInfo.FileDescription!;
+		//	}
+		//	catch
+		//	{
+		//		appname = proc.ProcessName;
+		//	}
+
+		//	resultList.Add(new UniqueProcess
+		//	{
+		//		ProcessName = proc.ProcessName,
+		//		AppName = appname
+		//	});
+
+		//}
+
+		return resultList;
 	}
 }

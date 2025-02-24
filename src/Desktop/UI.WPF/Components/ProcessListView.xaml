@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -24,32 +24,38 @@
                 BorderBrush="Black"
                 BorderThickness="1">
 
+                
             <ListView x:Name="ProcessesListView"
                       ItemsSource="{Binding ProcessesList}"
-                      SelectedItem="{Binding SelectedProcess}">
+                      SelectedItem="{Binding SelectedProcess}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Visible">
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
-                        <GridViewColumn Header="Process Name" Width="236">
+                        <GridViewColumn Header="Application" Width="350">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ProcessName}"
+                                    <TextBlock Text="{Binding AppName}"
                                                FontSize="16" Foreground="Black"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="App Name" Width="236">
+
+                        <GridViewColumn Header="Process" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border>
+                                    <Border BorderThickness="1 1 1 1">
                                         <TextBlock Text="{Binding ProcessName}"
-                                                FontSize="16" Foreground="Black"/>
+                                                FontSize="12" Foreground="Black"/>
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+
+                       
                     </GridView>
                 </ListView.View>
             </ListView>
+
         </Border>
 
         <!-- Select button -->

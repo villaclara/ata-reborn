@@ -15,14 +15,21 @@ public partial class ProcessListViewModel : BaseViewModel
 	{
 		_navigation = navigation;
 		_getProcessesService = getProcessesService;
-		ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: false).OrderBy(p => p.ProcessName);
+		//ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: false).OrderBy(p => p.ProcessName);
+
+		_processesList = [];
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+		LoadDataAsync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 	}
 
 
 	private readonly IGetProcs _getProcessesService;
 	private readonly INavigationService _navigation;
 
-	public IEnumerable<UniqueProcess> ProcessesList { get; }
+	[ObservableProperty]
+	public IEnumerable<UniqueProcess> _processesList;
 
 	[ObservableProperty]
 	public UniqueProcess? _selectedProcess;
@@ -44,6 +51,12 @@ public partial class ProcessListViewModel : BaseViewModel
 			_navigation.NavigateTo<TrackedAppsViewModel>();
 		}
 
+	}
+
+	public async Task LoadDataAsync()
+	{
+		var procs = await _getProcessesService.GetUniqueProcessesV2Async();
+		ProcessesList = procs.OrderBy(p => p.ProcessName);
 	}
 }
 

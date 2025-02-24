@@ -1,9 +1,4 @@
 ﻿using Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Common.Abstracts;
 
@@ -22,4 +17,5 @@ public interface IGetProcs
 	/// <returns></returns>
 	IDictionary<string, string> GetUniqueProcesses(bool useSystemManagement);
 	IEnumerable<UniqueProcess> GetUniqueProcessesAsList(bool useSystemManagement);
+	Task<IEnumerable<UniqueProcess>> GetUniqueProcessesV2Async();
 }
