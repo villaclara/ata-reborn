@@ -51,6 +51,11 @@ public partial class SettingsViewModel : BaseViewModel
 
 	[ObservableProperty]
 	private bool _startMinimized = false;
+	private bool _startMinimizedInitial = false;
+
+	[ObservableProperty]
+	private bool _minimalDashboard = false;
+	private bool _minimalDashboardInitial = false;
 
 	public SettingsViewModel(IConfigService writeConfigService)
 	{
@@ -99,13 +104,32 @@ public partial class SettingsViewModel : BaseViewModel
 			StartMinimized = false;
 			Log.Information("{@Method} - StartMinimized ({@launch}).", nameof(SettingsViewModel), StartMinimized);
 
-			// write info into Registry
+			// write info into config file
 			_configService.WriteSectionWithValue("StartMinimized", "False");
 		}
 		else        // It is at least second launch
 		{
 			StartMinimized = _configService.GetBooleanValue("StartMinimized");
+			_startMinimizedInitial = StartMinimized;
 			Log.Information("{@Method} - StartMinimized ({@launch}).", nameof(SettingsViewModel), StartMinimized);
+		}
+
+		// Get the show minimal View option
+		// Get string from config
+		// If the string is missing - its first launch after update
+		if (_configService.GetStringValue("MinimalDashboard") is null)
+		{
+			MinimalDashboard = false;
+			Log.Information("{@Method} - Minimal Dashboard ({@minimal}).", nameof(SettingsViewModel), MinimalDashboard);
+
+			// write info into config file
+			_configService.WriteSectionWithValue("MinimalDashboard", "False");
+		}
+		else
+		{
+			MinimalDashboard = _configService.GetBooleanValue("MinimalDashboard");
+			_minimalDashboardInitial = MinimalDashboard;
+			Log.Information("{@Method} - MinimalDashboard ({@minimal}).", nameof(SettingsViewModel), MinimalDashboard);
 		}
 
 	}
@@ -146,13 +170,21 @@ public partial class SettingsViewModel : BaseViewModel
 			Log.Information("{@Method} - Changed and saved new launchonstartup option - {@opt}.", nameof(SaveChanges), IsLaunchOnStartup ? "True" : "False");
 
 			_launchAtStart = IsLaunchOnStartup;
-
-
-
 		}
 
-		result = _configService.WriteSectionWithValue("StartMinimized", StartMinimized ? "True" : "False");
-		Log.Information("{@Method} - Changed and saved new Startminimized option - {@opt}.", nameof(SaveChanges), StartMinimized ? "True" : "False");
+
+		if (StartMinimized != _startMinimizedInitial)
+		{
+			result = _configService.WriteSectionWithValue("StartMinimized", StartMinimized ? "True" : "False");
+			Log.Information("{@Method} - Changed and saved new Startminimized option - {@opt}.", nameof(SaveChanges), StartMinimized ? "True" : "False");
+		}
+
+
+		if (MinimalDashboard != _minimalDashboardInitial)
+		{
+			result = _configService.WriteSectionWithValue("MinimalDashboard", MinimalDashboard ? "True" : "False");
+			Log.Information("{@Method} - Changed and saved new minimalDashboard - {@option}.", nameof(SaveChanges), MinimalDashboard ? "True" : "False");
+		}
 
 		SaveResultText = result ? "Changes Saved." : "Error when saving changes. Please try again.";
 		VisibilityResultText = "Visible";

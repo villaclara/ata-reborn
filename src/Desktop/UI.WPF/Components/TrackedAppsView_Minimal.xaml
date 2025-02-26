@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UI.WPF.Components.TrackedAppsView"
+﻿<UserControl x:Class="UI.WPF.Components.TrackedAppsView_Minimal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,13 +14,13 @@
         <Border>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding AppItems}" 
-                              dd:DragDrop.IsDragSource="True" 
-                              dd:DragDrop.IsDropTarget="True"
-                              dd:DragDrop.DropTargetAdornerBrush="{DynamicResource CardMainForeground}"
-                              dd:DragDrop.UseDefaultDragAdorner="True"
-                              dd:DragDrop.DefaultDragAdornerOpacity="0.8"
-                              dd:DragDrop.DragMouseAnchorPoint="{Binding Point}"
-                              dd:DragDrop.DropHandler="{Binding}">
+                           dd:DragDrop.IsDragSource="True" 
+                           dd:DragDrop.IsDropTarget="True"
+                           dd:DragDrop.DropTargetAdornerBrush="{DynamicResource CardMainForeground}"
+                           dd:DragDrop.UseDefaultDragAdorner="True"
+                           dd:DragDrop.DefaultDragAdornerOpacity="0.8"
+                           dd:DragDrop.DragMouseAnchorPoint="{Binding Point}"
+                           dd:DragDrop.DropHandler="{Binding}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -31,22 +31,27 @@
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
+                        <!--<DataTemplate DataType="{x:Type viewmodels:TrackedAppItemViewModel}">
+                         <components:TrackedAppItem Width="210"
+                                                    Height="360"
+                                                    Margin="10 10 0 10"/>
+                     </DataTemplate>-->
+
                         <DataTemplate DataType="{x:Type viewmodels:TrackedAppItemViewModel}">
-                            <components:TrackedAppItem Width="210"
-                                                       Height="360"
-                                                       Margin="10 10 0 10"/>
+                            <components:MinimalTrackedAppItemView Width="210"
+                            Height="100"
+                            Margin="10 10 0 10"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Border>
-        
+
         <TextBlock Text="No tracked Applications. Please press '+' and select one to track."
-                   Visibility="{Binding DefaultTextVisibility}"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="20"
-                   Foreground="{DynamicResource CardMainForeground}"/>
+                Visibility="{Binding DefaultTextVisibility}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Foreground="{DynamicResource CardMainForeground}"/>
     </Grid>
-    
 </UserControl>

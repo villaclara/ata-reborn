@@ -69,6 +69,7 @@ public partial class App : System.Windows.Application
 
 				// Add ViewModels 
 				services.AddSingleton<TrackedAppsViewModel>();
+				services.AddSingleton<TrackedAppsViewModel_Minimal>();
 				services.AddSingleton<ToolbarViewModel>();
 				services.AddSingleton<TopRowViewModel>();
 				services.AddSingleton<SettingsViewModel>();

@@ -10,7 +10,7 @@ namespace UI.WPF.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
 	public MainWindowViewModel(INavigationService navigation, IDirector director, IConfigService configService, IWindowCreator wndCreator,
-		ToolbarViewModel toolbarViewModel, TrackedAppsViewModel trackedAppsViewModel, TopRowViewModel topRowViewModel, SettingsViewModel settingsViewModel)
+		ToolbarViewModel toolbarViewModel, TopRowViewModel topRowViewModel, SettingsViewModel settingsViewModel)
 	{
 		_navigation = navigation;
 		_director = director;
@@ -21,10 +21,8 @@ public partial class MainWindowViewModel : ObservableObject
 		LastDirectorWorkDone = DateTime.Now;
 
 		ToolbarViewModel = toolbarViewModel;
-		TrackedAppsViewModel = trackedAppsViewModel;
 		TopRowViewModel = topRowViewModel;
 		SettingsViewModel = settingsViewModel;
-
 		ThisHeight = SettingsViewModel.WindowHeight;
 		ThisWidth = SettingsViewModel.WindowWidth;
 
@@ -47,7 +45,6 @@ public partial class MainWindowViewModel : ObservableObject
 
 	// For Binding purposes.
 	public ToolbarViewModel ToolbarViewModel { get; }
-	public TrackedAppsViewModel TrackedAppsViewModel { get; }
 	public TopRowViewModel TopRowViewModel { get; }
 	public SettingsViewModel SettingsViewModel { get; set; }
 
@@ -59,6 +56,7 @@ public partial class MainWindowViewModel : ObservableObject
 	private readonly IDirector _director;
 	private readonly IConfigService _configService;
 	private readonly IWindowCreator _wndCreator;
+	private readonly TrackedAppsViewModel_Minimal _trackedAppsViewModel_Minimal;
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 

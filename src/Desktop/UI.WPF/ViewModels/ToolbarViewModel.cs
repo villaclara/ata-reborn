@@ -6,7 +6,6 @@ using Serilog;
 using UI.WPF.Enums;
 using UI.WPF.Services;
 using UI.WPF.Services.Abstracts;
-using UI.WPF.Services.Implementations;
 
 namespace UI.WPF.ViewModels;
 
@@ -21,10 +20,12 @@ public partial class ToolbarViewModel : BaseViewModel, IRecipient<FullHistoryFor
 
 	private readonly IThemeChangeService _themeChange;
 
+	private readonly IConfigService _config;
+
 	public string ToggleMarginDefaultPos { get; set; } = "4 0 25 0";
 	public string ThemeButtonIsChecked { get; set; } = "False";
 
-	public ToolbarViewModel(IDirector director, INavigationService navigation, IThemeChangeService themeChange)
+	public ToolbarViewModel(IDirector director, INavigationService navigation, IThemeChangeService themeChange, IConfigService config)
 	{
 		_director = director;
 		_navigation = navigation;
@@ -44,6 +45,7 @@ public partial class ToolbarViewModel : BaseViewModel, IRecipient<FullHistoryFor
 
 		// Register receiving messages
 		StrongReferenceMessenger.Default.Register<FullHistoryForAppTriggeredMessage>(this);
+		_config = config;
 	}
 
 
@@ -59,7 +61,17 @@ public partial class ToolbarViewModel : BaseViewModel, IRecipient<FullHistoryFor
 	private void ShowHomeScreen()
 	{
 		Log.Information("{@Method} - Navigating to {@view}", nameof(ShowHomeScreen), typeof(TrackedAppsViewModel));
-		_navigation.NavigateTo<TrackedAppsViewModel>();
+
+		var trackedAppsVm = _config.GetBooleanValue("MinimalDashboard");
+
+		if (trackedAppsVm)
+		{
+			_navigation.NavigateTo<TrackedAppsViewModel_Minimal>();
+		}
+		else
+		{
+			_navigation.NavigateTo<TrackedAppsViewModel>();
+		}
 	}
 
 	[RelayCommand]

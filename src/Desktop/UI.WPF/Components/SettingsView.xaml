@@ -41,7 +41,11 @@
                           FontSize="14" 
                           Foreground="{DynamicResource CardMainForeground}" 
                           IsChecked="{Binding StartMinimized, Mode=TwoWay}"/>
-
+                <CheckBox Margin="5 10 0 0" 
+                          Content="Minimal dashboard."
+                          FontSize="14" 
+                          Foreground="{DynamicResource CardMainForeground}" 
+                          IsChecked="{Binding MinimalDashboard, Mode=TwoWay}"/>
             </WrapPanel>
 
         </Border>

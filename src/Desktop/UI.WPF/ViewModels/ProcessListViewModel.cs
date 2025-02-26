@@ -48,6 +48,10 @@ public partial class ProcessListViewModel : BaseViewModel
 		}
 		finally
 		{
+			// TODO 
+			// Change to VIewModelDepending on Minimal or Full
+			// Maybe create separate class to contain all settings and do not use every time the _config service.GetBooleanValue
+			// Or just get settings inside _config.
 			_navigation.NavigateTo<TrackedAppsViewModel>();
 		}
 

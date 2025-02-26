@@ -20,6 +20,11 @@
             <DataTemplate DataType="{x:Type TypeName=viewmodels:TrackedAppsViewModel}">
                 <components:TrackedAppsView/>
             </DataTemplate>
+            
+            <!-- template for TrackedAppsView_Minimal -->
+            <DataTemplate DataType="{x:Type TypeName=viewmodels:TrackedAppsViewModel_Minimal}">
+                <components:TrackedAppsView_Minimal/>
+            </DataTemplate>
 
             <!-- Template for ProcessesListView. -->
             <DataTemplate DataType="{x:Type TypeName=viewmodels:ProcessListViewModel}">
