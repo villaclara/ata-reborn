@@ -3,8 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
 using Serilog;
 using Shared.ViewModels;
 using UI.WPF.Enums;
@@ -95,21 +93,38 @@ public partial class TrackedAppItemViewModel : BaseViewModel
 
 
 	[RelayCommand]
-	private void DeleteTrackedApp()
+	private void DeleteTrackedApp(string actionType)
 	{
-		try
+		if (actionType == "info" && !string.IsNullOrWhiteSpace(actionType))
 		{
-			// Maybe not so good to put it here, but anyway it works.
-			var result = _customDialog.ShowYesNoDialog("WTF", "You sure want to remove application form tracking?");
-			if (result == CustomDialogResult.Yes)
+			try
 			{
-				StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
-
+				StrongReferenceMessenger.Default.Send(new InfoAppMessage(AppName));
 			}
+			catch (Exception ex)
+			{
+				Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
+			}
+
 		}
-		catch (Exception ex)
+
+		else
 		{
-			Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
+
+			try
+			{
+				// Maybe not so good to put it here, but anyway it works.
+				var result = _customDialog.ShowYesNoDialog("WTF", "You sure want to remove application form tracking?");
+				if (result == CustomDialogResult.Yes)
+				{
+					StrongReferenceMessenger.Default.Send(new TrackedAppDeletedMessage(AppName));
+
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error("{@Method} - Exception - {@ex}", nameof(DeleteTrackedApp), ex.Message);
+			}
 		}
 	}
 

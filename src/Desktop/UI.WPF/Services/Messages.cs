@@ -1,9 +1,4 @@
 ﻿using Shared.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UI.WPF.Services;
 
@@ -17,6 +12,11 @@ public record class TrackedAppAddedMessage(string ProcessName, string? AppName);
 /// Message sent when the Selected App from TrackedAppItemViewModel was removed from Tracking.
 /// </summary>
 public record class TrackedAppDeletedMessage(string AppName);
+
+/// <summary>
+/// Message sent when the selected App from TrackedAppItemViewModel_Minimal meant to display FULL TrackedAppItem.
+/// </summary>
+public record class InfoAppMessage(string AppName);
 
 
 /// <summary>

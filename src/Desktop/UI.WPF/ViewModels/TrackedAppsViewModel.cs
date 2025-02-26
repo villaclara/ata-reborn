@@ -124,7 +124,7 @@ public partial class TrackedAppsViewModel : BaseViewModel, IRecipient<TrackedApp
 			var appvm = AppItems.Where(item => item.AppName == message.AppName).FirstOrDefault();
 			if (appvm != null)
 			{
-				_director.RemoveAppFromTrackedList(message.AppName);
+				_director.RemoveAppFromTrackedList(appvm.App.Name);
 				_director.WorkDone -= appvm.TrackedAppItemVM_Director_WorkDone;
 				AppItems.Remove(appvm);
 				_director.RunOnceManuallyAsync();

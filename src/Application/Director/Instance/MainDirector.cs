@@ -7,13 +7,6 @@ using Application.Common.Timers;
 using Application.Models;
 using Application.Utilities;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Director.Instance;
 
@@ -73,9 +66,9 @@ public class MainDirector : IDirector
 	public void RemoveAppFromTrackedList(string appName, string? processName = null)
 	{
 		// try by processName at first, however if it is mising then by appName.
-		var app = processName != null 
-			? Apps.Where(a => a.ProcessNameInOS == processName).FirstOrDefault() 
-			: Apps.Where(a => a.ProcessNameInOS == appName).FirstOrDefault();
+		var app = processName != null
+			? Apps.Where(a => a.ProcessNameInOS == processName).FirstOrDefault()
+			: Apps.Where(a => a.Name == appName).FirstOrDefault();
 		Log.Information("{@Method} - app({@app}), proc({@proc}) found result - {@result}.", nameof(RemoveAppFromTrackedList), appName, processName, app?.Name);
 
 		if (app != null)
@@ -86,6 +79,10 @@ public class MainDirector : IDirector
 			Log.Information("{@Method} - App(@app) removed from {@Handler}, {@Apps} at index - {@index}.", nameof(RemoveAppFromTrackedList), nameof(Handlers), nameof(Apps), index);
 			Log.Information("{@Method} - {@apps} count {@countapps}, {@Handlers} count {@counthanlders}.", nameof(RemoveAppFromTrackedList), nameof(Apps), Apps.Count, nameof(Handlers), Handlers.Count);
 		}
+		else
+		{
+			Log.Warning("{@Method} - App(@app) was not removed from list. Returning from director.", nameof(RemoveAppFromTrackedList), appName);
+		}
 	}
 
 	public async Task RunAsync()
@@ -93,7 +90,7 @@ public class MainDirector : IDirector
 		Log.Information("{@Method} - method started.", nameof(RunAsync));
 		var apps = ReadDataService.RetrieveData();
 		Log.Information("{@Method} - read apps count - {@count}.", nameof(RunAsync), apps.Count);
-		foreach(var app in apps)
+		foreach (var app in apps)
 		{
 			// when first running reset the CurrentSessionTime for each app. 
 			// Not ideal, but works for now.
