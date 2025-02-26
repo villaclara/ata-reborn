@@ -16,7 +16,7 @@ using GGDragDrop = GongSolutions.Wpf.DragDrop;
 
 namespace UI.WPF.ViewModels;
 
-public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<InfoAppMessage>, GGDragDrop.IDropTarget
+public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<TrackedAppAddedMessage>, IRecipient<InfoAppMessage>, IRecipient<TrackedAppDeletedMessage>, GGDragDrop.IDropTarget
 {
 	public ObservableCollection<TrackedAppItemViewModel> AppItems { get; }
 
@@ -51,8 +51,9 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 
 		try
 		{
-			//StrongReferenceMessenger.Default.Register<TrackedAppAddedMessage>(this);
+			StrongReferenceMessenger.Default.Register<TrackedAppAddedMessage>(this);
 			StrongReferenceMessenger.Default.Register<InfoAppMessage>(this);
+			StrongReferenceMessenger.Default.Register<TrackedAppDeletedMessage>(this);
 			Log.Information("{@Method} - Registered ({@Message}) will be received in ({@type}).", nameof(TrackedAppsViewModel_Minimal), nameof(TrackedAppAddedMessage), typeof(TrackedAppItemViewModel));
 		}
 		catch (Exception ex)
@@ -67,6 +68,7 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 		_dataIssuer = new DataIssuer(new ReadDataFromJsonFile());
 		Log.Information("{@Method} - Data issuer created - {@dataissuer}", nameof(TrackedAppsViewModel_Minimal), _dataIssuer);
 		SelectedTrackedAppVisibility = Visibility.Hidden;
+
 		CreateVMsForTrackedApplications();
 	}
 
@@ -103,20 +105,30 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 	{
 		try
 		{
-			_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
+			//_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
 
 			var added = MyMapService.Map<AppInstance, AppInstanceVM>(_director.Apps.Last());
 			TrackedAppItemViewModel vm = new(added!, _dataIssuer, _customDialog, _retrieveChart);
 			AppItems.Add(vm);
 
-			_director.WorkDone -= vm.TrackedAppItemVM_Director_WorkDone;
-			_director.WorkDone += vm.TrackedAppItemVM_Director_WorkDone;
+			//_director.WorkDone -= vm.TrackedAppItemVM_Director_WorkDone;
+			//_director.WorkDone += vm.TrackedAppItemVM_Director_WorkDone;
 
-			Log.Information("{@Method} - ({@App}) was added to ({@director}) and ({@AppItems}).", nameof(Receive), added?.Name, nameof(_director), nameof(AppItems));
-			await _director.RunOnceManuallyAsync();
+			//Log.Information("{@Method} - ({@App}) was added to ({@director}) and ({@AppItems}).", nameof(Receive), added?.Name, nameof(_director), nameof(AppItems));
+			//await _director.RunOnceManuallyAsync();
 
 			// Set the Default text to be hidden as we have at least one app
 			DefaultTextVisibility = "Hidden";
+			await Task.Delay(500);
+			if (_director.Apps.FirstOrDefault(a => a.Name == message.AppName) is null)
+			{
+				_director.AddAppToTrackedList(message.ProcessName, message.AppName ?? null);
+				_director.WorkDone -= vm.TrackedAppItemVM_Director_WorkDone;
+				_director.WorkDone += vm.TrackedAppItemVM_Director_WorkDone;
+
+				Log.Information("{@Method} - ({@App}) was added to ({@director}) and ({@AppItems}).", nameof(Receive), added?.Name, nameof(_director), nameof(AppItems));
+				await _director.RunOnceManuallyAsync();
+			}
 
 		}
 		catch (Exception ex)
@@ -126,7 +138,7 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 
 	}
 
-	// Removing Application from tracking and removing TrackedAppItemView.
+	// Showing details info about application.
 	public void Receive(InfoAppMessage message)
 	{
 
@@ -151,6 +163,29 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 		SelectedTrackedAppVisibility = Visibility.Visible;
 		_isClickedInfoButton = true;
 		_selectedAppName = message.AppName;
+	}
+
+	// Removing Application from tracking and removing TrackedAppItemView.
+	public async void Receive(TrackedAppDeletedMessage message)
+	{
+		var appvm = AppItems.Where(item => item.AppName == message.AppName).FirstOrDefault();
+		if (appvm != null)
+		{
+			AppItems.Remove(appvm);
+			GridColumnSpanForWrapPanel = 2;
+			SelectedTrackedAppVisibility = Visibility.Hidden;
+			_isClickedInfoButton = false;
+			_selectedAppName = "";
+		}
+
+		await Task.Delay(500);
+		if (_director.Apps.FirstOrDefault(a => a.Name == message.AppName) is not null)
+		{
+			_director.RemoveAppFromTrackedList(message.AppName);
+			_director.WorkDone -= appvm.TrackedAppItemVM_Director_WorkDone;
+			AppItems.Remove(appvm);
+			await _director.RunOnceManuallyAsync();
+		}
 	}
 
 	void GGDragDrop.IDropTarget.DragOver(IDropInfo dropInfo)
@@ -187,4 +222,6 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 			}
 		}
 	}
+
+
 }

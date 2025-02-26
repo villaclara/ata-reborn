@@ -6,14 +6,16 @@ using Serilog;
 using Shared.Models;
 using UI.WPF.Services;
 using UI.WPF.Services.Abstracts;
+using UI.WPF.Utilities;
 
 namespace UI.WPF.ViewModels;
 
 public partial class ProcessListViewModel : BaseViewModel
 {
-	public ProcessListViewModel(IGetProcs getProcessesService, INavigationService navigation)
+	public ProcessListViewModel(IGetProcs getProcessesService, INavigationService navigation, IConfigService config)
 	{
 		_navigation = navigation;
+		_config = config;
 		_getProcessesService = getProcessesService;
 		//ProcessesList = _getProcessesService.GetUniqueProcessesAsList(useSystemManagement: false).OrderBy(p => p.ProcessName);
 
@@ -27,7 +29,7 @@ public partial class ProcessListViewModel : BaseViewModel
 
 	private readonly IGetProcs _getProcessesService;
 	private readonly INavigationService _navigation;
-
+	private readonly IConfigService _config;
 	[ObservableProperty]
 	public IEnumerable<UniqueProcess> _processesList;
 
@@ -48,11 +50,17 @@ public partial class ProcessListViewModel : BaseViewModel
 		}
 		finally
 		{
-			// TODO 
-			// Change to VIewModelDepending on Minimal or Full
-			// Maybe create separate class to contain all settings and do not use every time the _config service.GetBooleanValue
-			// Or just get settings inside _config.
-			_navigation.NavigateTo<TrackedAppsViewModel>();
+
+			var isMinimal = _config.GetBooleanValue(CValues.BOOL_MINIMAL_DASHBOARD);
+
+			if (isMinimal)
+			{
+				_navigation.NavigateTo<TrackedAppsViewModel_Minimal>();
+			}
+			else
+			{
+				_navigation.NavigateTo<TrackedAppsViewModel>();
+			}
 		}
 
 	}
