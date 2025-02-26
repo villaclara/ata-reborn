@@ -80,7 +80,7 @@
                              Cursor="Hand">
 
                             <Button.Content>
-                                <TextBlock Text="  >  "/>
+                                <TextBlock Text="  i  " FontStyle="Italic" FontWeight="Bold" VerticalAlignment="Center"/>
                             </Button.Content>
 
                             <Button.Template>

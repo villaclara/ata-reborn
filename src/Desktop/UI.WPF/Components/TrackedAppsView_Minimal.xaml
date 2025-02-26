@@ -56,6 +56,11 @@
                 Visibility="{Binding SelectedTrackedAppVisibility}"
                 BorderThickness="2 0 0 0"
                 BorderBrush="{DynamicResource MainBackground}">
+                <!--<Button Content="x"
+                        Height="20"
+                        Width="20"
+                        HorizontalAlignment="Left"
+                        Margin="10 0 0 0"></Button>-->
             <components:TrackedAppItem DataContext="{Binding SelectedTrackedAppViewModel}"
                                        Margin="5 5 5 5"
                                        MaxHeight="360"/>
