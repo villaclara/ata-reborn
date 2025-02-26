@@ -31,6 +31,9 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 	[ObservableProperty]
 	private string _defaultTextVisibility = "Visible";
 
+	[ObservableProperty]
+	private int _wrapPanelMaxWidth = 1000;
+
 
 	public TrackedAppsViewModel_Minimal(IDirector director, ICustomDialogService customDialog, IRetrieveChartService retrieveChart)
 	{
@@ -116,29 +119,31 @@ public partial class TrackedAppsViewModel_Minimal : BaseViewModel, IRecipient<Tr
 	// Removing Application from tracking and removing TrackedAppItemView.
 	public void Receive(TrackedAppDeletedMessage message)
 	{
-		try
-		{
-			var appvm = AppItems.Where(item => item.AppName == message.AppName).FirstOrDefault();
-			if (appvm != null)
-			{
-				_director.RemoveAppFromTrackedList(message.AppName);
-				_director.WorkDone -= appvm.TrackedAppItemVM_Director_WorkDone;
-				AppItems.Remove(appvm);
-				_director.RunOnceManuallyAsync();
-			}
+		//try
+		//{
+		//	var appvm = AppItems.Where(item => item.AppName == message.AppName).FirstOrDefault();
+		//	if (appvm != null)
+		//	{
+		//		_director.RemoveAppFromTrackedList(message.AppName);
+		//		_director.WorkDone -= appvm.TrackedAppItemVM_Director_WorkDone;
+		//		AppItems.Remove(appvm);
+		//		_director.RunOnceManuallyAsync();
+		//	}
 
-			Log.Information("{@Method} - ({@App}) was removed from ({@director}) and ({@AppItems}).", nameof(Receive), message.AppName, nameof(_director), nameof(AppItems));
+		//	Log.Information("{@Method} - ({@App}) was removed from ({@director}) and ({@AppItems}).", nameof(Receive), message.AppName, nameof(_director), nameof(AppItems));
 
-			// Set the Default text to be visible
-			if (_director.Apps.Count == 0)
-			{
-				DefaultTextVisibility = "Visible";
-			}
-		}
-		catch (Exception ex)
-		{
-			Log.Error("{@MEthod} - {@ex}.", nameof(Receive), ex.Message);
-		}
+		//	// Set the Default text to be visible
+		//	if (_director.Apps.Count == 0)
+		//	{
+		//		DefaultTextVisibility = "Visible";
+		//	}
+		//}
+		//catch (Exception ex)
+		//{
+		//	Log.Error("{@MEthod} - {@ex}.", nameof(Receive), ex.Message);
+		//}
+
+		WrapPanelMaxWidth = 210;
 	}
 
 	void GGDragDrop.IDropTarget.DragOver(IDropInfo dropInfo)

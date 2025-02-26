@@ -56,7 +56,7 @@ public partial class MainWindowViewModel : ObservableObject
 	private readonly IDirector _director;
 	private readonly IConfigService _configService;
 	private readonly IWindowCreator _wndCreator;
-	private readonly TrackedAppsViewModel_Minimal _trackedAppsViewModel_Minimal;
+
 	[ObservableProperty]
 	private DateTime _lastDirectorWorkDone;
 

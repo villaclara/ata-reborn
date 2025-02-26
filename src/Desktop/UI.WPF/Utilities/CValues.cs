@@ -38,4 +38,17 @@ public static class CValues
 		//_changelogFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Changelog.json");
 		_changelogFile = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!, "Changelog.json");
 	}
+
+
+	#region Settings Names 
+
+	public const string INT_WINDOW_HEIGHT = "WindowHeight";
+	public const string INT_WINDOW_WIDTH = "WindowWidth";
+	public const string BOOL_LAUNCH_AT_STARTUP = "LaunchOnStartup";
+	public const string BOOL_START_MINIMIZED = "StartMinimized";
+	public const string STR_THEME = "Theme";
+	public const string STR_WHATS_NEW_SHOWN_VERSION = "WhatsNewShownVersion";
+	public const string BOOL_MINIMAL_DASHBOARD = "MinimalDashboard";
+
+	#endregion
 }

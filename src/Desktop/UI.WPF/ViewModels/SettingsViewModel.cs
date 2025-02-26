@@ -18,7 +18,7 @@ public partial class SettingsViewModel : BaseViewModel
 		set
 		{
 			_windowHeight = value;
-			_configService.WriteSectionWithValue("WindowHeight", WindowHeight.ToString());
+			_configService.WriteSectionWithValue(CValues.INT_WINDOW_HEIGHT, WindowHeight.ToString());
 			Log.Information("{@Method} - Set Window Height ({@h}).", nameof(WindowHeight), value);
 		}
 	}
@@ -30,7 +30,7 @@ public partial class SettingsViewModel : BaseViewModel
 		set
 		{
 			_windowWidth = value;
-			_configService.WriteSectionWithValue("WindowWidth", WindowWidth.ToString());
+			_configService.WriteSectionWithValue(CValues.INT_WINDOW_WIDTH, WindowWidth.ToString());
 			Log.Information("{@Method} - Set Window Width ({@h}).", nameof(WindowWidth), value);
 		}
 	}
@@ -61,14 +61,14 @@ public partial class SettingsViewModel : BaseViewModel
 	{
 		_configService = writeConfigService;
 
-		var h = _configService.GetIntValue("WindowHeight");
+		var h = _configService.GetIntValue(CValues.INT_WINDOW_HEIGHT);
 		Log.Information("{@Method} - Height value from config ({@h}).", nameof(SettingsViewModel), h);
 		WindowHeight = h != 0
 			? h
 			: CValues.DEFAULT_WINDOW_HEIGHT;
 		_heightAtStart = WindowHeight;
 
-		var w = _configService.GetIntValue("WindowWidth");
+		var w = _configService.GetIntValue(CValues.INT_WINDOW_WIDTH);
 		Log.Information("{@Method} - Width value from config ({@h}).", nameof(SettingsViewModel), w);
 		WindowWidth = w != 0
 			? w
@@ -80,18 +80,18 @@ public partial class SettingsViewModel : BaseViewModel
 		// Get the launch on startup option 
 		// Get string from config file
 		// If the string is missing - we assume that it is first launch of the App and
-		if (_configService.GetStringValue("LaunchOnStartup") is null)
+		if (_configService.GetStringValue(CValues.BOOL_LAUNCH_AT_STARTUP) is null)
 		{
 			IsLaunchOnStartup = true;
 			Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
 			_launchAtStart = IsLaunchOnStartup;
 
 			// write info into Registry
-			_configService.WriteSectionWithValue("LaunchOnStartup", "True");
+			_configService.WriteSectionWithValue(CValues.BOOL_LAUNCH_AT_STARTUP, "True");
 		}
 		else        // It is at least second launch
 		{
-			IsLaunchOnStartup = _configService.GetBooleanValue("LaunchOnStartup");
+			IsLaunchOnStartup = _configService.GetBooleanValue(CValues.BOOL_LAUNCH_AT_STARTUP);
 			Log.Information("{@Method} - LaunchOnStartup ({@launch}).", nameof(SettingsViewModel), IsLaunchOnStartup);
 			_launchAtStart = IsLaunchOnStartup;
 		}
@@ -99,17 +99,17 @@ public partial class SettingsViewModel : BaseViewModel
 		// Get the start minimized option
 		// Get string from config file
 		// If the string is missing - we assume that it is first launch of the App after update/install
-		if (_configService.GetStringValue("StartMinimized") is null)
+		if (_configService.GetStringValue(CValues.BOOL_START_MINIMIZED) is null)
 		{
 			StartMinimized = false;
 			Log.Information("{@Method} - StartMinimized ({@launch}).", nameof(SettingsViewModel), StartMinimized);
 
 			// write info into config file
-			_configService.WriteSectionWithValue("StartMinimized", "False");
+			_configService.WriteSectionWithValue(CValues.BOOL_START_MINIMIZED, "False");
 		}
 		else        // It is at least second launch
 		{
-			StartMinimized = _configService.GetBooleanValue("StartMinimized");
+			StartMinimized = _configService.GetBooleanValue(CValues.BOOL_START_MINIMIZED);
 			_startMinimizedInitial = StartMinimized;
 			Log.Information("{@Method} - StartMinimized ({@launch}).", nameof(SettingsViewModel), StartMinimized);
 		}
@@ -117,17 +117,17 @@ public partial class SettingsViewModel : BaseViewModel
 		// Get the show minimal View option
 		// Get string from config
 		// If the string is missing - its first launch after update
-		if (_configService.GetStringValue("MinimalDashboard") is null)
+		if (_configService.GetStringValue(CValues.BOOL_MINIMAL_DASHBOARD) is null)
 		{
 			MinimalDashboard = false;
 			Log.Information("{@Method} - Minimal Dashboard ({@minimal}).", nameof(SettingsViewModel), MinimalDashboard);
 
 			// write info into config file
-			_configService.WriteSectionWithValue("MinimalDashboard", "False");
+			_configService.WriteSectionWithValue(CValues.BOOL_MINIMAL_DASHBOARD, "False");
 		}
 		else
 		{
-			MinimalDashboard = _configService.GetBooleanValue("MinimalDashboard");
+			MinimalDashboard = _configService.GetBooleanValue(CValues.BOOL_MINIMAL_DASHBOARD);
 			_minimalDashboardInitial = MinimalDashboard;
 			Log.Information("{@Method} - MinimalDashboard ({@minimal}).", nameof(SettingsViewModel), MinimalDashboard);
 		}
@@ -166,7 +166,7 @@ public partial class SettingsViewModel : BaseViewModel
 				Log.Information("{@Method} - Disable autorun.", nameof(SaveChanges));
 			}
 
-			result = _configService.WriteSectionWithValue("LaunchOnStartup", IsLaunchOnStartup ? "True" : "False");
+			result = _configService.WriteSectionWithValue(CValues.BOOL_LAUNCH_AT_STARTUP, IsLaunchOnStartup ? "True" : "False");
 			Log.Information("{@Method} - Changed and saved new launchonstartup option - {@opt}.", nameof(SaveChanges), IsLaunchOnStartup ? "True" : "False");
 
 			_launchAtStart = IsLaunchOnStartup;
@@ -175,15 +175,19 @@ public partial class SettingsViewModel : BaseViewModel
 
 		if (StartMinimized != _startMinimizedInitial)
 		{
-			result = _configService.WriteSectionWithValue("StartMinimized", StartMinimized ? "True" : "False");
+			result = _configService.WriteSectionWithValue(CValues.BOOL_START_MINIMIZED, StartMinimized ? "True" : "False");
 			Log.Information("{@Method} - Changed and saved new Startminimized option - {@opt}.", nameof(SaveChanges), StartMinimized ? "True" : "False");
+
+			_startMinimizedInitial = StartMinimized;
 		}
 
 
 		if (MinimalDashboard != _minimalDashboardInitial)
 		{
-			result = _configService.WriteSectionWithValue("MinimalDashboard", MinimalDashboard ? "True" : "False");
+			result = _configService.WriteSectionWithValue(CValues.BOOL_MINIMAL_DASHBOARD, MinimalDashboard ? "True" : "False");
 			Log.Information("{@Method} - Changed and saved new minimalDashboard - {@option}.", nameof(SaveChanges), MinimalDashboard ? "True" : "False");
+
+			_minimalDashboardInitial = MinimalDashboard;
 		}
 
 		SaveResultText = result ? "Changes Saved." : "Error when saving changes. Please try again.";
@@ -207,12 +211,12 @@ public partial class SettingsViewModel : BaseViewModel
 		// Check if the values were changed from when starting app.
 		if (_heightAtStart != WindowHeight)
 		{
-			_configService.WriteSectionWithValue("WindowHeight", WindowHeight.ToString());
+			_configService.WriteSectionWithValue(CValues.INT_WINDOW_HEIGHT, WindowHeight.ToString());
 		}
 
 		if (_widthAtStart != WindowWidth)
 		{
-			_configService.WriteSectionWithValue("WindowWidth", WindowWidth.ToString());
+			_configService.WriteSectionWithValue(CValues.INT_WINDOW_WIDTH, WindowWidth.ToString());
 		}
 
 		Log.Information("{@Method} - Set default values for Height ({@h}), Width ({@w}).", nameof(SettingsViewModel), WindowHeight, WindowWidth);

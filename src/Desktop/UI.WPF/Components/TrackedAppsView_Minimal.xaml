@@ -25,7 +25,7 @@
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <!-- TrackedAppItemView objects will be placed inside WrapPanel -->
-                            <WrapPanel Orientation="{Binding OrientationWrapPanel}">
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding WrapPanelMaxWidth}">
                             </WrapPanel>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
