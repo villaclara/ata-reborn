@@ -5,22 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300"
+             d:DesignHeight="100" d:DesignWidth="210"
              d:DataContext="{d:DesignInstance local:TrackedAppItem}">
-    
-    
+
+
     <UserControl.Resources>
         <Style x:Key="TextBlock_smallTextValues" TargetType="Span">
             <Setter Property="Foreground" Value="{DynamicResource CardSecondaryForeground}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="10"/>
         </Style>
 
         <Style x:Key="TextBlock_TimeValues" TargetType="Run">
             <Setter Property="FontFamily" Value="Bahnschrift"/>
             <Setter Property="Foreground" Value="{DynamicResource CardMainForeground}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
         </Style>
-        
+
     </UserControl.Resources>
 
     <Border BorderBrush="{DynamicResource CardBorderForeground}"
@@ -105,24 +105,24 @@
             <!-- Current Time section -->
             <!-- Times Section -->
             <Border Grid.Row="1">
-                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" 
-                            Orientation="Vertical">
-                 
-                     <!--Current time--> 
-                    <TextBlock FontSize="12">
-                        <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">
-                        Current: </Span>
+                <StackPanel Orientation="Vertical">
+
+                    <!--Current time-->
+                    <TextBlock FontSize="16" HorizontalAlignment="Center">
                         <Run Text="{Binding AppCurrentSessionHours, Mode=OneWay}" 
-                             Style="{StaticResource TextBlock_TimeValues}"/>
+                             Style="{StaticResource TextBlock_TimeValues}"
+                             FontSize="18"/>
                         <Span Style="{StaticResource TextBlock_smallTextValues}">h</Span>
  
                         <Run Text="{Binding AppCurrentSessionMinutes, Mode=OneWay}" 
-                             Style="{StaticResource TextBlock_TimeValues}"/>
+                             Style="{StaticResource TextBlock_TimeValues}"
+                             FontSize="18"/>
  
                         <Span Style="{StaticResource TextBlock_smallTextValues}">min</Span>
                     </TextBlock>
 
-                     <!--Today Total Time Section--> 
+
+                    <!--Today Total Time Section-->
                     <TextBlock FontSize="12">
                      <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Today: </Span>
                          <Run Text="{Binding AppTodayTimeHours, Mode=OneWay}" 
@@ -134,8 +134,8 @@
  
                      <Span Style="{StaticResource TextBlock_smallTextValues}">min</Span>
                     </TextBlock>
-                    
-                     <!--Total Time--> 
+
+                    <!--Total Time-->
                     <TextBlock FontSize="12">
                         <Span Foreground="{DynamicResource CardSecondaryForeground}" FontWeight="DemiBold">Total: </Span>
                         <Run Text="{Binding AppTotalHours, Mode=OneWay}" 
@@ -148,7 +148,8 @@
  
                         <Span Style="{StaticResource TextBlock_smallTextValues}">min</Span>
                     </TextBlock>
-                </WrapPanel>
+
+                </StackPanel>
             </Border>
 
 
@@ -225,7 +226,9 @@
                             <Button.Content>
                                 <Image Height="20"
                                 Source="/Resources/Images/more.png">
-                                    --><!-- Here might be the Style depending on active Theme --><!--
+                                    -->
+            <!-- Here might be the Style depending on active Theme -->
+            <!--
                                 </Image>
                             </Button.Content>
                             <Button.Template>
@@ -244,7 +247,9 @@
                         </Button>
                     </StackPanel>
 
-                    --><!-- CHART --><!--
+                    -->
+            <!-- CHART -->
+            <!--
                     <lvc:CartesianChart Series="{Binding SeriesCollection}"
                                      LegendLocation="None" 
                                      MinHeight="130"
