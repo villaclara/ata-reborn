@@ -81,6 +81,7 @@ public partial class App : System.Windows.Application
 				services.AddTransient<ProcessListViewModel>();
 
 				services.AddSingleton<WhatsNewViewModel>();
+				services.AddSingleton<ContextMenuStripViewModel>();
 
 				services.AddSingleton<MainWindowViewModel>();
 
@@ -129,6 +130,9 @@ public partial class App : System.Windows.Application
 		_notifyIcon.Icon = new Icon(System.Windows.Application.GetResourceStream(new Uri("/Resources/Images/atav2.ico", UriKind.Relative)).Stream);
 		_notifyIcon.Visible = true;
 		_notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+		_notifyIcon.MouseDown += NotifyIcon_MouseDown;
+
+		_notifyIcon.ContextMenuStrip = new();
 
 #if DEBUG
 		_notifyIcon.Text = "(DEBUG) ATA Reborn. Double click to open.";
@@ -138,6 +142,50 @@ public partial class App : System.Windows.Application
 #endif
 
 		base.OnStartup(e);
+	}
+
+	private void NotifyIcon_MouseDown(object? sender, MouseEventArgs e)
+	{
+		if (e.Button == MouseButtons.Right)
+		{
+			var notify = sender as NotifyIcon;
+			if (notify == null)
+			{
+				return;
+			}
+
+			if (notify.ContextMenuStrip is null)
+			{
+				notify.ContextMenuStrip = new();
+			}
+
+			notify.ContextMenuStrip.Items.Clear();
+			var nameToolStrip = new ToolStripMenuItem("ATA Reborn");
+			nameToolStrip.Click -= NotifyIcon_DoubleClick;
+			nameToolStrip.Click += NotifyIcon_DoubleClick;
+			notify.ContextMenuStrip.Items.Add(nameToolStrip);
+			notify.ContextMenuStrip.Items.Add(new ToolStripSeparator());
+
+			ToolStripMenuItem appsItem = new ToolStripMenuItem("Apps");
+			var dir = AppHost.Services.GetRequiredService<IDirector>();
+			foreach (var app in dir.Apps)
+			{
+				appsItem.DropDownItems.Add($"{app.Name} - {app.CurrentSessionTime} m");
+			}
+			notify.ContextMenuStrip.Items.Add(appsItem);
+
+			notify.ContextMenuStrip.Items.Add(new ToolStripSeparator());
+
+			var exitToolStrip = new ToolStripMenuItem("Quit");
+			exitToolStrip.Click -= ExitToolStrip_Click;
+			exitToolStrip.Click += ExitToolStrip_Click;
+			notify.ContextMenuStrip.Items.Add(exitToolStrip);
+		}
+	}
+
+	private void ExitToolStrip_Click(object? sender, EventArgs e)
+	{
+		Current.Shutdown();
 	}
 
 	private void NotifyIcon_DoubleClick(object? sender, EventArgs e)

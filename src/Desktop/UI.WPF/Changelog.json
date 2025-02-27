@@ -36,5 +36,12 @@
       "- Added possibility to change the order of Apps. Drag&Drop the selected Application to the desired place and you good to go.",
       "- Added 'Whats New' Screen so you will be notified each time new update is shipped."
     ]
+  },
+  {
+    "VersionName": "v1.5",
+    "Notes": [
+      "- New Minimal View of Dashboard showing just really important info, no need to display big application window. Moreover you can always view details UI like before - press the 'i' button on the top right corner. Select 'Minimal Dashboard' in Settings (try it, You will like it believe me).",
+      "- Added Context Menu to the Application icon in Tray. It shows you current active time for tracked Apps without needing to open the ATA window. Just Right-click on it."
+    ]
   }
 ]
