@@ -10,6 +10,8 @@ Basically, I was planning to release major update of original ATA, but later dec
 - Light and Dark themes are available with very simple toggling mode.
 - Trigger 'Refresh' option to display latest actual times.
 - Built with WPF, tried to stick to MVVM pattern as close as I could with the help of CommunityToolkit.MVVM.
+- Full / Minimized dashboard layout.
+- Fast info in tray icon context menu.
 
 ### Improved logic
 - 5 Processes limit is no more an obstacle.
@@ -27,4 +29,9 @@ See you at the next update! :smile:
 
 
 Here is an example of application:
-![image](https://github.com/villaclara/ata-reborn/assets/34722004/abc2ebbe-7ed4-4eae-8cfc-feacb1ff6151)
+- Default view:
+<img width="1111" height="591" alt="image" src="https://github.com/user-attachments/assets/43282bbe-48a2-447d-a2e7-68f95f78bc9d" />
+
+- Minimized view:
+<img width="1114" height="591" alt="image" src="https://github.com/user-attachments/assets/1266b22e-bb71-42c4-81dc-ae3af6a5e7e4" />
+
